@@ -1,36 +1,66 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Image, ImageBackground, StatusBar, TouchableOpacity } from 'react-native';
 
 import { BG, Logo } from '../../../assets';
-import ActionButton from './ActionButton'
 
 
 
-const Welcome = ({ navigation }) => {
-    const handleGoTo = screen => {
-        navigation.navigate(screen)
+class index extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
     }
-    return (
-        <ImageBackground source={BG} style={styles.ImgBackgroundStyle}>
-            <View style={styles.container}>
-                <Image source={Logo} style={styles.imgStyle} />
-                <Text style={styles.textStyle1}>NEWSTART</Text>
-            </View>
-            <View style={styles.container2}>
-                <Text style={styles.textStyle2}>Selamat datang!</Text>
-                <Text style={styles.textStyle3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-                <ActionButton
-                    title="Mulai"
-                    onPress={() => handleGoTo('Login')}
-                />
-            </View>
-
-        </ImageBackground>
-
-    );
+    render() {
+        return (
+            <ImageBackground source={BG} style={styles.ImgBackgroundStyle}>
+                <StatusBar barStyle="light-content" backgroundColor="#607D8B" />
+                <View style={styles.container}>
+                    <Image source={Logo} style={styles.imgStyle} />
+                    <Text style={styles.textStyle1}>NEWSTART</Text>
+                </View>
+                <View style={styles.container2}>
+                    <Text style={styles.textStyle2}>Selamat Datang!</Text>
+                    <Text style={styles.textStyle3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+                    <View style={styles.containerButton}>
+                        <TouchableOpacity
+                            style={styles.buttonStyle}
+                            onPress={() => this.props.navigation.navigate('Login')}>
+                            <Text style={styles.tittleStyle}>Mulai</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ImageBackground>
+        );
+    }
 }
 
-export default Welcome;
+export default index;
+
+// const Welcome = ({ navigation }) => {
+//     const handleGoTo = screen => {
+//         navigation.navigate(screen)
+//     }
+//     return (
+// <ImageBackground source={BG} style={styles.ImgBackgroundStyle}>
+//     <StatusBar barStyle="light-content" backgroundColor="#607D8B" />
+//     <View style={styles.container}>
+//         <Image source={Logo} style={styles.imgStyle} />
+//         <Text style={styles.textStyle1}>NEWSTART</Text>
+//     </View>
+//     <View style={styles.container2}>
+//         <Text style={styles.textStyle2}>Selamat Datang!</Text>
+//         <Text style={styles.textStyle3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+//         <ActionButton
+//             title="Mulai"
+//             onPress={() => handleGoTo('Login')}
+//         />
+//     </View>
+// </ImageBackground>
+
+//     );
+// }
+
+// export default Welcome;
 
 const styles = StyleSheet.create({
     container: {
@@ -81,6 +111,23 @@ const styles = StyleSheet.create({
         marginBottom: 43,
         color: '#FFFFFF',
         fontSize: 15,
-    }
+    },
+
+    buttonStyle: {
+        borderRadius: 30,
+        backgroundColor: '#FFF',
+        padding: 10,
+        marginBottom: 32,
+    },
+
+    tittleStyle: {
+        fontFamily: 'Open Sans',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 14,
+        color: '#212529'
+    },
+
+
 
 });

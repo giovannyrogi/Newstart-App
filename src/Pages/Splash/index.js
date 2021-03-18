@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-//import { homeImg2 } from '../../../../assets';
+import { Text, View } from 'react-native';
 
 
 const Splash = ({ navigation }) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.replace('Welcome');
-        }, 3000);
+        }, 5000);
     });
     return (
         <View >
