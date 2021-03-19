@@ -1,16 +1,34 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+
 import Welcome from '../Pages/Welcome';
 import Login from '../Pages/Login';
 import Splash from '../Pages/Splash';
 import Register from '../Pages/Register';
 import Home from '../Pages/Home';
-import BMI from '../Pages/BMI';
+import DataProfil from '../Pages/DataProfil';
 
 const Stack = createStackNavigator();
 
+const noBackArrow = {
+    headerTintColor: '#000',
+    headerTitleAlign: 'center',
+    headerLeft: null,
+    headerStyle: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#BBBBBB',
 
+    }
+
+}
+
+const noHeaderShown = {
+    headerTintColor: '#000',
+    headerTitleAlign: 'center',
+    headerShown: false,
+
+}
 
 const Router = () => {
     return (
@@ -20,45 +38,41 @@ const Router = () => {
                 <Stack.Screen
                     name="Splash"
                     component={Splash}
-                    options={{
-                        headerShown: false,
-                    }}
+                    options={{ ...noHeaderShown }}
                 />
                 <Stack.Screen
                     name="Welcome"
                     component={Welcome}
-                    options={{
-                        headerShown: false,
-                    }}
+                    options={{ ...noHeaderShown }}
                 />
                 <Stack.Screen
                     initialRouteName="Login"
                     name="Login"
                     component={Login}
-                    options={{
-                        headerShown: false,
-                    }}
+                    options={{ ...noHeaderShown }}
                 />
                 <Stack.Screen
                     name="Register"
                     component={Register}
-                    options={{
-                        headerShown: false,
-                    }}
+                    options={{ ...noHeaderShown }}
                 />
                 <Stack.Screen
-                    name="BMI"
-                    component={BMI}
+                    name="DataProfil"
+                    component={DataProfil}
                     options={{
-                        headerShown: true,
+                        title: "Data Profil",
+                        headerTintColor: '#000',
+                        headerTitleAlign: 'center',
+                        headerStyle: {
+                            borderBottomWidth: 2,
+                            borderBottomColor: '#BBBBBB'
+                        }
                     }}
                 />
                 <Stack.Screen
                     name="Home"
                     component={Home}
-                    options={{
-
-                    }}
+                    options={{ ...noBackArrow }}
                 />
 
             </Stack.Navigator>

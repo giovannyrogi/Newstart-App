@@ -20,9 +20,10 @@ class Register extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container1}>
-                <Text style={styles.textStyle1}>Memulai ! </Text>
-                <Text style={styles.textStyle2}>Buat akun untuk melanjutkan. </Text>
+                <Text style={styles.textStyle1}>Memulai. </Text>
+                <Text style={styles.textStyle2}>Buat akun untuk melanjutkan ! </Text>
 
+                {/* Text input email  */}
                 <Text style={styles.textStyle3}>Email</Text>
                 <View style={styles.emailContainer}>
                     <EmailIcon
@@ -37,6 +38,7 @@ class Register extends Component {
                     />
                 </View>
 
+                {/* Text input username  */}
                 <Text style={styles.textStyle4}>Username</Text>
                 <View style={styles.usernameContainer}>
                     <UsernameIcon
@@ -52,6 +54,7 @@ class Register extends Component {
                     />
                 </View >
 
+                {/* Text input password  */}
                 <Text style={styles.textStyle4}>Password</Text>
                 <View style={styles.passwordContainer}>
                     <PasswordIcon
@@ -67,9 +70,10 @@ class Register extends Component {
                     />
                 </View>
 
+                {/* Button daftar  */}
                 <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
                     <TouchableOpacity style={styles.containerButton}
-                        onPress={() => this.props.navigation.navigate('BMI')}>
+                        onPress={() => this.props.navigation.navigate('DataProfil')}>
                         <Text style={styles.tittleStyle}>Daftar</Text>
                         <DaftarIcon
                             name="login"
@@ -78,6 +82,8 @@ class Register extends Component {
                             style={{ left: 120, }} />
                     </TouchableOpacity>
                 </LinearGradient>
+
+                {/* Button Login  */}
                 <View style={styles.container2}>
                     <Text style={styles.textStyle5}>Sudah punya akun ? </Text>
                     <TouchableOpacity

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 
-class BMI extends Component {
+class DataProfil extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -15,4 +15,4 @@ class BMI extends Component {
     }
 }
 
-export default BMI;
+export default DataProfil;

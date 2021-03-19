@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, BackHandler } from 'react-native';
 
 import LoginIcon from 'react-native-vector-icons/MaterialIcons';
 import UsernameIcon from 'react-native-vector-icons/AntDesign';
@@ -17,12 +17,28 @@ class Login extends Component {
             password: ''
         };
     }
+
+    // ? Fungsi untuk back button agar saat di tekan akan keluar dari app
+    disableBackButton = () => {
+        BackHandler.exitApp();
+        return true;
+    }
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.disableBackButton);
+    }
+    componentWillUnMount() {
+        BackHandler.removeEventListener('hardwareBackPress', this.disableBackButton);
+    }
+
+
+
     render() {
         return (
             <SafeAreaView style={styles.container1}>
                 <Text style={styles.textStyle1}>Ayo masuk ! </Text>
                 <Text style={styles.textStyle2}>Selamat datang, silahkan login. </Text>
 
+                {/* Text input username  */}
                 <Text style={styles.textStyle3}>Username atau Email</Text>
                 <View style={styles.usernameContainer}>
                     <UsernameIcon
@@ -37,6 +53,8 @@ class Login extends Component {
 
                     />
                 </View >
+
+                {/* Text input password  */}
                 <Text style={styles.textStyle4}>Password</Text>
                 <View style={styles.passwordContainer}>
                     <PasswordIcon
@@ -52,9 +70,10 @@ class Login extends Component {
                     />
                 </View>
 
+                {/* Button login  */}
                 <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
                     <TouchableOpacity style={styles.containerButton}
-                        onPress={() => this.props.navigation.navigate('Home')}>
+                        onPress={() => this.props.navigation.replace('Home')}>
                         <Text style={styles.tittleStyle}>Login</Text>
 
                         <LoginIcon
@@ -65,6 +84,7 @@ class Login extends Component {
                     </TouchableOpacity>
                 </LinearGradient>
 
+                {/* Button daftar  */}
                 <View style={styles.container2}>
                     <Text style={styles.textStyle5}>Tidak punya akun ? </Text>
                     <TouchableOpacity
@@ -72,7 +92,6 @@ class Login extends Component {
                         <Text style={styles.buttonStyleDaftar}>Daftar</Text>
                     </TouchableOpacity>
                 </View>
-
             </SafeAreaView>
         );
     }
