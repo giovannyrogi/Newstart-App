@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+import DaftarIcon from 'react-native-vector-icons/MaterialIcons';
+import EmailIcon from 'react-native-vector-icons/Fontisto';
+import UsernameIcon from 'react-native-vector-icons/AntDesign';
+import PasswordIcon from 'react-native-vector-icons/Feather';
+
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -19,34 +24,58 @@ class Register extends Component {
                 <Text style={styles.textStyle2}>Buat akun untuk melanjutkan. </Text>
 
                 <Text style={styles.textStyle3}>Email</Text>
-                <TextInput
-                    value={this.state.email}
-                    style={styles.inputStyle1}
-                    placeholder="Masukkan disini . . ."
-                    onChangeText={(value) => this.setState({ email: value })}
+                <View style={styles.emailContainer}>
+                    <EmailIcon
+                        name="email"
+                        size={24}
+                    />
+                    <TextInput
+                        value={this.state.email}
+                        style={styles.inputStyle1}
+                        placeholder="Masukkan disini . . ."
+                        onChangeText={(value) => this.setState({ email: value })}
+                    />
+                </View>
 
-                />
-                <Text style={styles.textStyle3}>Username</Text>
-                <TextInput
-                    value={this.state.username}
-                    style={styles.inputStyle2}
-                    placeholder="Masukkan disini . . ."
-                    onChangeText={(value) => this.setState({ username: value })}
+                <Text style={styles.textStyle4}>Username</Text>
+                <View style={styles.usernameContainer}>
+                    <UsernameIcon
+                        name="user"
+                        size={25}
+                    />
+                    <TextInput
+                        value={this.state.username}
+                        style={styles.inputStyle1}
+                        placeholder="Masukkan disini . . ."
+                        onChangeText={(value) => this.setState({ username: value })}
 
-                />
+                    />
+                </View >
+
                 <Text style={styles.textStyle4}>Password</Text>
-                <TextInput
-                    value={this.state.password}
-                    style={styles.inputStyle3}
-                    placeholder="Masukkan disini . . ."
-                    onChangeText={(value) => this.setState({ password: value })}
-
-                />
+                <View style={styles.passwordContainer}>
+                    <PasswordIcon
+                        name="lock"
+                        size={25}
+                    />
+                    <TextInput
+                        value={this.state.password}
+                        style={styles.inputStyle1}
+                        placeholder="Masukkan disini . . ."
+                        onChangeText={(value) => this.setState({ password: value })}
+                        secureTextEntry
+                    />
+                </View>
 
                 <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
-                    <TouchableOpacity
+                    <TouchableOpacity style={styles.containerButton}
                         onPress={() => this.props.navigation.navigate('BMI')}>
                         <Text style={styles.tittleStyle}>Daftar</Text>
+                        <DaftarIcon
+                            name="login"
+                            size={24}
+                            color="#fff"
+                            style={{ left: 120, }} />
                     </TouchableOpacity>
                 </LinearGradient>
                 <View style={styles.container2}>
@@ -76,6 +105,38 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
 
+    emailContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#8F92A1',
+    },
+
+    usernameContainer: {
+
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#8F92A1',
+    },
+
+    passwordContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#8F92A1',
+        marginBottom: 97
+    },
+
+    containerButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
     textStyle1: {
         marginTop: 52,
         fontWeight: 'bold',
@@ -103,7 +164,7 @@ const styles = StyleSheet.create({
     },
 
     textStyle4: {
-        marginTop: 25,
+        marginTop: 40,
         fontWeight: 'bold',
         fontSize: 13,
         letterSpacing: 0.8,
@@ -127,32 +188,12 @@ const styles = StyleSheet.create({
     },
 
     inputStyle1: {
+        flex: 1,
         fontWeight: '500',
         lineHeight: 20,
         fontSize: 16,
-        paddingHorizontal: 40,
-        borderBottomWidth: 1,
-        borderColor: '#8F92A1',
-    },
-
-    inputStyle2: {
-        fontWeight: '500',
-        lineHeight: 20,
-        fontSize: 16,
-        paddingHorizontal: 40,
-        borderBottomWidth: 1,
-        borderColor: '#8F92A1',
-    },
-
-    inputStyle3: {
-        marginBottom: 97,
-        fontWeight: '500',
-        lineHeight: 20,
-        fontSize: 16,
-        paddingVertical: 12,
-        paddingHorizontal: 40,
-        borderBottomWidth: 1,
-        borderColor: '#8F92A1',
+        paddingVertical: 10,
+        paddingHorizontal: 16,
     },
 
     textStyle5: {

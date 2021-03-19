@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+
+import { IconSplash } from '../../../assets';
+import { splashBG } from '../../../assets';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 const Splash = ({ navigation }) => {
@@ -9,10 +13,36 @@ const Splash = ({ navigation }) => {
         }, 5000);
     });
     return (
-        <View >
-            <Text>Splash Screen </Text>
-        </View>
+        // <ImageBackground source={splashBG} style={styles.iconContainer}>
+        //     <View>
+        //         <Image source={IconSplash} style={styles.iconStyle} />
+        //     </View>
+        // </ImageBackground>
+
+
+        <LinearGradient colors={['#355C7D', '#6C5B7B', '#C06C84']} style={styles.iconContainer}>
+            <View>
+                <Image source={IconSplash} style={styles.iconStyle} />
+            </View>
+        </LinearGradient>
+
     );
 };
 
 export default Splash;
+
+const styles = StyleSheet.create({
+    iconContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    iconStyle: {
+        width: 200,
+        height: 200,
+
+    }
+
+
+});

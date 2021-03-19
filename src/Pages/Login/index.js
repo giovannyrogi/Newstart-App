@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+
+import LoginIcon from 'react-native-vector-icons/MaterialIcons';
+import UsernameIcon from 'react-native-vector-icons/AntDesign';
+import PasswordIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 
 
@@ -18,29 +22,49 @@ class Login extends Component {
             <SafeAreaView style={styles.container1}>
                 <Text style={styles.textStyle1}>Ayo masuk ! </Text>
                 <Text style={styles.textStyle2}>Selamat datang, silahkan login. </Text>
-                <Text style={styles.textStyle3}>Username atau Email</Text>
-                <TextInput
-                    value={this.state.username}
-                    style={styles.inputStyle1}
-                    placeholder="Masukkan disini . . ."
-                    onChangeText={(value) => this.setState({ username: value })}
 
-                />
-                <Text style={styles.textStyle3}>Password</Text>
-                <TextInput
-                    value={this.state.password}
-                    style={styles.inputStyle2}
-                    placeholder="Masukkan disini . . ."
-                    onChangeText={(value) => this.setState({ password: value })}
-                    secureTextEntry
-                />
+                <Text style={styles.textStyle3}>Username atau Email</Text>
+                <View style={styles.usernameContainer}>
+                    <UsernameIcon
+                        name="user"
+                        size={25}
+                    />
+                    <TextInput
+                        value={this.state.username}
+                        style={styles.inputStyle1}
+                        placeholder="Masukkan disini . . ."
+                        onChangeText={(value) => this.setState({ username: value })}
+
+                    />
+                </View >
+                <Text style={styles.textStyle4}>Password</Text>
+                <View style={styles.passwordContainer}>
+                    <PasswordIcon
+                        name="lock"
+                        size={25}
+                    />
+                    <TextInput
+                        value={this.state.password}
+                        style={styles.inputStyle2}
+                        placeholder="Masukkan disini . . ."
+                        onChangeText={(value) => this.setState({ password: value })}
+                        secureTextEntry
+                    />
+                </View>
 
                 <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
-                    <TouchableOpacity
+                    <TouchableOpacity style={styles.containerButton}
                         onPress={() => this.props.navigation.navigate('Home')}>
                         <Text style={styles.tittleStyle}>Login</Text>
+
+                        <LoginIcon
+                            name="login"
+                            size={24}
+                            color="#fff"
+                            style={{ left: 120, }} />
                     </TouchableOpacity>
                 </LinearGradient>
+
                 <View style={styles.container2}>
                     <Text style={styles.textStyle5}>Tidak punya akun ? </Text>
                     <TouchableOpacity
@@ -66,9 +90,33 @@ const styles = StyleSheet.create({
     },
 
     container2: {
+
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+    },
+
+    usernameContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#8F92A1',
+    },
+
+    passwordContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#8F92A1',
+        marginBottom: 131
+    },
+
+    containerButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     textStyle1: {
@@ -122,24 +170,21 @@ const styles = StyleSheet.create({
     },
 
     inputStyle1: {
+        flex: 1,
         fontWeight: '500',
         lineHeight: 20,
         fontSize: 16,
-        paddingVertical: 12,
-        paddingHorizontal: 40,
-        borderBottomWidth: 1,
-        borderColor: '#8F92A1',
+        paddingVertical: 10,
+        paddingHorizontal: 16,
     },
 
     inputStyle2: {
-        marginBottom: 131,
+        flex: 1,
         fontWeight: '500',
         lineHeight: 20,
         fontSize: 16,
-        paddingVertical: 12,
-        paddingHorizontal: 40,
-        borderBottomWidth: 1,
-        borderColor: '#8F92A1',
+        paddingVertical: 10,
+        paddingHorizontal: 16,
     },
 
     textStyle5: {

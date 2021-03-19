@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, ImageBackground, StatusBar, TouchableOpacity } from 'react-native';
 
 import { BG, Logo } from '../../../assets';
+import ArrowIcon from 'react-native-vector-icons/Entypo';
 
 
 
@@ -21,15 +22,24 @@ class index extends Component {
                 <View style={styles.container2}>
                     <Text style={styles.textStyle2}>Selamat Datang!</Text>
                     <Text style={styles.textStyle3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-                    <View style={styles.containerButton}>
+                    <View style={styles.buttonStyle}>
                         <TouchableOpacity
-                            style={styles.buttonStyle}
+                            style={styles.containerButton}
                             onPress={() => this.props.navigation.navigate('Login')}>
                             <Text style={styles.tittleStyle}>Mulai</Text>
+                            <ArrowIcon
+                                name="arrow-long-right"
+                                size={24}
+                                color="#000000"
+                                style={{ left: 125, }}
+                            />
+
                         </TouchableOpacity>
+
                     </View>
+
                 </View>
-            </ImageBackground>
+            </ImageBackground >
         );
     }
 }
@@ -75,6 +85,12 @@ const styles = StyleSheet.create({
         marginLeft: 25,
         marginRight: 25,
         //backgroundColor: '#000'
+    },
+
+    containerButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     ImgBackgroundStyle: {
@@ -124,7 +140,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Open Sans',
         textAlign: 'center',
         fontWeight: 'bold',
-        fontSize: 14,
+        lineHeight: 19,
+        fontSize: 15,
         color: '#212529'
     },
 
