@@ -62,7 +62,6 @@ export default Login;
 const styles = StyleSheet.create({
     container1: {
         flex: 1,
-        //backgroundColor: 'green',
         marginHorizontal: 27,
     },
 
@@ -70,7 +69,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        //backgroundColor: 'green',
     },
 
     textStyle1: {

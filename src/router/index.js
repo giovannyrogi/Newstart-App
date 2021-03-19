@@ -6,6 +6,7 @@ import Login from '../Pages/Login';
 import Splash from '../Pages/Splash';
 import Register from '../Pages/Register';
 import Home from '../Pages/Home';
+import BMI from '../Pages/BMI';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,13 @@ const Router = () => {
                     component={Register}
                     options={{
                         headerShown: false,
+                    }}
+                />
+                <Stack.Screen
+                    name="BMI"
+                    component={BMI}
+                    options={{
+                        headerShown: true,
                     }}
                 />
                 <Stack.Screen
