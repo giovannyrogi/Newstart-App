@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, BackHandler } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import LoginIcon from 'react-native-vector-icons/MaterialIcons';
 import UsernameIcon from 'react-native-vector-icons/AntDesign';
@@ -17,20 +17,6 @@ class Login extends Component {
             password: ''
         };
     }
-
-    // ? Fungsi untuk back button agar saat di tekan akan keluar dari app
-    disableBackButton = () => {
-        BackHandler.exitApp();
-        return true;
-    }
-    componentDidMount() {
-        BackHandler.addEventListener('hardwareBackPress', this.disableBackButton);
-    }
-    componentWillUnMount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.disableBackButton);
-    }
-
-
 
     render() {
         return (
