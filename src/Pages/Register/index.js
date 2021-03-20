@@ -14,7 +14,7 @@ class Register extends Component {
             value: true,
             email: '',
             username: '',
-            password: ''
+            password: '',
         };
     }
     render() {

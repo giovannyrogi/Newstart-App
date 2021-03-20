@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, TextInput } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
+import { CustomButton } from '../../Components';
 import GenderIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import DatePickerTTL from './DatePickerTTL';
+import CalenderIcon from 'react-native-vector-icons/Octicons';
+import TinggiBadanIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import BeratBadanIcon from 'react-native-vector-icons/FontAwesome';
+
+
 
 class DataProfil extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            gender: ''
+            gender: '',
+            tinggi: '',
+            berat: ''
         };
+
     }
 
     render() {
@@ -25,7 +36,7 @@ class DataProfil extends Component {
                     <GenderIcon
                         name="gender-male-female"
                         size={25}
-                        style={styles.genderIconStyle}
+                        style={styles.IconStyle}
                     />
                     <Picker
                         onValueChange={(value) => this.setState({ gender: value })}
@@ -35,7 +46,51 @@ class DataProfil extends Component {
                         <Picker.Item label="Laki-laki" value="Laki-laki" />
                         <Picker.Item label="Perempuan" value="perempuan" />
                     </Picker>
+                </View >
+                <Text style={styles.textStyle3}>Tanggal Lahir</Text>
+                <View style={styles.container2}>
+                    <CalenderIcon
+                        name="calendar"
+                        size={25}
+                        style={styles.IconStyle}
+                    />
+                    <DatePickerTTL />
                 </View>
+
+                <Text style={styles.textStyle3}>Tinggi Badan</Text>
+                <View style={styles.container2}>
+                    <TinggiBadanIcon
+                        name="human-male-height"
+                        size={26}
+                        style={styles.IconStyle}
+                    />
+                    <TextInput
+                        style={styles.pickerContainer}
+                        value={this.state.tinggi}
+                        placeholder="SATUAN CM"
+                        onChangeText={(value) => this.setState({ tinggi: value })}
+                    />
+                </View>
+
+                <Text style={styles.textStyle3}>Berat Badan</Text>
+                <View style={styles.container2}>
+                    <BeratBadanIcon
+                        name="balance-scale"
+                        size={25}
+                        style={styles.IconStyle}
+                    />
+                    <TextInput
+                        style={styles.pickerContainer}
+                        value={this.state.berat}
+                        placeholder="SATUAN KG"
+                        onChangeText={(value) => this.setState({ berat: value })}
+                    />
+                </View>
+                <CustomButton
+                    title="Selesai"
+                    onPress={() => this.props.navigation.replace('Login')}
+                />
+
             </SafeAreaView>
         );
     }
@@ -54,6 +109,8 @@ const styles = StyleSheet.create({
         borderBottomColor: '#8F92A1',
         marginRight: 150,
     },
+
+
 
     textStyle1: {
         marginTop: 35,
@@ -87,7 +144,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'green'
     },
 
-    genderIconStyle: {
+    IconStyle: {
         alignSelf: 'center',
 
     }
