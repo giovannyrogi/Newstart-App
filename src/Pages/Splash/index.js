@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 
 import { IconSplash } from '../../../assets';
 import { splashBG } from '../../../assets';
@@ -13,12 +13,6 @@ const Splash = ({ navigation }) => {
         }, 5000);
     });
     return (
-        // <ImageBackground source={splashBG} style={styles.iconContainer}>
-        //     <View>
-        //         <Image source={IconSplash} style={styles.iconStyle} />
-        //     </View>
-        // </ImageBackground>
-
 
         <LinearGradient colors={['#355C7D', '#6C5B7B', '#C06C84']} style={styles.iconContainer}>
             <View>

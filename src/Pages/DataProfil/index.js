@@ -47,6 +47,8 @@ class DataProfil extends Component {
                         <Picker.Item label="Perempuan" value="perempuan" />
                     </Picker>
                 </View >
+
+                {/* DatePicker Tanggal Lahir */}
                 <Text style={styles.textStyle3}>Tanggal Lahir</Text>
                 <View style={styles.container2}>
                     <CalenderIcon
@@ -59,6 +61,7 @@ class DataProfil extends Component {
                     />
                 </View>
 
+                {/* TextInput tinggi badan */}
                 <Text style={styles.textStyle3}>Tinggi Badan</Text>
                 <View style={styles.container2}>
                     <TinggiBadanIcon
@@ -74,6 +77,7 @@ class DataProfil extends Component {
                     />
                 </View>
 
+                {/* TextInput berat badan */}
                 <Text style={styles.textStyle3}>Berat Badan</Text>
                 <View style={styles.container2}>
                     <BeratBadanIcon
@@ -88,6 +92,8 @@ class DataProfil extends Component {
                         onChangeText={(value) => this.setState({ berat: value })}
                     />
                 </View>
+
+                {/* Button selesai */}
                 <CustomButton
                     title="Selesai"
                     onPress={() => this.props.navigation.replace('Login')}
@@ -111,8 +117,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#8F92A1',
         marginRight: 140,
     },
-
-
 
     textStyle1: {
         marginTop: 35,
@@ -142,9 +146,6 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 15,
         marginRight: -15,
-
-
-        // backgroundColor: 'green'
     },
 
     IconStyle: {
