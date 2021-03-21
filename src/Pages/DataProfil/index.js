@@ -54,7 +54,9 @@ class DataProfil extends Component {
                         size={25}
                         style={styles.IconStyle}
                     />
-                    <DatePickerTTL />
+                    <DatePickerTTL
+                        defaultDate="1994-02-21"
+                    />
                 </View>
 
                 <Text style={styles.textStyle3}>Tinggi Badan</Text>
