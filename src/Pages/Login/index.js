@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         letterSpacing: 0.8,
         lineHeight: 16,
-        color: '#8F92A1'
+        color: '#9B51E0'
     },
 
     textStyle4: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         letterSpacing: 0.8,
         lineHeight: 16,
-        color: '#8F92A1'
+        color: '#9B51E0'
     },
 
     buttonStyle: {

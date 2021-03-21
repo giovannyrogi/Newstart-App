@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 2,
         borderBottomColor: '#8F92A1',
-        marginRight: 150,
+        marginRight: 140,
     },
 
 
@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 15,
         marginRight: -15,
+
 
         // backgroundColor: 'green'
     },
