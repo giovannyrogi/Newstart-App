@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, BackHandler } from 'react-native';
 
-class index extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -28,11 +28,11 @@ class index extends Component {
     }
 }
 
-export default index;
+export default Home;
 const styles = StyleSheet.create({
     container: {
         textAlign: 'center',
-
+        fontSize: 25
     }
 
 });
