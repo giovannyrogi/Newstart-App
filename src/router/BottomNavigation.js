@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import HomeIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ArtikelIcon from 'react-native-vector-icons/MaterialIcons';
-import AkunIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PengaturanIcon from 'react-native-vector-icons/Ionicons';
 
 import Artikel from '../Pages/Artikel';
 import AkunSaya from '../Pages/AkunSaya';
@@ -85,7 +85,12 @@ const BottomNavigation = () => {
                     inActiveTintColor: '#000',
                     labelStyle: {
                         fontSize: 14,
-                    }
+                        paddingBottom: 5
+                    },
+                    style: {
+                        flex: 0.1,
+                        paddingVertical: 2
+                    },
                 }
 
                 }
@@ -99,7 +104,7 @@ const BottomNavigation = () => {
                     options={{
                         tabBarLabel: 'Beranda',
                         tabBarIcon: ({ focused, size, color }) => {
-                            size = focused ? 35 : 30;
+                            size = focused ? 38 : 34;
                             // color = focused ? '#9B51E0' : '#000';
                             return (
                                 <HomeIcon
@@ -120,7 +125,7 @@ const BottomNavigation = () => {
                     options={{
                         tabBarLabel: 'Artikel',
                         tabBarIcon: ({ focused, size, color }) => {
-                            size = focused ? 35 : 30;
+                            size = focused ? 33 : 30;
                             // color = focused ? '#9B51E0' : '#000';
                             return (
                                 <ArtikelIcon
@@ -134,16 +139,16 @@ const BottomNavigation = () => {
                     }}
                 />
                 <Tabs.Screen
-                    name="Akunsaya"
+                    name="Pengaturan"
                     component={AkunSayaScreen}
                     options={{
-                        tabBarLabel: 'Akun Saya',
+                        tabBarLabel: 'Pengaturan',
                         tabBarIcon: ({ focused, size, color }) => {
-                            size = focused ? 35 : 30;
+                            size = focused ? 32 : 28;
                             // color = focused ? '#9B51E0' : '#000';
                             return (
-                                <AkunIcon
-                                    name='account-box-outline'
+                                <PengaturanIcon
+                                    name='settings-outline'
                                     color={color}
                                     size={size}
                                 />
