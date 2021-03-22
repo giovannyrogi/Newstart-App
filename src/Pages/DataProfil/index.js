@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, TextInput } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
-import { CustomButton } from '../../Components';
+import { ButtonSelesai } from '../../Components';
 import GenderIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DatePickerTTL from './DatePickerTTL';
 import CalenderIcon from 'react-native-vector-icons/Octicons';
@@ -68,12 +68,14 @@ class DataProfil extends Component {
                         name="human-male-height"
                         size={26}
                         style={styles.IconStyle}
+
                     />
                     <TextInput
                         style={styles.pickerContainer}
                         value={this.state.tinggi}
                         placeholder="SATUAN CM"
                         onChangeText={(value) => this.setState({ tinggi: value })}
+                        keyboardType="numeric"
                     />
                 </View>
 
@@ -90,13 +92,16 @@ class DataProfil extends Component {
                         value={this.state.berat}
                         placeholder="SATUAN KG"
                         onChangeText={(value) => this.setState({ berat: value })}
+                        keyboardType="numeric"
                     />
                 </View>
 
                 {/* Button selesai */}
-                <CustomButton
+                <ButtonSelesai
                     title="Selesai"
                     onPress={() => this.props.navigation.replace('Login')}
+                    name="checkmark-done"
+                    size={22}
                 />
 
             </SafeAreaView>

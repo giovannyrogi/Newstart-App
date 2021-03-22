@@ -2,25 +2,24 @@ import React from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import ButtonIcon from 'react-native-vector-icons/Ionicons';
+import ButtonNextIcon from 'react-native-vector-icons/MaterialIcons';
 
-
-const CustomButton = ({ title, onPress }) => {
+const CustomButtonNext = ({ name, size, title, onPress }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.buttonStyle} onPress={onPress}>
                 <Text style={styles.textStyle}> {title} </Text>
-                <ButtonIcon
+                <ButtonNextIcon
                     style={styles.IconStyle}
-                    name="checkmark-done"
-                    size={22}
+                    name={name}
+                    size={size}
                 />
             </TouchableOpacity>
         </View>
     );
 };
 
-export default CustomButton;
+export default CustomButtonNext;
 
 const styles = StyleSheet.create({
     container: {
@@ -36,7 +35,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#9B51E0',
         borderRadius: 10,
-
     },
 
     textStyle: {

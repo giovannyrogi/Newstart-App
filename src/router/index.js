@@ -7,9 +7,20 @@ import Welcome from '../Pages/Welcome';
 import Login from '../Pages/Login';
 import Splash from '../Pages/Splash';
 import Register from '../Pages/Register';
-import Home from '../Pages/Home';
 import DataProfil from '../Pages/DataProfil';
 import BottomNavigation from '../router/BottomNavigation';
+import AkunSaya from '../Pages/AkunSaya';
+import TentangAplikasi from '../Pages/TentangAplikasi';
+import Nutrisi from '../Pages/NewstartTest/Nutrisi';
+import Olahraga from '../Pages/NewstartTest/Olahraga';
+import Air from '../Pages/NewstartTest/Air';
+import SinarMatahari from '../Pages/NewstartTest/SinarMatahari';
+import PengendalianDiri from '../Pages/NewstartTest/PengendalianDiri';
+import UdaraSegar from '../Pages/NewstartTest/UdaraSegar';
+import Tidur from '../Pages/NewstartTest/Tidur';
+import HubunganDgnTuhan from '../Pages/NewstartTest/HubunganDgnTuhan';
+import HatiSenang from '../Pages/NewstartTest/HatiSenang';
+
 
 
 const Stack = createStackNavigator();
@@ -24,6 +35,15 @@ const noBackArrow = {
 
     }
 
+}
+
+const myHeaderStyle = {
+    headerTintColor: '#000',
+    headerTitleAlign: 'center',
+    headerStyle: {
+        borderBottomWidth: 2,
+        borderBottomColor: '#BBBBBB'
+    }
 }
 
 const noHeaderShown = {
@@ -76,6 +96,62 @@ const Router = () => {
                     component={BottomNavigation}
                     options={{ ...noHeaderShown }}
                 />
+                <Stack.Screen
+                    name="Akun Saya"
+                    component={AkunSaya}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="TentangAplikasi"
+                    component={TentangAplikasi}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="Nutrisi"
+                    component={Nutrisi}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="Olahraga"
+                    component={Olahraga}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="Air"
+                    component={Air}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="SinarMatahari"
+                    component={SinarMatahari}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="PengendalianDiri"
+                    component={PengendalianDiri}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="Udara Segar"
+                    component={UdaraSegar}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="Tidur"
+                    component={Tidur}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="HubunganDgnTuhan"
+                    component={HubunganDgnTuhan}
+                    options={{ ...myHeaderStyle }}
+                />
+                <Stack.Screen
+                    name="HatiSenang"
+                    component={HatiSenang}
+                    options={{ ...myHeaderStyle }}
+                />
+
 
             </Stack.Navigator>
         </NavigationContainer>
@@ -83,7 +159,3 @@ const Router = () => {
 }
 
 export default Router;
-
-
-
-{/*  */ }

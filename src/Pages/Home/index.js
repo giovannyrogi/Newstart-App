@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, BackHandler, SafeAreaView, TouchableOpacity } from 'react-native';
+
+import { ButtonNext } from '../../Components';
+
 
 class Home extends Component {
     constructor(props) {
@@ -21,9 +24,17 @@ class Home extends Component {
 
     render() {
         return (
-            <View>
-                <Text style={styles.container}>Home Screen</Text>
-            </View>
+            <SafeAreaView style={styles.container}>
+                <View style={styles.container2}>
+                    <Text style={styles.textStyle}>Content</Text>
+                </View>
+                <View style={styles.container3}>
+                    <ButtonNext
+                        title="Newstart Test"
+                        onPress={() => this.props.navigation.navigate('Nutrisi')}
+                    />
+                </View>
+            </SafeAreaView>
         );
     }
 }
@@ -31,8 +42,24 @@ class Home extends Component {
 export default Home;
 const styles = StyleSheet.create({
     container: {
+        flex: 1
+    },
+
+    container2: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    container3: {
+        flex: 1.5,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    textStyle: {
         textAlign: 'center',
-        fontSize: 25
-    }
+        fontSize: 30,
+    },
 
 });

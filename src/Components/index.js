@@ -1,5 +1,7 @@
-import CustomButton from './CustomButton'
+import ButtonSelesai from './CustomButton/ButtonSelesai'
+import ButtonNext from './CustomButton/ButtonNext'
 
 export {
-    CustomButton
+    ButtonSelesai,
+    ButtonNext
 }

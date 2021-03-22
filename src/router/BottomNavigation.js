@@ -7,7 +7,7 @@ import ArtikelIcon from 'react-native-vector-icons/MaterialIcons';
 import PengaturanIcon from 'react-native-vector-icons/Ionicons';
 
 import Artikel from '../Pages/Artikel';
-import AkunSaya from '../Pages/AkunSaya';
+import Pengaturan from '../Pages/Pengaturan';
 import Home from '../Pages/Home';
 import { SafeAreaView } from 'react-native';
 
@@ -62,16 +62,16 @@ const ArtikelScreen = () => {
     )
 }
 
-const AkunSayaStack = createStackNavigator();
-const AkunSayaScreen = () => {
+const PengaturanStack = createStackNavigator();
+const PengaturanScreen = () => {
     return (
-        <AkunSayaStack.Navigator>
-            <AkunSayaStack.Screen
-                name="Akun Saya"
-                component={AkunSaya}
+        <PengaturanStack.Navigator>
+            <PengaturanStack.Screen
+                name="Pengaturan"
+                component={Pengaturan}
                 options={{ ...noBackArrow }}
             />
-        </AkunSayaStack.Navigator>
+        </PengaturanStack.Navigator>
     )
 }
 
@@ -140,7 +140,7 @@ const BottomNavigation = () => {
                 />
                 <Tabs.Screen
                     name="Pengaturan"
-                    component={AkunSayaScreen}
+                    component={PengaturanScreen}
                     options={{
                         tabBarLabel: 'Pengaturan',
                         tabBarIcon: ({ focused, size, color }) => {

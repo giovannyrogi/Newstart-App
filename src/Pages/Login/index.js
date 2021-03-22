@@ -5,6 +5,7 @@ import LoginIcon from 'react-native-vector-icons/MaterialIcons';
 import UsernameIcon from 'react-native-vector-icons/AntDesign';
 import PasswordIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
+import EyeIcon from 'react-native-vector-icons/Entypo';
 
 
 
@@ -53,6 +54,10 @@ class Login extends Component {
                         placeholder="Masukkan disini . . ."
                         onChangeText={(value) => this.setState({ password: value })}
                         secureTextEntry
+                    />
+                    <EyeIcon
+                        name="eye"
+                        size={25}
                     />
                 </View>
 

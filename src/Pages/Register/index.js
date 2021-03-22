@@ -6,6 +6,7 @@ import DaftarIcon from 'react-native-vector-icons/MaterialIcons';
 import EmailIcon from 'react-native-vector-icons/Fontisto';
 import UsernameIcon from 'react-native-vector-icons/AntDesign';
 import PasswordIcon from 'react-native-vector-icons/Feather';
+import EyeIcon from 'react-native-vector-icons/Entypo';
 
 class Register extends Component {
     constructor(props) {
@@ -35,7 +36,9 @@ class Register extends Component {
                         style={styles.inputStyle1}
                         placeholder="Masukkan disini . . ."
                         onChangeText={(value) => this.setState({ email: value })}
+                        keyboardType="email-address"
                     />
+
                 </View>
 
                 {/* Text input username  */}
@@ -68,6 +71,11 @@ class Register extends Component {
                         onChangeText={(value) => this.setState({ password: value })}
                         secureTextEntry
                     />
+                    <EyeIcon
+                        name="eye"
+                        size={25}
+                    />
+
                 </View>
 
                 {/* Button daftar  */}
