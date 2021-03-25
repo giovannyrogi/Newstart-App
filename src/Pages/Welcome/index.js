@@ -46,32 +46,6 @@ class index extends Component {
 
 export default index;
 
-// const Welcome = ({ navigation }) => {
-//     const handleGoTo = screen => {
-//         navigation.navigate(screen)
-//     }
-//     return (
-// <ImageBackground source={BG} style={styles.ImgBackgroundStyle}>
-//     <StatusBar barStyle="light-content" backgroundColor="#607D8B" />
-//     <View style={styles.container}>
-//         <Image source={Logo} style={styles.imgStyle} />
-//         <Text style={styles.textStyle1}>NEWSTART</Text>
-//     </View>
-//     <View style={styles.container2}>
-//         <Text style={styles.textStyle2}>Selamat Datang!</Text>
-//         <Text style={styles.textStyle3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
-//         <ActionButton
-//             title="Mulai"
-//             onPress={() => handleGoTo('Login')}
-//         />
-//     </View>
-// </ImageBackground>
-
-//     );
-// }
-
-// export default Welcome;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -84,7 +58,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginLeft: 25,
         marginRight: 25,
-        //backgroundColor: '#000'
     },
 
     containerButton: {

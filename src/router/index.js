@@ -21,6 +21,8 @@ import Tidur from '../Pages/NewstartTest/Tidur';
 import HubunganDgnTuhan from '../Pages/NewstartTest/HubunganDgnTuhan';
 import HatiSenang from '../Pages/NewstartTest/HatiSenang';
 
+import IsiPiringku from '../Pages/ArticleStorage/IsiPiringku';
+
 
 
 const Stack = createStackNavigator();
@@ -149,6 +151,12 @@ const Router = () => {
                 <Stack.Screen
                     name="HatiSenang"
                     component={HatiSenang}
+                    options={{ ...myHeaderStyle }}
+                />
+
+                <Stack.Screen
+                    name="Isi Piringku"
+                    component={IsiPiringku}
                     options={{ ...myHeaderStyle }}
                 />
 

@@ -12,7 +12,7 @@ class Air extends Component {
             <SafeAreaView style={styles.container}>
                 <Text style={{ textAlign: 'center', fontSize: 25 }} >Air Screen</Text>
                 <ButtonNext
-                    title="Berikutnya"
+                    s title="Berikutnya"
                     onPress={() => this.props.navigation.navigate('SinarMatahari')}
                     name="navigate-next"
                     size={22}
