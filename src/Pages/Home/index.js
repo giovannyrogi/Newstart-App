@@ -26,7 +26,7 @@ class Home extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.container2}>
-                    <Text style={styles.textStyle}>Content</Text>
+                    <Text style={styles.textStyle}>Hasil</Text>
                 </View>
                 <View style={styles.container3}>
                     <ButtonNext

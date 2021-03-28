@@ -13,7 +13,7 @@ class HubunganDgnTuhan extends Component {
                 <Text style={{ textAlign: 'center', fontSize: 25 }} >HubunganDgnTuhan Screen</Text>
                 <ButtonNext
                     title="Berikutnya"
-                    onPress={() => this.props.navigation.navigate('HatiSenang')}
+                    onPress={() => this.props.navigation.navigate('Hati Senang')}
                     name="navigate-next"
                     size={22}
                 />

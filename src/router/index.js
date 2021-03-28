@@ -21,8 +21,6 @@ import Tidur from '../Pages/NewstartTest/Tidur';
 import HubunganDgnTuhan from '../Pages/NewstartTest/HubunganDgnTuhan';
 import HatiSenang from '../Pages/NewstartTest/HatiSenang';
 
-import IsiPiringku from '../Pages/ArticleStorage/IsiPiringku';
-
 
 
 const Stack = createStackNavigator();
@@ -59,6 +57,8 @@ const Router = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator>
+
+                {/* Halaman */}
                 <Stack.Screen
                     name="Splash"
                     component={Splash}
@@ -108,6 +108,8 @@ const Router = () => {
                     component={TentangAplikasi}
                     options={{ ...myHeaderStyle }}
                 />
+
+                {/* Newstart Test */}
                 <Stack.Screen
                     name="Nutrisi"
                     component={Nutrisi}
@@ -124,12 +126,12 @@ const Router = () => {
                     options={{ ...myHeaderStyle }}
                 />
                 <Stack.Screen
-                    name="SinarMatahari"
+                    name="Sinar Matahari"
                     component={SinarMatahari}
                     options={{ ...myHeaderStyle }}
                 />
                 <Stack.Screen
-                    name="PengendalianDiri"
+                    name="Pengendalian Diri"
                     component={PengendalianDiri}
                     options={{ ...myHeaderStyle }}
                 />
@@ -149,14 +151,8 @@ const Router = () => {
                     options={{ ...myHeaderStyle }}
                 />
                 <Stack.Screen
-                    name="HatiSenang"
+                    name="Hati Senang"
                     component={HatiSenang}
-                    options={{ ...myHeaderStyle }}
-                />
-
-                <Stack.Screen
-                    name="Isi Piringku"
-                    component={IsiPiringku}
                     options={{ ...myHeaderStyle }}
                 />
 

@@ -10,6 +10,10 @@ import { ButtonNext, IsiPiringkuContent } from '../../../Components/';
 const Nutrisi = ({ navigation }) => {
 
     const [isModalVisible, setModalVisible] = useState(false);
+    var optNutrisi = [
+        { label: "Ya", value: 50 },
+        { label: "Tidak", value: 0 },
+    ];
 
     const showModal = () => {
         setModalVisible(true);
@@ -42,7 +46,7 @@ const Nutrisi = ({ navigation }) => {
                 onBackdropPress={hideModal}
                 style={styles.modalContainer}
             >
-                <SafeAreaView >
+                <SafeAreaView>
                     <ScrollView>
                         <Text style={styles.judulStyle}>Isi Piringku</Text>
                         <IsiPiringkuContent />
@@ -59,6 +63,19 @@ const Nutrisi = ({ navigation }) => {
                 </SafeAreaView>
             </Modal>
 
+            <View style={styles.radioFormContainer}>
+                <RadioForm
+                    radio_props={optNutrisi}
+                    initial={-1}
+                    onPress={(value) => alert('Nilai ' + value)}
+                    formHorizontal={true}
+                    selectedButtonColor={'#9B51E0'}
+                    selectedLabelColor={'#9B51E0'}
+                    buttonColor={'#757575'}
+                    buttonSize={15}
+                    labelStyle={styles.radioLabelStyle}
+                />
+            </View>
 
             <ButtonNext
                 title="Berikutnya"
@@ -121,5 +138,15 @@ const styles = StyleSheet.create({
     buttonTextStyle: {
         color: '#9B51E0',
         fontSize: 16,
+    },
+
+    radioFormContainer: {
+        marginTop: 11,
+    },
+
+    radioLabelStyle: {
+        fontSize: 16,
+        letterSpacing: 0.3,
+        marginRight: 35
     },
 })

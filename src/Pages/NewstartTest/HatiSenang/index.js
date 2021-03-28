@@ -1,27 +1,45 @@
 import React, { Component } from 'react';
-import { Text, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View } from 'react-native';
+
+import Senang from 'react-native-vector-icons/Ionicons';
+import RadioForm from 'react-native-simple-radio-button';
 import { ButtonSelesai } from '../../../Components';
 
 
 
-class HatiSenang extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-    render() {
-        return (
-            <SafeAreaView style={styles.container}>
-                <Text style={{ textAlign: 'center', fontSize: 25 }} >HatiSenang Screen</Text>
-                <ButtonSelesai
-                    title="Selesai"
-                    onPress={() => this.props.navigation.replace('Home')}
-                    name="checkmark-done"
-                    size={22}
+const HatiSenang = ({ navigation }) => {
+
+    var optHatiSenang = [
+        { label: "Senang", value: 100 },
+        { label: "Biasa saja", value: 50 },
+        { label: "Sedih", value: 0 },
+    ];
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <Text style={styles.textStyle}>Bagaimana perasaan Anda ?</Text>
+            <View style={styles.radioFormContainer}>
+                <RadioForm
+                    radio_props={optHatiSenang}
+                    initial={-1}
+                    onPress={(value) => alert('Nilai ' + value)}
+                    formHorizontal={true}
+                    selectedButtonColor={'#9B51E0'}
+                    selectedLabelColor={'#9B51E0'}
+                    buttonColor={'#757575'}
+                    buttonSize={12}
+                    labelStyle={styles.radioLabelStyle}
                 />
-            </SafeAreaView>
-        );
-    }
+            </View>
+
+            <ButtonSelesai
+                title="Selesai"
+                onPress={() => navigation.replace('Home')}
+                name="checkmark-done"
+                size={22}
+            />
+        </SafeAreaView>
+    );
 }
 
 export default HatiSenang;
@@ -29,7 +47,22 @@ export default HatiSenang;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+        marginTop: 32,
+        marginHorizontal: 25,
+    },
+
+    radioFormContainer: {
+        marginTop: 11,
+    },
+
+    radioLabelStyle: {
+        fontSize: 15,
+        letterSpacing: 0.3,
+        marginRight: 35,
+    },
+
+    textStyle: {
+        fontSize: 18,
+        letterSpacing: 0.5,
+    },
 })
