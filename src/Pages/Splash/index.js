@@ -3,6 +3,7 @@ import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 
 import { IconSplash } from '../../../assets';
 import { splashBG } from '../../../assets';
+import { IconSplash2 } from '../../../assets';
 import LinearGradient from 'react-native-linear-gradient';
 
 
@@ -14,11 +15,12 @@ const Splash = ({ navigation }) => {
     });
     return (
 
-        <LinearGradient colors={['#355C7D', '#6C5B7B', '#C06C84']} style={styles.iconContainer}>
-            <View>
-                <Image source={IconSplash} style={styles.iconStyle} />
-            </View>
-        </LinearGradient>
+        <View style={styles.iconContainer}>
+            <Image source={IconSplash} style={styles.iconStyle} />
+        </View>
+
+        // <LinearGradient colors={['#757F9A', '#D7DDE8']} style={styles.iconContainer}>
+        // </LinearGradient>
 
     );
 };
@@ -33,9 +35,9 @@ const styles = StyleSheet.create({
     },
 
     iconStyle: {
-        width: 200,
-        height: 200,
-
+        width: 350,
+        height: 350,
+        left: 8,
     }
 
 

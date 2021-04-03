@@ -9,7 +9,7 @@ import DatePickerTTL from './DatePickerTTL';
 import CalenderIcon from 'react-native-vector-icons/Octicons';
 import TinggiBadanIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BeratBadanIcon from 'react-native-vector-icons/FontAwesome';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -22,22 +22,24 @@ class DataProfil extends Component {
             tinggi: '',
             berat: '',
             date: '',
-            umur: ''
+            umur: '',
+
         };
 
     }
 
-
     render() {
 
         const Selesai = () => {
-
+            let convertTinggi = this.state.tinggi / 100
+            let hasilBMI = this.state.berat / (convertTinggi * convertTinggi)
             const userId = this.props.route.params.uid;
             firebase.database().ref('users/' + userId).update({
                 gender: this.state.gender,
                 tinggi: this.state.tinggi,
                 berat: this.state.berat,
                 umur: this.state.umur,
+                hasilBMI: hasilBMI,
             });
             alert('Pendaftaran berhasil, Silahkan Login.');
             this.props.navigation.replace('Login');

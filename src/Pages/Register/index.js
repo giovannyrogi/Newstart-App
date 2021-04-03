@@ -14,11 +14,17 @@ class Register extends Component {
         super(props);
         this.state = {
             value: true,
+            SecureTextEntry: true,
             email: '',
             username: '',
             password: '',
         };
     }
+
+    ShowSecureTextEntry = () => {
+        this.setState({ SecureTextEntry: !this.state.SecureTextEntry })
+    };
+
     render() {
 
         const Daftar = () => {
@@ -98,12 +104,16 @@ class Register extends Component {
                             style={styles.inputStyle1}
                             placeholder="Masukkan disini . . ."
                             onChangeText={(value) => this.setState({ password: value })}
-                            secureTextEntry
+                            secureTextEntry={this.state.SecureTextEntry}
                         />
-                        <EyeIcon
-                            name="eye"
-                            size={25}
-                        />
+                        <TouchableOpacity
+                            onPress={this.ShowSecureTextEntry}
+                        >
+                            <EyeIcon
+                                name="eye"
+                                size={25}
+                            />
+                        </TouchableOpacity>
 
                     </View>
 
