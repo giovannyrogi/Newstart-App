@@ -24,7 +24,7 @@ const AkunSaya = () => {
 
             {/* Foto */}
             <View style={styles.subContainer1}>
-                <Text>Foto</Text>
+                <Text style={{ fontSize: 25 }}>Foto</Text>
             </View>
 
             {/* Data Akun */}
@@ -191,10 +191,9 @@ const styles = StyleSheet.create({
 
     modalContainer: {
         backgroundColor: 'white',
-        marginVertical: 250,
+        marginVertical: 230,
         marginHorizontal: 25,
         borderRadius: 10,
-
     },
 
     border: {

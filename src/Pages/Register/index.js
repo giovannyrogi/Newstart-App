@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import firebase from '../../Config/Firebase';
 import LinearGradient from 'react-native-linear-gradient';
 
 import DaftarIcon from 'react-native-vector-icons/MaterialIcons';
@@ -19,86 +20,116 @@ class Register extends Component {
         };
     }
     render() {
+
+        const Daftar = () => {
+
+            firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+                .then((dataDiterima) => {
+                    // Signed in
+                    const userId = dataDiterima.user.uid;
+                    this.props.navigation.navigate('DataProfil', { uid: userId });
+                    // firebase.database().ref('result/uid/2021/04/02').push({
+                    //     makanan: 50,
+                    //     olahraga: 60,
+                    // })
+                    firebase.database().ref('users/' + userId).set({
+                        username: this.state.username,
+                        email: this.state.email,
+                    });
+
+                })
+                .catch((error) => {
+
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    Alert.alert(errorCode, errorMessage);
+                    // ..
+                });
+
+        }
         return (
             <SafeAreaView style={styles.container1}>
-                <Text style={styles.textStyle1}>Memulai. </Text>
-                <Text style={styles.textStyle2}>Buat akun untuk melanjutkan ! </Text>
+                <ScrollView scrollsToTop>
+                    <Text style={styles.textStyle1}>Memulai. </Text>
+                    <Text style={styles.textStyle2}>Buat akun untuk melanjutkan ! </Text>
 
-                {/* Text input email  */}
-                <Text style={styles.textStyle3}>Email</Text>
-                <View style={styles.emailContainer}>
-                    <EmailIcon
-                        name="email"
-                        size={24}
-                    />
-                    <TextInput
-                        value={this.state.email}
-                        style={styles.inputStyle1}
-                        placeholder="Masukkan disini . . ."
-                        onChangeText={(value) => this.setState({ email: value })}
-                        keyboardType="email-address"
-                    />
-
-                </View>
-
-                {/* Text input username  */}
-                <Text style={styles.textStyle4}>Username</Text>
-                <View style={styles.usernameContainer}>
-                    <UsernameIcon
-                        name="user"
-                        size={25}
-                    />
-                    <TextInput
-                        value={this.state.username}
-                        style={styles.inputStyle1}
-                        placeholder="Masukkan disini . . ."
-                        onChangeText={(value) => this.setState({ username: value })}
-
-                    />
-                </View >
-
-                {/* Text input password  */}
-                <Text style={styles.textStyle4}>Password</Text>
-                <View style={styles.passwordContainer}>
-                    <PasswordIcon
-                        name="lock"
-                        size={25}
-                    />
-                    <TextInput
-                        value={this.state.password}
-                        style={styles.inputStyle1}
-                        placeholder="Masukkan disini . . ."
-                        onChangeText={(value) => this.setState({ password: value })}
-                        secureTextEntry
-                    />
-                    <EyeIcon
-                        name="eye"
-                        size={25}
-                    />
-
-                </View>
-
-                {/* Button daftar  */}
-                <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
-                    <TouchableOpacity style={styles.containerButton}
-                        onPress={() => this.props.navigation.navigate('DataProfil')}>
-                        <Text style={styles.tittleStyle}>Daftar</Text>
-                        <DaftarIcon
-                            name="login"
+                    {/* Text input email  */}
+                    <Text style={styles.textStyle3}>Email</Text>
+                    <View style={styles.emailContainer}>
+                        <EmailIcon
+                            name="email"
                             size={24}
-                            color="#fff"
-                            style={{ left: 120, }} />
-                    </TouchableOpacity>
-                </LinearGradient>
+                        />
+                        <TextInput
+                            value={this.state.email}
+                            style={styles.inputStyle1}
+                            placeholder="Masukkan disini . . ."
+                            onChangeText={(value) => this.setState({ email: value })}
+                            keyboardType="email-address"
+                        />
 
-                {/* Button Login  */}
-                <View style={styles.container2}>
-                    <Text style={styles.textStyle5}>Sudah punya akun ? </Text>
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Login')}>
-                        <Text style={styles.buttonStyleDaftar}>Login</Text>
-                    </TouchableOpacity>
-                </View>
+                    </View>
+
+                    {/* Text input username  */}
+                    <Text style={styles.textStyle4}>Username</Text>
+                    <View style={styles.usernameContainer}>
+                        <UsernameIcon
+                            name="user"
+                            size={25}
+                        />
+                        <TextInput
+                            value={this.state.username}
+                            style={styles.inputStyle1}
+                            placeholder="Masukkan disini . . ."
+                            onChangeText={(value) => this.setState({ username: value })}
+
+                        />
+                    </View >
+
+                    {/* Text input password  */}
+                    <Text style={styles.textStyle4}>Password</Text>
+                    <View style={styles.passwordContainer}>
+                        <PasswordIcon
+                            name="lock"
+                            size={25}
+                        />
+                        <TextInput
+                            value={this.state.password}
+                            style={styles.inputStyle1}
+                            placeholder="Masukkan disini . . ."
+                            onChangeText={(value) => this.setState({ password: value })}
+                            secureTextEntry
+                        />
+                        <EyeIcon
+                            name="eye"
+                            size={25}
+                        />
+
+                    </View>
+
+                    {/* Button daftar  */}
+                    <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
+                        <TouchableOpacity style={styles.containerButton}
+                            onPress={Daftar}>
+                            {/* onPress={() => this.props.navigation.navigate('DataProfil')}> */}
+                            <Text style={styles.tittleStyle}>Daftar</Text>
+                            <DaftarIcon
+                                name="login"
+                                size={24}
+                                color="#fff"
+                                style={{ left: 120, }} />
+                        </TouchableOpacity>
+                    </LinearGradient>
+
+                    {/* Button Login  */}
+                    <View style={styles.container2}>
+                        <Text style={styles.textStyle5}>Sudah punya akun ? </Text>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigation.navigate('Login')}>
+                            <Text style={styles.buttonStyleDaftar}>Login</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
 
             </SafeAreaView>
         );

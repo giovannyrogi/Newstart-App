@@ -100,6 +100,14 @@ const styles = StyleSheet.create({
         marginVertical: 25
     },
 
+    modalContainer: {
+        backgroundColor: 'white',
+        alignItems: 'center',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#757575',
+    },
+
     radioFormContainer: {
         marginTop: 11,
     },

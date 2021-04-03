@@ -12,6 +12,15 @@ const GantiEmail = () => {
                     keyboardType="email-address"
                     style={styles.newEmailStyle}
                 />
+
+            </View>
+            <View style={styles.newEmailContainer}>
+                <TextInput
+                    placeholder="Konfirmasi email"
+                    keyboardType="email-address"
+                    style={styles.newEmailStyle}
+                />
+
             </View>
         </SafeAreaView>
     );
@@ -26,6 +35,7 @@ const styles = StyleSheet.create({
 
     newEmailContainer: {
         borderWidth: 1,
+        marginBottom: 20
     },
 
     newEmailStyle: {

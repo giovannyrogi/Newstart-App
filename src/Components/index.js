@@ -5,6 +5,7 @@ import JenisOlahraga from './ArtikelContent/JenisOlahraga/index'
 import TakaranAir from './ArtikelContent/TakaranAir/index'
 import GantiEmail from './DataAkun/Email/index'
 
+
 export {
     ButtonSelesai,
     ButtonNext,

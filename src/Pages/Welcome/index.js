@@ -79,21 +79,23 @@ const styles = StyleSheet.create({
     textStyle1: {
         color: 'white',
         fontSize: 55,
-        fontWeight: 'bold',
-        letterSpacing: 2,
+        fontFamily: 'Poppins-Bold',
+        letterSpacing: 1,
         textShadowOffset: {
-            width: 2,
-            height: 3.
+            width: -2,
+            height: 2.5,
         },
         textShadowColor: '#000',
-        textShadowRadius: 15
+        textShadowRadius: 15,
+        bottom: 8,
     },
 
     textStyle2: {
         color: '#FFFFFF',
         fontSize: 36,
         fontWeight: 'bold',
-        letterSpacing: 2
+        letterSpacing: 2,
+
     },
 
     textStyle3: {

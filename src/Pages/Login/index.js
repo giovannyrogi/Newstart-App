@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 
+import firebase from '../../Config/Firebase';
 import LoginIcon from 'react-native-vector-icons/MaterialIcons';
 import UsernameIcon from 'react-native-vector-icons/AntDesign';
 import PasswordIcon from 'react-native-vector-icons/Feather';
@@ -13,20 +14,43 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            SecureTextEntry: true,
             value: true,
             username: '',
             password: ''
         };
     }
 
+    // Function untuk memunculkan password
+    ShowSecureTextEntry = () => {
+        this.setState({ SecureTextEntry: !this.state.SecureTextEntry })
+    };
+
     render() {
+
+        const Masuk = () => {
+            firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
+                .then((dataDiterima) => {
+                    // Signed in
+
+                    var user = dataDiterima.user.uid;
+                    this.props.navigation.replace('Home')
+                    // ...
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    Alert.alert(errorCode, errorMessage);
+                });
+        }
+
         return (
             <SafeAreaView style={styles.container1}>
                 <Text style={styles.textStyle1}>Ayo masuk ! </Text>
                 <Text style={styles.textStyle2}>Selamat datang, silahkan login. </Text>
 
                 {/* Text input username  */}
-                <Text style={styles.textStyle3}>Username atau Email</Text>
+                <Text style={styles.textStyle3}>Email</Text>
                 <View style={styles.usernameContainer}>
                     <UsernameIcon
                         name="user"
@@ -53,18 +77,23 @@ class Login extends Component {
                         style={styles.inputStyle2}
                         placeholder="Masukkan disini . . ."
                         onChangeText={(value) => this.setState({ password: value })}
-                        secureTextEntry
+                        secureTextEntry={this.state.SecureTextEntry}
                     />
-                    <EyeIcon
-                        name="eye"
-                        size={25}
-                    />
+                    <TouchableOpacity
+                        onPress={this.ShowSecureTextEntry}
+                    >
+                        <EyeIcon
+                            name="eye"
+                            size={25}
+                        />
+                    </TouchableOpacity>
                 </View>
 
                 {/* Button login  */}
                 <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
                     <TouchableOpacity style={styles.containerButton}
-                        onPress={() => this.props.navigation.replace('Home')}>
+
+                        onPress={Masuk}>
                         <Text style={styles.tittleStyle}>Login</Text>
 
                         <LoginIcon

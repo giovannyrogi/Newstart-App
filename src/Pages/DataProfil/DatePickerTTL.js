@@ -48,7 +48,7 @@ const DatePickerTTL = (props) => {
 };
 
 DatePickerTTL.defaulProps = {
-    defaultDate: moment()
+    defaultDate: moment(),
 };
 
 

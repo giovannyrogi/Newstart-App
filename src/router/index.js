@@ -42,8 +42,9 @@ const myHeaderStyle = {
     headerTitleAlign: 'center',
     headerStyle: {
         borderBottomWidth: 2,
-        borderBottomColor: '#BBBBBB'
-    }
+        borderBottomColor: '#BBBBBB',
+    },
+
 }
 
 const noHeaderShown = {
@@ -56,7 +57,9 @@ const noHeaderShown = {
 const Router = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator>
+            <Stack.Navigator
+                initialRouteName='Splash'
+            >
 
                 {/* Halaman */}
                 <Stack.Screen
@@ -64,6 +67,7 @@ const Router = () => {
                     component={Splash}
                     options={{ ...noHeaderShown }}
                 />
+
                 <Stack.Screen
                     name="Welcome"
                     component={Welcome}

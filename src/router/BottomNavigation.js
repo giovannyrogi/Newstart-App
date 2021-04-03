@@ -18,10 +18,9 @@ const noBackArrow = {
     headerTitleAlign: 'center',
     headerLeft: null,
     headerStyle: {
-        borderBottomWidth: 2,
+        borderBottomWidth: 1,
         borderBottomColor: '#BBBBBB',
-
-    }
+    },
 
 }
 

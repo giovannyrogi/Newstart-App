@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, SafeAreaView, StyleSheet, TextInput } from 'react-native';
 
+import firebase from '../../Config/Firebase';
 import { Picker } from '@react-native-picker/picker';
 import { ButtonSelesai } from '../../Components';
 import GenderIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -8,6 +9,7 @@ import DatePickerTTL from './DatePickerTTL';
 import CalenderIcon from 'react-native-vector-icons/Octicons';
 import TinggiBadanIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import BeratBadanIcon from 'react-native-vector-icons/FontAwesome';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
@@ -16,40 +18,58 @@ class DataProfil extends Component {
         super(props);
 
         this.state = {
-            gender: '',
+            gender: 'Laki-laki',
             tinggi: '',
-            berat: ''
+            berat: '',
+            date: '',
+            umur: ''
         };
 
     }
 
+
     render() {
 
+        const Selesai = () => {
+
+            const userId = this.props.route.params.uid;
+            firebase.database().ref('users/' + userId).update({
+                gender: this.state.gender,
+                tinggi: this.state.tinggi,
+                berat: this.state.berat,
+                umur: this.state.umur,
+            });
+            alert('Pendaftaran berhasil, Silahkan Login.');
+            this.props.navigation.replace('Login');
+
+        }
+
         return (
-            <SafeAreaView style={styles.container1}>
-                <Text style={styles.textStyle1}>Lengkapi data Anda.</Text>
-                <Text style={styles.textStyle2}>Silahkan isi data diri Anda pada tabel dibawah ini.</Text>
+            <SafeAreaView style={styles.container1} >
+                <ScrollView>
+                    <Text style={styles.textStyle1}>Lengkapi data Anda.</Text>
+                    <Text style={styles.textStyle2}>Silahkan isi data diri Anda pada tabel dibawah ini.</Text>
 
-                {/* Dropdown jenis kelamin */}
-                <Text style={styles.textStyle3}>Jenis kelamin</Text>
-                <View style={styles.container2}>
-                    <GenderIcon
-                        name="gender-male-female"
-                        size={25}
-                        style={styles.IconStyle}
-                    />
-                    <Picker
-                        onValueChange={(value) => this.setState({ gender: value })}
-                        selectedValue={this.state.gender}
-                        style={styles.pickerContainer}
-                    >
-                        <Picker.Item label="Laki-laki" value="Laki-laki" />
-                        <Picker.Item label="Perempuan" value="perempuan" />
-                    </Picker>
-                </View >
+                    {/* Dropdown jenis kelamin */}
+                    <Text style={styles.textStyle3} > Jenis kelamin</Text>
+                    <View style={styles.container2}>
+                        <GenderIcon
+                            name="gender-male-female"
+                            size={25}
+                            style={styles.IconStyle}
+                        />
+                        <Picker
+                            onValueChange={(value) => this.setState({ gender: value })}
+                            selectedValue={this.state.gender}
+                            style={styles.pickerContainer}
+                        >
+                            <Picker.Item label="Laki-laki" value="Laki-laki" />
+                            <Picker.Item label="Perempuan" value="perempuan" />
+                        </Picker>
+                    </View >
 
-                {/* DatePicker Tanggal Lahir */}
-                <Text style={styles.textStyle3}>Tanggal Lahir</Text>
+                    {/* DatePicker Tanggal Lahir */}
+                    {/* <Text style={styles.textStyle3}>Tanggal Lahir</Text>
                 <View style={styles.container2}>
                     <CalenderIcon
                         name="calendar"
@@ -59,52 +79,69 @@ class DataProfil extends Component {
                     <DatePickerTTL
                         defaultDate="1994-02-21"
                     />
-                </View>
+                </View> */}
 
-                {/* TextInput tinggi badan */}
-                <Text style={styles.textStyle3}>Tinggi Badan</Text>
-                <View style={styles.container2}>
-                    <TinggiBadanIcon
-                        name="human-male-height"
-                        size={26}
-                        style={styles.IconStyle}
+                    {/* TextInput Umur*/}
+                    <Text style={styles.textStyle3}>Umur</Text>
+                    <View style={styles.container2}>
+                        <CalenderIcon
+                            name="calendar"
+                            size={25}
+                            style={styles.IconStyle}
+                        />
+                        <TextInput
+                            style={styles.pickerContainer}
+                            value={this.state.umur}
+                            placeholder="Umur Anda. . . "
+                            onChangeText={(value) => this.setState({ umur: value })}
+                            keyboardType="numeric"
+                        />
+                    </View>
 
+                    {/* TextInput tinggi badan */}
+                    <Text style={styles.textStyle3}>Tinggi Badan</Text>
+                    <View style={styles.container2}>
+                        <TinggiBadanIcon
+                            name="human-male-height"
+                            size={26}
+                            style={styles.IconStyle}
+
+                        />
+                        <TextInput
+                            style={styles.pickerContainer}
+                            value={this.state.tinggi}
+                            placeholder="SATUAN CM"
+                            onChangeText={(value) => this.setState({ tinggi: value })}
+                            keyboardType="numeric"
+                        />
+
+                    </View>
+                    {/* TextInput berat badan */}
+                    <Text style={styles.textStyle3}>Berat Badan</Text>
+                    <View style={styles.container2}>
+                        <BeratBadanIcon
+                            name="balance-scale"
+                            size={25}
+                            style={styles.IconStyle}
+                        />
+                        <TextInput
+                            style={styles.pickerContainer}
+                            value={this.state.berat}
+                            placeholder="SATUAN KG"
+                            onChangeText={(value) => this.setState({ berat: value })}
+                            keyboardType="numeric"
+                        />
+                    </View>
+
+                    {/* Button selesai */}
+                    <ButtonSelesai
+                        title="Selesai"
+                        onPress={Selesai}
+                        name="checkmark-done"
+                        size={22}
                     />
-                    <TextInput
-                        style={styles.pickerContainer}
-                        value={this.state.tinggi}
-                        placeholder="SATUAN CM"
-                        onChangeText={(value) => this.setState({ tinggi: value })}
-                        keyboardType="numeric"
-                    />
-                </View>
-
-                {/* TextInput berat badan */}
-                <Text style={styles.textStyle3}>Berat Badan</Text>
-                <View style={styles.container2}>
-                    <BeratBadanIcon
-                        name="balance-scale"
-                        size={25}
-                        style={styles.IconStyle}
-                    />
-                    <TextInput
-                        style={styles.pickerContainer}
-                        value={this.state.berat}
-                        placeholder="SATUAN KG"
-                        onChangeText={(value) => this.setState({ berat: value })}
-                        keyboardType="numeric"
-                    />
-                </View>
-
-                {/* Button selesai */}
-                <ButtonSelesai
-                    title="Selesai"
-                    onPress={() => this.props.navigation.replace('Login')}
-                    name="checkmark-done"
-                    size={22}
-                />
-
-            </SafeAreaView>
+                </ScrollView>
+            </SafeAreaView >
         );
     }
 }
