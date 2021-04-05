@@ -38,7 +38,7 @@ class Register extends Component {
                     //     makanan: 50,
                     //     olahraga: 60,
                     // })
-                    firebase.database().ref('users/' + userId).set({
+                    firebase.database().ref('users/' + userId + '/userInfo/').set({
                         username: this.state.username,
                         email: this.state.email,
                     });

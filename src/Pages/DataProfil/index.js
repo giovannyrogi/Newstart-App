@@ -34,11 +34,13 @@ class DataProfil extends Component {
             let convertTinggi = this.state.tinggi / 100
             let hasilBMI = this.state.berat / (convertTinggi * convertTinggi)
             const userId = this.props.route.params.uid;
-            firebase.database().ref('users/' + userId).update({
+            firebase.database().ref('users/' + userId + '/userInfo/').update({
                 gender: this.state.gender,
                 tinggi: this.state.tinggi,
                 berat: this.state.berat,
                 umur: this.state.umur,
+            });
+            firebase.database().ref('users/' + userId + '/userResult/BMI/').update({
                 hasilBMI: hasilBMI,
             });
             alert('Pendaftaran berhasil, Silahkan Login.');

@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
-import { Text, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
+import Modal from 'react-native-modal';
 
 import { ButtonNext } from '../../../Components';
 
 const SinarMatahari = ({ navigation }) => {
 
+    const [isModalVisible, setModalVisible] = useState(false);
     var optSinarMatahari = [
         { label: "None", value: 0 },
         { label: "15 Menit", value: 100 },
         { label: ">15 Menit", value: 50 },
         { label: "<15 Menit", value: 50 },
     ];
+
+    const showModal = () => {
+        setModalVisible(true);
+    };
+
+    const hideModal = () => {
+        setModalVisible(false);
+    };
 
     return (
         <SafeAreaView style={styles.mainContainer}>
@@ -33,6 +43,7 @@ const SinarMatahari = ({ navigation }) => {
                         labelStyle={styles.radioLabelStyle}
                     />
                 </View>
+
                 <ButtonNext
                     title="Berikutnya"
                     onPress={() => navigation.navigate('Pengendalian Diri')}
