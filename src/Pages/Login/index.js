@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
+
 
 import firebase from '../../Config/Firebase';
 import LoginIcon from 'react-native-vector-icons/MaterialIcons';
@@ -7,115 +8,117 @@ import UsernameIcon from 'react-native-vector-icons/AntDesign';
 import PasswordIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import EyeIcon from 'react-native-vector-icons/Entypo';
+import { Input } from '../../Components';
+import { useDispatch, useSelector } from 'react-redux';
 
 
+const Login = ({ navigation }) => {
 
-class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            SecureTextEntry: true,
-            value: true,
-            username: '',
-            password: ''
-        };
+    const [SecureTextEntry, setSecureTextEntry] = useState(true)
+    const globalState = useSelector((state) => state);
+    const dispatch = useDispatch();
+    // const [email, setEmail] = useState('');
+    // const [password, setPass] = useState('');
+    const [form, setForm] = useState({
+        email: '',
+        username: '',
+        password: ''
+    });
+
+    const Masuk = () => {
+        firebase.auth().signInWithEmailAndPassword(form.email, form.password)
+            .then((dataDiterima) => {
+                // Signed in
+                dispatch({ type: 'SET_UID', value: dataDiterima.user.uid })
+                navigation.replace('Home')
+                // ...
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                Alert.alert(errorCode, errorMessage);
+            });
     }
-
-    // Function untuk memunculkan password
-    ShowSecureTextEntry = () => {
-        this.setState({ SecureTextEntry: !this.state.SecureTextEntry })
+    const onChangeText = (value, input) => {
+        setForm({
+            ...form,
+            [input]: value,
+        });
     };
 
-    render() {
-
-        const Masuk = () => {
-            firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
-                .then((dataDiterima) => {
-                    // Signed in
-
-                    var user = dataDiterima.user.uid;
-                    this.props.navigation.replace('Home')
-                    // ...
-                })
-                .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    Alert.alert(errorCode, errorMessage);
-                });
-        }
-
-        return (
-            <SafeAreaView style={styles.container1}>
-                <Text style={styles.textStyle1}>Ayo masuk ! </Text>
-                <Text style={styles.textStyle2}>Selamat datang, silahkan login. </Text>
-
-                {/* Text input username  */}
-                <Text style={styles.textStyle3}>Email</Text>
-                <View style={styles.usernameContainer}>
-                    <UsernameIcon
-                        name="user"
-                        size={25}
-                    />
-                    <TextInput
-                        value={this.state.username}
-                        style={styles.inputStyle1}
-                        placeholder="Masukkan disini . . ."
-                        onChangeText={(value) => this.setState({ username: value })}
-
-                    />
-                </View >
-
-                {/* Text input password  */}
-                <Text style={styles.textStyle4}>Password</Text>
-                <View style={styles.passwordContainer}>
-                    <PasswordIcon
-                        name="lock"
-                        size={25}
-                    />
-                    <TextInput
-                        value={this.state.password}
-                        style={styles.inputStyle2}
-                        placeholder="Masukkan disini . . ."
-                        onChangeText={(value) => this.setState({ password: value })}
-                        secureTextEntry={this.state.SecureTextEntry}
-                    />
-                    <TouchableOpacity
-                        onPress={this.ShowSecureTextEntry}
-                    >
-                        <EyeIcon
-                            name="eye"
-                            size={25}
-                        />
-                    </TouchableOpacity>
-                </View>
-
-                {/* Button login  */}
-                <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
-                    <TouchableOpacity style={styles.containerButton}
-
-                        onPress={Masuk}>
-                        <Text style={styles.tittleStyle}>Login</Text>
-
-                        <LoginIcon
-                            name="login"
-                            size={24}
-                            color="#fff"
-                            style={{ left: 120, }} />
-                    </TouchableOpacity>
-                </LinearGradient>
-
-                {/* Button daftar  */}
-                <View style={styles.container2}>
-                    <Text style={styles.textStyle5}>Tidak punya akun ? </Text>
-                    <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Register')}>
-                        <Text style={styles.buttonStyleDaftar}>Daftar</Text>
-                    </TouchableOpacity>
-                </View>
-            </SafeAreaView>
-        );
+    const ShowSecureTextEntry = () => {
+        setSecureTextEntry(SecureTextEntry ? false : true)
     }
+
+    return (
+        <SafeAreaView style={styles.container1}>
+            <Text style={styles.textStyle1}>Ayo masuk ! </Text>
+            <Text style={styles.textStyle2}>Selamat datang, silahkan login. </Text>
+
+            {/* Text input email  */}
+            <Text style={styles.textStyle3}>Email</Text>
+            <View style={styles.usernameContainer}>
+                <UsernameIcon
+                    name="user"
+                    size={25}
+                />
+                <Input
+                    placeholder="Masukkan disini . . ."
+                    value={form.email}
+                    onChangeText={(value) => onChangeText(value, 'email')}
+                />
+            </View >
+
+            {/* Text input password  */}
+            <Text style={styles.textStyle4}>Password</Text>
+            <View style={styles.passwordContainer}>
+                <PasswordIcon
+                    name="lock"
+                    size={25}
+                />
+                <Input
+                    placeholder="Masukkan disini . . ."
+                    value={form.password}
+                    onChangeText={(value) => onChangeText(value, 'password')}
+                    secureTextEntry={SecureTextEntry}
+                />
+                <TouchableOpacity
+                    onPress={() => ShowSecureTextEntry()}
+                >
+                    <EyeIcon
+                        name="eye"
+                        size={25}
+                    />
+                </TouchableOpacity>
+            </View>
+
+            {/* Button login  */}
+            <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
+                <TouchableOpacity style={styles.containerButton}
+
+                    onPress={Masuk}>
+                    <Text style={styles.tittleStyle}>Login</Text>
+
+                    <LoginIcon
+                        name="login"
+                        size={24}
+                        color="#fff"
+                        style={{ left: 120, }} />
+                </TouchableOpacity>
+            </LinearGradient>
+
+            {/* Button daftar  */}
+            <View style={styles.container2}>
+                <Text style={styles.textStyle5}>Tidak punya akun ? </Text>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Register')}>
+                    <Text style={styles.buttonStyleDaftar}>Daftar</Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
+    )
 }
+
 
 
 

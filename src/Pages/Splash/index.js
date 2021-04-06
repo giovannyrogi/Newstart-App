@@ -29,6 +29,7 @@ export default Splash;
 
 const styles = StyleSheet.create({
     iconContainer: {
+        // backgroundColor: 'white',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
         width: 350,
         height: 350,
         left: 8,
+        backgroundColor: 'white',
     }
 
 

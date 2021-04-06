@@ -1,50 +1,48 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, BackHandler, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, BackHandler, SafeAreaView, Alert } from 'react-native';
 
 import { ButtonNext } from '../../Components';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
+const Home = ({ navigation }) => {
+
+    const globalState = useSelector((state) => state);
 
     // ? Fungsi untuk back button agar saat di tekan akan keluar dari app
-    disableBackButton = () => {
+    const disableBackButton = () => {
         BackHandler.exitApp();
         return true;
     }
-    componentDidMount() {
+    const componentDidMount = () => {
         BackHandler.addEventListener('hardwareBackPress', this.disableBackButton);
     }
-    componentWillUnMount() {
+    const componentWillUnMount = () => {
         BackHandler.removeEventListener('hardwareBackPress', this.disableBackButton);
     }
 
-    render() {
-        return (
-            <SafeAreaView style={styles.container}>
-                <View style={styles.container2}>
+    return (
+        <SafeAreaView style={styles.container}>
+            <View style={styles.container2}>
+                <Text style={styles.textTanggalStyle}>Tanggal</Text>
+                <Text style={styles.textHasilStyle}>Hasil</Text>
+                <Text style={styles.textPoinStyle}>89</Text>
+                <Text style={styles.tingkatKesehatan}>Tingkat kesehatan Anda adalah</Text>
+            </View>
+            <View style={styles.container3}>
 
-                    <Text style={styles.textTanggalStyle}>Tanggal</Text>
-                    <Text style={styles.textHasilStyle}>Hasil</Text>
-                    <Text style={styles.textPoinStyle}>89</Text>
-                    <Text style={styles.tingkatKesehatan}>Tingkat kesehatan Anda adalah</Text>
-                </View>
-                <View style={styles.container3}>
-
-                    <ButtonNext
-                        title="Newstart Test"
-                        onPress={() => this.props.navigation.navigate('Nutrisi')}
-                    />
-                </View>
-            </SafeAreaView>
-        );
-    }
+                <ButtonNext
+                    title="Newstart Test"
+                    onPress={() => navigation.navigate('Nutrisi')}
+                />
+            </View>
+        </SafeAreaView>
+    )
 }
 
-export default Home;
+export default Home
+
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

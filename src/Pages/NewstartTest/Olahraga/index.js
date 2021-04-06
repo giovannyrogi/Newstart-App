@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import { Picker } from '@react-native-picker/picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import RadioForm from 'react-native-simple-radio-button';
+import { useSelector } from 'react-redux';
 
 
 
@@ -28,9 +29,12 @@ const Olahraga = ({ navigation }) => {
         setModalVisible(false);
     };
 
+
+
     return (
         <SafeAreaView style={styles.mainContainer}>
             <Text style={styles.textStyle} >Silahkan pilih jenis olahraga yang dilakukan.</Text>
+
             <View style={{ flexDirection: 'row' }}>
                 <View style={styles.pickerContainer}>
                     <Picker

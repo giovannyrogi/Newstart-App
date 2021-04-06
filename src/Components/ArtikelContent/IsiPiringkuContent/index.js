@@ -41,6 +41,9 @@ const IsiPiringkuContent = () => {
 export default IsiPiringkuContent;
 
 const styles = StyleSheet.create({
+    container: {
+        marginVertical: 8,
+    },
 
     textStyle: {
         fontSize: 15,
