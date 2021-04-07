@@ -41,14 +41,14 @@ const Register = ({ navigation }) => {
                 // Signed in
                 dispatch({ type: 'SET_UID', value: dataDiterima.user.uid });
                 navigation.navigate('DataProfil');
-                // firebase.database().ref('result/uid/2021/04/02').push({
-                //     makanan: 50,
-                //     olahraga: 60,
-                // })
                 firebase.database().ref('users/' + dataDiterima.user.uid + '/userInfo/').set({
                     username: form.username,
                     email: form.email,
                 });
+                // firebase.database().ref('result/uid/2021/04/02').push({
+                //     makanan: 50,
+                //     olahraga: 60,
+                // })
 
             })
             .catch((error) => {

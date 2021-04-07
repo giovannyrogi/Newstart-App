@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 
 import RadioForm from 'react-native-simple-radio-button';
@@ -6,101 +6,119 @@ import ModalIsiPiringku from 'react-native-modal';
 import { IsiPiringkuContent } from '../../../../Components';
 import BackArrow from 'react-native-vector-icons/MaterialIcons';
 import ButtonIconKembali from 'react-native-vector-icons/AntDesign';
+import { useDispatch, useSelector } from 'react-redux';
 
-class index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ModalIsiPiringku: false
-        };
+const IsiPiringkuTest = () => {
+
+    const [showModal, setShowModal] = useState(false);
+    const [radioNutrisi, setRadioNutrisi] = useState([
+        {
+            label: "Ya",
+            value: 50
+        },
+        {
+            label: "No",
+            value: 0
+        }
+    ]);
+
+    const dispatch = useDispatch();
+
+    const isiPiringkuResult = useSelector((state) => state.resultIsiPiringku)
+    // const isiPiringkuResult = useSelector((state) => radioNutrisi.value)
+
+    const HideModalMakanPagi = () => {
+        setShowModal(false)
     }
 
-    optNutrisi = [
-        { label: "Ya", value: 50 },
-        { label: "Tidak", value: 0 },
-    ];
+    const ShowModalMakanpagi = () => {
+        setShowModal(true)
+    }
 
-    showOrHideModalIsiPiringku = () => {
-        this.setState({ ModalIsiPiringku: !this.state.ModalIsiPiringku })
-    };
 
-    render() {
-        return (
-            <View>
-                <Text style={styles.textStyle}>
-                    Apakah makanan yang Anda konsumsi sudah sesuai dengan <Text></Text>
-                    <Text
-                        onPress={this.showOrHideModalIsiPiringku}
-                        style={styles.textStyle2}>Isi Piringku?
+    return (
+        <View>
+            {/* <Text> value : {radioPoin} </Text> */}
+            <Text style={styles.textStyle}>
+                Apakah makanan yang Anda konsumsi sudah sesuai dengan <Text></Text>
+                <Text
+
+                    onPress={ShowModalMakanpagi}
+                    style={styles.textStyle2}>Isi Piringku?
                     </Text>
-                </Text>
+            </Text>
 
-                <ModalIsiPiringku
-                    animationIn='fadeInUp'
-                    animationInTiming={1500}
-                    animationOut='fadeOutDown'
-                    animationOutTiming={1000}
-                    isVisible={this.state.ModalIsiPiringku}
-                    hasBackdrop={true}
-                    onBackdropPress={this.showOrHideModalIsiPiringku}
-                    style={styles.modalContainer}
-                >
-                    <View>
-                        <ScrollView showsVerticalScrollIndicator={false}>
-                            <View style={styles.modalSubContainer}>
-                                <View style={{ marginLeft: 15, flex: 0, alignItems: 'center' }}>
-                                    <TouchableOpacity
-                                        onPress={this.showOrHideModalIsiPiringku}
-                                    >
-                                        <BackArrow
-                                            name='arrow-back-ios'
-                                            size={25}
-                                            style={{ color: '#9B51E0' }}
-                                        />
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ flex: 1, alignItems: 'center' }}>
-
-                                    <Text style={styles.judulStyle}>Isi Piringku</Text>
-                                </View>
-                            </View>
-                            <IsiPiringkuContent />
-                            <View style={styles.buttonContainer}>
+            <ModalIsiPiringku
+                animationIn='fadeInUp'
+                animationInTiming={1500}
+                animationOut='fadeOutDown'
+                animationOutTiming={1000}
+                isVisible={showModal}
+                hasBackdrop={true}
+                onBackdropPress={HideModalMakanPagi}
+                style={styles.modalContainer}
+            >
+                <View>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <View style={styles.modalSubContainer}>
+                            <View style={{ marginLeft: 15, flex: 0, alignItems: 'center' }}>
                                 <TouchableOpacity
-                                    onPress={this.showOrHideModalIsiPiringku}
-                                    style={styles.buttonStyle}
+                                    onPress={HideModalMakanPagi}
                                 >
-                                    <ButtonIconKembali
-                                        name="doubleleft"
-                                        size={18}
-                                        style={styles.buttonKembaliStyle}
+                                    <BackArrow
+                                        name='arrow-back-ios'
+                                        size={25}
+                                        style={{ color: '#9B51E0' }}
                                     />
-                                    <Text style={styles.buttonText}>Kembali</Text>
                                 </TouchableOpacity>
                             </View>
-                        </ScrollView>
-                    </View>
-                </ModalIsiPiringku>
+                            <View style={{ flex: 1, alignItems: 'center' }}>
 
-                <View style={styles.radioFormContainer}>
-                    <RadioForm
-                        radio_props={this.optNutrisi}
-                        initial={-1}
-                        onPress={(value) => alert('Nilai ' + value)}
-                        formHorizontal={true}
-                        selectedButtonColor={'#9B51E0'}
-                        selectedLabelColor={'#9B51E0'}
-                        buttonColor={'#757575'}
-                        buttonSize={15}
-                        labelStyle={styles.radioLabelStyle}
-                    />
+                                <Text style={styles.judulStyle}>Isi Piringku</Text>
+                            </View>
+                        </View>
+                        <IsiPiringkuContent />
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity
+                                onPress={HideModalMakanPagi}
+                                style={styles.buttonStyle}
+                            >
+                                <ButtonIconKembali
+                                    name="doubleleft"
+                                    size={18}
+                                    style={styles.buttonKembaliStyle}
+                                />
+                                <Text style={styles.buttonText}>Kembali</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
                 </View>
+            </ModalIsiPiringku>
+
+            <View style={styles.radioFormContainer}>
+                <RadioForm
+                    radio_props={radioNutrisi}
+                    initial={-1}
+                    onPress={(value) => alert(value)}
+                    formHorizontal={true}
+                    selectedButtonColor={'#9B51E0'}
+                    selectedLabelColor={'#9B51E0'}
+                    buttonColor={'#757575'}
+                    buttonSize={15}
+                    labelStyle={styles.radioLabelStyle}
+                />
             </View>
-        );
-    }
+        </View>
+    );
+
 }
 
-export default index;
+// const mapStateToProps = (state) => {
+//     return {
+//         isiPiringkuResult: state.resultIsiPiringku
+//     }
+// }
+export default IsiPiringkuTest;
 
 const styles = StyleSheet.create({
     modalContainer: {

@@ -17,8 +17,6 @@ const Login = ({ navigation }) => {
     const [SecureTextEntry, setSecureTextEntry] = useState(true)
     const globalState = useSelector((state) => state);
     const dispatch = useDispatch();
-    // const [email, setEmail] = useState('');
-    // const [password, setPass] = useState('');
     const [form, setForm] = useState({
         email: '',
         username: '',

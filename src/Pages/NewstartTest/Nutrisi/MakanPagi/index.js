@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
 import { Text, SafeAreaView, StyleSheet, TouchableOpacity, View, ScrollView } from 'react-native';
 
@@ -11,33 +11,43 @@ import BackArrow from 'react-native-vector-icons/MaterialIcons';
 import UpArrow from 'react-native-vector-icons/MaterialIcons';
 import DownArrow from 'react-native-vector-icons/MaterialIcons';
 import dataMakananPokok from '../dataMakanan/dataMakananPokok';
+import dataBuahBuahan from '../dataMakanan/dataBuah';
+import dataLaukPauk from '../dataMakanan/dataLaukPauk';
+import dataSayur from '../dataMakanan/dataSayur';
+import { useDispatch, useSelector } from 'react-redux';
 
 
+const MakanPagi = () => {
 
-class MakanPagi extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            modalMakanPagi: false,
-            show: true,
-            dataMakananPokok: dataMakananPokok,
-            selectedDataFood: [],
-            selectedDataCalories: [],
-            totalCalories: '',
-        };
+    const [MakananPokok, setMakananPokok] = useState(dataMakananPokok);
+    const [laukPauk, setLaukPauk] = useState(dataLaukPauk);
+    const [buahBuahan, setBuahBuahan] = useState(dataBuahBuahan);
+    const [sayur, setSayur] = useState(dataSayur);
+    const [selectedDataFood, setSelectedDataFood] = useState('');
+    const [selectedDataCalories, setSelectedDataCalories] = useState(0);
+    const [totalCalories, setTotalCalories] = useState(0);
+    const [showModal, setShowModal] = useState(false);
+    const [show, setShow] = useState({
+        showDataMakanPagi: true,
+    });
+
+    const dispatch = useDispatch();
+    const sumGlobalCalori = useSelector((state) => state.resultCaloriMakanPagi)
+
+    const HideModalMakanPagi = () => {
+        setShowModal(false)
     }
 
-    showOrHideshowModalMakanPagi = () => {
-        this.setState({ modalMakanPagi: !this.state.modalMakanPagi })
+    const ShowModalMakanpagi = () => {
+        setShowModal(true)
     }
 
-    showDaftarMakanan = () => {
-        this.setState({ show: !this.state.show })
+    const hideShowDaftarMakanan = () => {
+        setShow({ showDataMakanPagi: !show.showDataMakanPagi })
     };
 
-
-    dropdownArrow = () => {
-        if (this.state.show == true) {
+    const dropdownArrow = () => {
+        if (show.showDataMakanPagi == true) {
             return (
                 <DownArrow
                     name="keyboard-arrow-down"
@@ -57,27 +67,28 @@ class MakanPagi extends Component {
         }
     }
 
-    renderMakanPagi = () => {
-        if (this.state.selectedDataFood && this.state.selectedDataCalories != '') {
+    const renderMakanPagi = () => {
+        dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: totalCalories });
+        if (selectedDataFood != '' && selectedDataCalories != 0) {
             return (
                 <View style={{ backgroundColor: '#DEDDDD' }}>
                     <View style={{ flexDirection: 'row', marginBottom: 5, marginTop: 8 }}>
                         <View style={{ flex: 1, marginLeft: 20 }}>
                             <Text style={{ fontFamily: 'Poppins-Bold' }}>Nama Makanan</Text>
-                            {this.state.selectedDataFood.map((item) => (
+                            {selectedDataFood.map((item) => (
                                 <Text key={item} style={{ fontSize: 15 }}>{item}</Text>
                             ))}
                         </View>
                         <View style={{ flex: 1, alignItems: 'flex-end' }}>
                             <Text style={{ marginRight: 25, fontFamily: 'Poppins-Bold' }}>Kalori</Text>
-                            {this.state.selectedDataCalories.map((item) => (
+                            {selectedDataCalories.map((item) => (
                                 <Text key={item} style={{ marginRight: 35, fontSize: 15 }}>{item}</Text>
                             ))}
                         </View>
                     </View>
                     <View style={{ borderTopWidth: 1, flexDirection: 'row' }}>
                         <Text style={{ flex: 4, textAlign: 'right', fontFamily: 'Poppins-Bold', paddingVertical: 5 }}>Total </Text>
-                        <Text style={{ flex: 1.4, textAlign: 'center', fontFamily: 'Poppins-Bold', paddingVertical: 5 }}>{this.state.totalCalories}</Text>
+                        <Text style={{ flex: 1.4, textAlign: 'center', fontFamily: 'Poppins-Bold', paddingVertical: 5 }}>{totalCalories}</Text>
                     </View>
                 </View>
 
@@ -85,48 +96,16 @@ class MakanPagi extends Component {
         }
     }
 
-    onChecked = (id) => {
-        const data = this.state.dataMakananPokok
-        const index = data.findIndex(x => x.id === id);
-        data[index].checked = !data[index].checked
-        this.setState(data)
-    }
-
-    getSelectedData = () => {
-        var nama = this.state.dataMakananPokok.map((t) => t.nama)
-        var checks = this.state.dataMakananPokok.map((t) => t.checked)
-        var calori = this.state.dataMakananPokok.map((t) => t.kalori)
-        const SelectedCalori = []
-        const SelectedMakanan = []
-        for (let i = 0; i < checks.length; i++) {
-            if (checks[i] == true) {
-                SelectedCalori.push(calori[i])
-                SelectedMakanan.push(nama[i])
-                let sum = SelectedCalori.reduce((a, c) => {
-                    return a + c
-                }, 0);
-                var hasilKalori = sum
-            }
-        }
-
-        this.state.selectedDataFood = SelectedMakanan
-        this.state.selectedDataCalories = SelectedCalori
-        this.state.totalCalories = hasilKalori
-        this.setState({ modalMakanPagi: !this.state.modalMakanPagi })
-
-        // const userId = this.props.route.params.uid;
-        // firebase.database().ref('users/userResult/Nutrition/Calori/').update({
-        //     hasilKalori: hasilKalori
-        // });
-    }
-    renderData = () => {
-        return this.state.dataMakananPokok.map((item, nama) => {
+    // untuk menampilkan data makanan pokok di modal
+    const renderDataMakananPokok = () => {
+        return MakananPokok.map((item, id) => {
             return (
-                <View key={nama} style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => { this.onChecked(item.id) }}>
+                <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => onCheckedMakananPokok(item.id)}>
                         <CheckBox
-                            value={item.checked}
-                            onValueChange={() => { this.onChecked(item.id) }}
+
+                            value={item.checkedMakananPokok}
+                            onValueChange={() => onCheckedMakananPokok(item.id)}
                             style={{ alignSelf: 'center' }}
                         />
 
@@ -143,96 +122,294 @@ class MakanPagi extends Component {
         })
     }
 
-    render() {
-        return (
-            <SafeAreaView>
-                {/* Makan Pagi */}
-                <View style={styles.makananContainer}>
-                    <TouchableOpacity
-                        style={styles.buttonIconStyle}
-                        onPress={this.showOrHideshowModalMakanPagi}
-                    >
-                        <IconPlus
-                            name='circle-with-plus'
-                            size={28}
-                            style={styles.plusIconStyle}
+    // untuk menampilkan data laukpauk di modal
+    const renderDataLaukPauk = () => {
+        return laukPauk.map((item, id) => {
+            return (
+                <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => onCheckedLaukPauk(item.id)}>
+                        <CheckBox
+                            value={item.checkedLaukPauk}
+                            onValueChange={() => onCheckedLaukPauk(item.id)}
+                            style={{ alignSelf: 'center' }}
                         />
+
                     </TouchableOpacity>
-                    <Text style={styles.textMakananStyle}>Makan Pagi</Text>
+                    <View style={{ flex: 1, }}>
+                        <Text style={styles.itemStyle}>{item.nama}</Text>
+                    </View>
+                    <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 27 }}>
+                        <Text style={styles.itemStyle}>{item.kalori}</Text>
+                    </View>
+                </View>
 
-                    <TouchableOpacity
-                        style={{ flex: 1, alignSelf: 'center' }}
-                        onPress={() => { this.showDaftarMakanan() }}
-                    >
-                        {this.dropdownArrow()}
+            )
+        })
+    }
+
+    // untuk menampilkan data laukpauk di modal
+    const renderDataSayur = () => {
+        return sayur.map((item, id) => {
+            return (
+                <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => onCheckedSayur(item.id)}>
+                        <CheckBox
+
+                            value={item.checkedSayur}
+                            onValueChange={() => onCheckedSayur(item.id)}
+                            style={{ alignSelf: 'center' }}
+                        />
+
                     </TouchableOpacity>
-
+                    <View style={{ flex: 1, }}>
+                        <Text style={styles.itemStyle}>{item.nama}</Text>
+                    </View>
+                    <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 27 }}>
+                        <Text style={styles.itemStyle}>{item.kalori}</Text>
+                    </View>
                 </View>
-                {/* Menampilkan daftar menu di makan pagi */}
-                <View>
-                    {
-                        this.state.show ? (
-                            this.renderMakanPagi()
-                        ) : null
 
-                    }
+            )
+        })
+    }
+
+    // untuk menampilkan data buah-buahan di modal
+    const renderDataBuah = () => {
+        return buahBuahan.map((item, id) => {
+            return (
+                <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => onCheckedBuah(item.id)}>
+                        <CheckBox
+
+                            value={item.checkedBuah}
+                            onValueChange={() => onCheckedBuah(item.id)}
+                            style={{ alignSelf: 'center' }}
+                        />
+
+                    </TouchableOpacity>
+                    <View style={{ flex: 1, }}>
+                        <Text style={styles.itemStyle}>{item.nama}</Text>
+                    </View>
+                    <View style={{ flex: 1, alignItems: 'flex-end', marginRight: 27 }}>
+                        <Text style={styles.itemStyle}>{item.kalori}</Text>
+                    </View>
                 </View>
-                {/* Daftar Makanan Modal */}
-                <ModalMakanPagi
-                    animationIn='fadeInUp'
-                    animationInTiming={1500}
-                    animationOut='fadeOutDown'
-                    animationOutTiming={1000}
-                    isVisible={this.state.modalMakanPagi}
-                    hasBackdrop={true}
-                    onBackdropPress={this.showOrHideshowModalMakanPagi}
-                    style={styles.modalContainer}
+
+            )
+        })
+    }
+
+    //OnCheck untuk Makanan Pokok
+    const onCheckedMakananPokok = (id) => {
+        const data1 = [...MakananPokok]
+        const index = data1.findIndex(x => x.id === id);
+        data1[index].checkedMakananPokok = !data1[index].checkedMakananPokok
+        setMakananPokok(data1)
+    }
+
+    //OnCheck untuk LaukPauk
+    const onCheckedLaukPauk = (id) => {
+        const data2 = [...laukPauk]
+        const index = data2.findIndex(x => x.id === id);
+        data2[index].checkedLaukPauk = !data2[index].checkedLaukPauk
+        setLaukPauk(data2)
+    }
+
+    //OnCheck untuk Sayur
+    const onCheckedSayur = (id) => {
+        const data3 = [...sayur]
+        const index = data3.findIndex(x => x.id === id);
+        data3[index].checkedSayur = !data3[index].checkedSayur
+        setSayur(data3)
+    }
+
+    //OnCheck untuk Buah
+    const onCheckedBuah = (id) => {
+        const data4 = [...buahBuahan]
+        const index = data4.findIndex(x => x.id === id);
+        data4[index].checkedBuah = !data4[index].checkedBuah
+        setBuahBuahan(data4)
+    }
+
+
+    const getSelectedData = (hasilKalori) => {
+        var namaMakananPokok = MakananPokok.map((t) => t.nama)
+        var checksMakananPokok = MakananPokok.map((t) => t.checkedMakananPokok)
+        var caloriMakananPokok = MakananPokok.map((t) => t.kalori)
+
+        var namaLaukpauk = laukPauk.map((t) => t.nama)
+        var checksLaukpauk = laukPauk.map((t) => t.checkedLaukPauk)
+        var caloriLaukpauk = laukPauk.map((t) => t.kalori)
+
+        var namaSayur = sayur.map((t) => t.nama)
+        var checksSayur = sayur.map((t) => t.checkedSayur)
+        var caloriSayur = sayur.map((t) => t.kalori)
+
+        var namaBuah = buahBuahan.map((t) => t.nama)
+        var checksBuah = buahBuahan.map((t) => t.checkedBuah)
+        var caloriBuah = buahBuahan.map((t) => t.kalori)
+
+        const SelectedCalori = []
+        const SelectedMakanan = []
+        for (let i = 0; i < checksMakananPokok.length
+            && checksLaukpauk.length
+            && checksSayur.length
+            && checksBuah.length; i++) {
+
+            if (checksMakananPokok[i] == true) {
+                SelectedMakanan.push(namaMakananPokok[i])
+                SelectedCalori.push(caloriMakananPokok[i])
+                var sum = SelectedCalori.reduce((a, c) => {
+                    return a + c
+                }, 0);
+            }
+
+            if (checksLaukpauk[i] == true) {
+                SelectedMakanan.push(namaLaukpauk[i])
+                SelectedCalori.push(caloriLaukpauk[i])
+                var sum = SelectedCalori.reduce((a, c) => {
+                    return a + c
+                }, 0);
+            }
+
+            if (checksSayur[i] == true) {
+                SelectedMakanan.push(namaSayur[i])
+                SelectedCalori.push(caloriSayur[i])
+                var sum = SelectedCalori.reduce((a, c) => {
+                    return a + c
+                }, 0);
+
+            }
+
+            if (checksBuah[i] == true) {
+                SelectedMakanan.push(namaBuah[i])
+                SelectedCalori.push(caloriBuah[i])
+                var sum = SelectedCalori.reduce((a, c) => {
+                    return a + c
+                }, 0);
+            }
+        }
+        hasilKalori = sum
+        console.log(SelectedCalori)
+        setSelectedDataFood(SelectedMakanan)
+        setSelectedDataCalories(SelectedCalori)
+        setTotalCalories(hasilKalori)
+        setShowModal(false)
+    }
+
+    return (
+        <SafeAreaView>
+            {/* Makan Pagi */}
+            <View style={styles.makananContainer}>
+                <TouchableOpacity
+                    style={styles.buttonIconStyle}
+                    onPress={ShowModalMakanpagi}
                 >
-                    <SafeAreaView>
-                        <ScrollView>
-                            <View style={styles.subModalContainer}>
-                                <View style={styles.subContainerMakananPokokStyle}>
-                                    <TouchableOpacity onPress={this.showOrHideshowModalMakanPagi} >
-                                        <BackArrow
-                                            name='arrow-back-ios'
-                                            size={25}
-                                            style={{ marginLeft: 5, color: '#9B51E0' }}
-                                        />
-                                    </TouchableOpacity>
-                                    <Text style={styles.subJudulMakananPokokStyle}>Makanan Pokok</Text>
-                                </View>
+                    <IconPlus
+                        name='circle-with-plus'
+                        size={28}
+                        style={styles.plusIconStyle}
+                    />
+                </TouchableOpacity>
+                <Text style={styles.textMakananStyle}>Makan Pagi</Text>
+
+                <TouchableOpacity
+                    style={{ flex: 1, alignSelf: 'center' }}
+                    onPress={() => { hideShowDaftarMakanan() }}
+                >
+                    {dropdownArrow()}
+                </TouchableOpacity>
+
+            </View>
+            {/* Menampilkan daftar menu di makan pagi */}
+            <View>
+                {
+                    show.showDataMakanPagi ? (
+                        renderMakanPagi()
+                    ) : null
+
+                }
+            </View>
+            {/* Daftar Makanan Modal */}
+            <ModalMakanPagi
+                animationIn='fadeInUp'
+                animationInTiming={1500}
+                animationOut='fadeOutDown'
+                animationOutTiming={1000}
+                isVisible={showModal}
+                hasBackdrop={true}
+                onBackdropPress={HideModalMakanPagi}
+                style={styles.modalContainer}
+            >
+                <SafeAreaView>
+                    <ScrollView>
+                        <View style={styles.subModalContainer}>
+                            <View style={styles.subContainerMakananPokokStyle}>
+                                <TouchableOpacity onPress={HideModalMakanPagi} >
+                                    <BackArrow
+                                        name='arrow-back-ios'
+                                        size={25}
+                                        style={{ marginLeft: 5, color: '#9B51E0' }}
+                                    />
+                                </TouchableOpacity>
+                                <Text style={styles.subJudulMakananPokokStyle}>Makanan Pokok</Text>
+                            </View>
+                            <View style={styles.subJudul2Container}>
+                                <Text style={styles.textNamaMakananStyle}>Nama Makanan</Text>
+                                <Text style={styles.textKaloriStyle}>Kalori</Text>
+                            </View>
+                            <View>
+                                {renderDataMakananPokok()}
+                            </View>
+                            <View>
+                                <Text style={styles.subJudulMakananPokokStyle}>Lauk-Pauk</Text>
                                 <View style={styles.subJudul2Container}>
                                     <Text style={styles.textNamaMakananStyle}>Nama Makanan</Text>
                                     <Text style={styles.textKaloriStyle}>Kalori</Text>
                                 </View>
+                            </View>
+                            {renderDataLaukPauk()}
 
-                                <View>
-                                    {this.renderData()}
-                                </View>
-                                <View style={styles.buttonContainer}>
-                                    <TouchableOpacity
-                                        onPress={() => { this.getSelectedData() }}
-                                        style={styles.buttonStyle}
-                                    >
-                                        <Text style={styles.buttonText}>Selesai</Text>
-                                        <ButtonIconSelesai
-                                            name="checkmark-done"
-                                            size={22}
-                                            style={styles.buttonSelesaiStyle}
-                                        />
-                                    </TouchableOpacity>
+                            <View>
+                                <Text style={styles.subJudulMakananPokokStyle}>Sayur-sayuran</Text>
+                                <View style={styles.subJudul2Container}>
+                                    <Text style={styles.textNamaMakananStyle}>Nama Makanan</Text>
+                                    <Text style={styles.textKaloriStyle}>Kalori</Text>
                                 </View>
                             </View>
-                        </ScrollView>
-                    </SafeAreaView>
-                </ModalMakanPagi>
+                            {renderDataSayur()}
 
+                            <View>
+                                <Text style={styles.subJudulMakananPokokStyle}>Buah-buahan</Text>
+                                <View style={styles.subJudul2Container}>
+                                    <Text style={styles.textNamaMakananStyle}>Nama Makanan</Text>
+                                    <Text style={styles.textKaloriStyle}>Kalori</Text>
+                                </View>
+                            </View>
+                            {renderDataBuah()}
 
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity
+                                    onPress={() => getSelectedData()}
+                                    style={styles.buttonStyle}
+                                >
+                                    <Text style={styles.buttonText}>Selesai</Text>
+                                    <ButtonIconSelesai
+                                        name="checkmark-done"
+                                        size={22}
+                                        style={styles.buttonSelesaiStyle}
+                                    />
+                                </TouchableOpacity>
 
-            </SafeAreaView >
-        );
-    }
+                            </View>
+                        </View>
+                    </ScrollView>
+                </SafeAreaView>
+            </ModalMakanPagi>
+        </SafeAreaView >
+    )
 }
+
 
 export default MakanPagi;
 
@@ -246,7 +423,7 @@ const styles = StyleSheet.create({
     },
 
     subModalContainer: {
-        marginHorizontal: 10,
+        marginHorizontal: 15,
     },
 
 
@@ -332,6 +509,7 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         marginTop: 35,
+        marginBottom: 25,
         marginRight: 35,
         alignItems: 'flex-end',
         justifyContent: 'flex-end',

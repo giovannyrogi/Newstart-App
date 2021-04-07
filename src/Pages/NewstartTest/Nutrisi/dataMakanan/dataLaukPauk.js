@@ -1,36 +1,36 @@
 export default [
     {
-        id: '1',
+        id: 11,
         nama: 'Ikan',
-        kalori: 168
+        kalori: 40
     },
     {
-        id: '2',
+        id: 12,
         nama: 'Ayam',
         kalori: 120
     },
     {
-        id: '3',
+        id: 13,
         nama: 'Daging sapi',
         kalori: 100
     },
     {
-        id: '4',
+        id: 14,
         nama: 'Telur',
         kalori: 300
     },
     {
-        id: '5',
+        id: 15,
         nama: 'Tempe',
         kalori: 80
     },
     {
-        id: '6',
+        id: 16,
         nama: 'Tahu',
         kalori: 70
     },
     {
-        id: '7',
+        id: 17,
         nama: 'Kacang',
         kalori: 60
     },
