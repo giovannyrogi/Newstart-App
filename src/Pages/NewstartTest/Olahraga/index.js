@@ -5,21 +5,41 @@ import Modal from 'react-native-modal';
 import { Picker } from '@react-native-picker/picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import RadioForm from 'react-native-simple-radio-button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const Olahraga = ({ navigation }) => {
 
+    const dispatch = useDispatch()
+    const hasilOlahraga = useSelector(state => state.resultOlahraga)
     const [pickerValue, setPickerValue] = useState()
     const [isModalVisible, setModalVisible] = useState(false);
+    const [radioOlahraga, setRadioOlahraga] = useState([
+        {
+            label: "None",
+            value: 0
+        },
+        {
+            label: "30 Menit",
+            value: 100
+        },
+        {
+            label: "30 >Menit",
+            value: 75
+        },
+        {
+            label: "30 <Menit",
+            value: 50
+        }
+    ]);
 
-    var optOlahraga = [
-        { label: "None", value: 0 },
-        { label: "30 menit", value: 100 },
-        { label: "<30 menit", value: 50 },
-        { label: ">30 menit", value: 50 },
-    ];
+    // var optOlahraga = [
+    //     { label: "None", value: 0 },
+    //     { label: "30 menit", value: 100 },
+    //     { label: "<30 menit", value: 50 },
+    //     { label: ">30 menit", value: 50 },
+    // ];
 
     const showModal = () => {
         setModalVisible(true);
@@ -29,7 +49,29 @@ const Olahraga = ({ navigation }) => {
         setModalVisible(false);
     };
 
-
+    const handleRadio = (value, get30mValue, get30mPlus, get30mMinus, getNoneValue) => {
+        // alert(value)
+        if (value == 100) {
+            get30mValue = value
+            alert('30 Menit : ' + get30mValue)
+            dispatch({ type: 'RESULT_OLAHRAGA', value: get30mValue });
+        }
+        if (value == 75) {
+            get30mPlus = value
+            alert('Diatas 30 Menit : ' + get30mPlus)
+            dispatch({ type: 'RESULT_OLAHRAGA', value: get30mPlus });
+        }
+        if (value == 50) {
+            get30mMinus = value
+            alert('Dibawah 30 Menit : ' + get30mMinus)
+            dispatch({ type: 'RESULT_OLAHRAGA', value: get30mMinus });
+        }
+        if (value < 50) {
+            getNoneValue = value
+            alert('None : ' + getNoneValue)
+            dispatch({ type: 'RESULT_OLAHRAGA', value: getNoneValue });
+        }
+    }
 
     return (
         <SafeAreaView style={styles.mainContainer}>
@@ -80,12 +122,13 @@ const Olahraga = ({ navigation }) => {
             </View>
 
             <Text style={styles.textStyle}>Berapa lama Anda berolahraga?</Text>
+            <Text style={styles.textStyle}>Result Nutrisi : {hasilOlahraga}</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm
-                    radio_props={optOlahraga}
+                    radio_props={radioOlahraga}
                     initial={-1}
-                    onPress={(value) => alert('Nilai ' + value)}
-                    labelHorizontal={true}
+                    onPress={(value) => handleRadio(value)}
+                    // formHorizontal={true}
                     selectedButtonColor={'#9B51E0'}
                     selectedLabelColor={'#9B51E0'}
                     buttonColor={'#757575'}
@@ -142,7 +185,6 @@ const styles = StyleSheet.create({
 
     textStyle: {
         fontSize: 18,
-
     },
 
     pickerContainer: {

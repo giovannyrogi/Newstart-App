@@ -5,15 +5,16 @@ const initialState = {
     resultCaloriMakanSiang: 0,
     resultCaloriMakanMalam: 0,
     resultAllCalories: 0,
-    sumNutrisi: 0,
-    sumOlahraga: 0,
-    sumAir: 0,
-    sumSinarMatahari: 0,
-    sumPengendalianDiri: 0,
-    sumUdaraSegar: 0,
-    sumTidur: 0,
-    sumHubunganDgnTuhan: 0,
-    sumHatiSenang: 0,
+    resultNutrisi: 0,
+    resultOlahraga: 0,
+    resultAir: 0,
+    resultSinarMatahari: 0,
+    resultPengendalianDiri: 0,
+    resultUdaraSegar: 0,
+    resultTidur: 0,
+    resultHubunganDgnTuhan: 0,
+    resultHatiSenang: 0,
+    resultNewstart: 0,
 
 }
 
@@ -48,11 +49,62 @@ const reducer = (state = initialState, action) => {
                 resultAllCalories: action.value,
 
             }
-        case 'ISI_PIRINGKU':
+        case 'RESULT_ISI_PIRINGKU':
             return {
                 ...state,
                 resultIsiPiringku: action.value,
 
+            }
+        case 'RESULT_OLAHRAGA':
+            return {
+                ...state,
+                resultOlahraga: action.value,
+
+            }
+        case 'RESULT_AIR':
+            return {
+                ...state,
+                resultAir: action.value,
+            }
+        case 'RESULT_SINAR_MATAHARI':
+            return {
+                ...state,
+                resultSinarMatahari: action.value,
+            }
+        case 'RESULT_PENGENDALIAN_DIRI':
+            return {
+                ...state,
+                resultPengendalianDiri: action.value,
+            }
+        case 'RESULT_UDARA_SEGAR':
+            return {
+                ...state,
+                resultUdaraSegar: action.value,
+            }
+        case 'RESULT_TIDUR':
+            return {
+                ...state,
+                resultTidur: action.value,
+            }
+        case 'RESULT_HATI_SENANG':
+            return {
+                ...state,
+                resultHatiSenang: action.value,
+            }
+        case 'RESULT_HUB_DGN_TUHAN':
+            return {
+                ...state,
+                resultHubunganDgnTuhan: action.value,
+            }
+        case 'RESULT_NUTRISI':
+            return {
+                ...state,
+                resultNutrisi: action.value,
+            }
+        case 'RESULT_NEWSTART':
+            return {
+                ...state,
+                resultNewstart: action.value,
             }
         default:
             return state;

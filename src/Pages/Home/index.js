@@ -3,11 +3,14 @@ import { View, Text, StyleSheet, BackHandler, SafeAreaView, Alert } from 'react-
 
 import { ButtonNext } from '../../Components';
 import { useDispatch, useSelector } from 'react-redux';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Home = ({ navigation }) => {
 
     const globalState = useSelector((state) => state);
+    const resultNewstartF = useSelector(state => state.resultNewstart)
+    // const [disease, setDisease] = useState('Disease')
 
     // ? Fungsi untuk back button agar saat di tekan akan keluar dari app
     const disableBackButton = () => {
@@ -21,13 +24,34 @@ const Home = ({ navigation }) => {
         BackHandler.removeEventListener('hardwareBackPress', this.disableBackButton);
     }
 
+    // const Interpretasi = () => {
+
+    //     if (resultNewstartF > 0 && resultNewstartF < 20) {
+    //         { disease }
+    //     }
+    //     if (resultNewstartF >= 20 && resultNewstartF < 40) {
+    //         { poorHealth }
+    //     }
+    //     if (resultNewstartF >= 40 && resultNewstartF < 60) {
+    //         { neutral }
+    //     }
+    //     if (resultNewstartF >= 60 && resultNewstartF < 90) {
+    //         { goodHealth }
+    //     }
+    //     if (resultNewstartF >= 90 && resultNewstartF < 100) {
+    //         { optimumHealth }
+    //     }
+    // }
+
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.container2}>
                 <Text style={styles.textTanggalStyle}>Tanggal</Text>
                 <Text style={styles.textHasilStyle}>Hasil</Text>
-                <Text style={styles.textPoinStyle}>89</Text>
-                <Text style={styles.tingkatKesehatan}>Tingkat kesehatan Anda adalah</Text>
+                <Text style={styles.textPoinStyle}>{resultNewstartF}</Text>
+                <Text style={styles.tingkatKesehatan}>Tingkat kesehatan Anda adalah </Text>
+
+
             </View>
             <View style={styles.container3}>
 
@@ -36,7 +60,7 @@ const Home = ({ navigation }) => {
                     onPress={() => navigation.navigate('Nutrisi')}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 

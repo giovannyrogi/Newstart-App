@@ -1,19 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView, StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
 import Modal from 'react-native-modal';
+import { useDispatch, useSelector } from 'react-redux';
 
+import firebase from '../../../Config/Firebase';
 import { ButtonNext, TakaranAir } from '../../../Components';
 
 
 const Air = ({ navigation }) => {
 
+
+    const dispatch = useDispatch()
+    const userId = useSelector(state => state.uid)
+    const hasilAir = useSelector(state => state.resultAir)
+
+
+    const [wotah, setWotahVisible] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
-    var optAir = [
-        { label: "1 Liter", value: 50 },
-        { label: "2 Liter", value: 100 },
-        { label: ">3 Liter", value: 50 },
+    const radioAir = [
+        {
+            label: "< " + wotah + " Liter",
+            value: 50
+        },
+        {
+            label: wotah + " Liter",
+            value: 100
+        },
+        {
+            label: "> " + wotah + " Liter",
+            value: 50
+        },
+
     ];
+
 
     const showModal = () => {
         setModalVisible(true);
@@ -22,10 +42,45 @@ const Air = ({ navigation }) => {
     const hideModal = () => {
         setModalVisible(false);
     };
+    const handleRadio = (value, get1liter, get2liter, get3liter) => {
+        // alert(value)
+        if (value == 50) {
+            get1liter = value
+            alert('1 Liter : ' + get1liter)
+            dispatch({ type: 'RESULT_AIR', value: get1liter });
+        }
+        if (value == 100) {
+            get2liter = value
+            alert('2 Liter : ' + get2liter)
+            dispatch({ type: 'RESULT_AIR', value: get2liter });
+        }
+        if (value == 50) {
+            get3liter = value
+            alert('3 Liter : ' + get3liter)
+            dispatch({ type: 'RESULT_AIR', value: get3liter });
+        }
+    }
+
+    useEffect(() => {
+        firebase.database().ref('users/' + userId + '/userResult/resultWatson').get().then((snapshot) => {
+            if (snapshot.exists) {
+
+                // radioAir[1].label = snapshot;
+                setWotahVisible(snapshot.val().toFixed(1));
+                console.log(snapshot);
+
+            }
+
+        })
+
+    }, [])
 
     return (
         <SafeAreaView style={styles.mainContainer}>
             <View>
+                <Text>
+
+                </Text>
                 <Text style={styles.textStyle}>Berapa banyak air yang sudah Anda konsumsi? <View></View>
                     <Text onPress={showModal} style={styles.textStyle2}>Informasi takaran air putih</Text>
                 </Text>
@@ -60,9 +115,9 @@ const Air = ({ navigation }) => {
 
             <View style={styles.radioFormContainer}>
                 <RadioForm
-                    radio_props={optAir}
+                    radio_props={radioAir}
                     initial={-1}
-                    onPress={(value) => alert('Nilai ' + value)}
+                    onPress={(value) => handleRadio(value)}
                     formHorizontal={true}
                     selectedButtonColor={'#9B51E0'}
                     selectedLabelColor={'#9B51E0'}

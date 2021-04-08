@@ -16,10 +16,12 @@ import { useSelector } from 'react-redux';
 
 const DataProfil = ({ navigation }) => {
 
-    const globalState = useSelector((state) => state);
+    const userId = useSelector((state) => state.uid);
 
+    // const [resultWater, setWater] = useState(0)
+    // const [waterWanita, setWaterWanita] = useState(0)
     const [form, setForm] = useState({
-        gender: '',
+        gender: 'Laki-laki',
         age: '',
         weight: '',
         height: ''
@@ -32,20 +34,39 @@ const DataProfil = ({ navigation }) => {
         });
     };
 
-    const Selesai = () => {
-        let convertTinggi = form.height / 100
-        let resultBMI = form.weight / (convertTinggi * convertTinggi)
-        firebase.database().ref('users/' + globalState.uid + '/userInfo/').update({
-            gender: form.gender,
-            tinggi: form.height,
-            berat: form.weight,
-            umur: form.age,
-        });
-        firebase.database().ref('users/' + globalState.uid + '/userResult/BMI/').update({
-            resultBMI: resultBMI,
-        });
-        alert('Pendaftaran berhasil, Silahkan Login.');
-        navigation.replace('Login');
+
+    const Selesai = (resultWater, targetKalori, resultBMI) => {
+        let convertTinggi = form.height / 100;
+        resultBMI = form.weight / (convertTinggi * convertTinggi);
+        if (form.gender == 'Laki-laki') {
+            resultWater = (2447 - (0.09145 * form.age) + (0.1074 * form.height) + (0.3362 * form.weight)) / 1000;
+            targetKalori = 66 + (13.7 * form.weight) + (5 * form.height) - (6.8 * form.age);
+        }
+        if (form.gender == 'Perempuan') {
+            resultWater = -2097 + (0.1069 * form.height) + (0.2466 * form.weight);
+            targetKalori = 655 + (9.6 * form.form.weight) + (1.8 * form.height)
+        }
+
+
+        if (form.gender != '' && form.age != '' && form.weight != '' && form.height != '') {
+            firebase.database().ref('users/' + userId + '/userInfo/').update({
+                gender: form.gender,
+                tinggi: form.height,
+                berat: form.weight,
+                umur: form.age,
+            })
+            firebase.database().ref('users/' + userId + '/userResult/').update({
+                resultBMI: resultBMI,
+                resultWatson: resultWater,
+                resultKalori: targetKalori
+
+            });
+            alert('Pendaftaran berhasil, Silahkan Login.');
+            navigation.replace('Login');
+        }
+        else {
+            alert('Lengkapi semua data, tidak boleh kosong.')
+        }
 
     }
 
@@ -56,6 +77,8 @@ const DataProfil = ({ navigation }) => {
                 <Text style={styles.textStyle2}>Silahkan isi data diri Anda pada tabel dibawah ini.</Text>
 
                 {/* Dropdown jenis kelamin */}
+                {/* <Text style={styles.textStyle3} > Hasil Wanita : {resultWater}</Text>
+                <Text style={styles.textStyle3} > Hasil Pria : {resultWater}</Text> */}
                 <Text style={styles.textStyle3} > Jenis kelamin</Text>
                 <View style={styles.container2}>
                     <GenderIcon
@@ -69,7 +92,7 @@ const DataProfil = ({ navigation }) => {
                         style={styles.pickerContainer}
                     >
                         <Picker.Item label="Laki-laki" value="Laki-laki" />
-                        <Picker.Item label="Perempuan" value="perempuan" />
+                        <Picker.Item label="Perempuan" value="Perempuan" />
                     </Picker>
                 </View >
 

@@ -1,106 +1,95 @@
-import React, { Component } from 'react';
-import { Text, SafeAreaView, StyleSheet, View } from 'react-native';
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-import CheckBox from '@react-native-community/checkbox';
+import RadioForm from 'react-native-simple-radio-button';
 import { ButtonNext } from '../../../Components';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import data from './data';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
-class PengendalianDiri extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: data,
-            selectedData: []
-        };
-    }
-
-    onChecked(id) {
-        const data = this.state.data
-        const index = data.findIndex(x => x.id === id);
-        data[index].checked = !data[index].checked
-        this.setState(data)
-    }
 
 
-    renderData() {
-        return this.state.data.map((item, key) => {
-            return (
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                    <TouchableOpacity key={key} onPress={() => { this.onChecked(item.id) }}>
-                        <Text style={{ marginTop: 10, textAlign: 'center' }}>{item.key}</Text>
-                        <CheckBox
-                            value={item.checked}
-                            onValueChange={() => { this.onChecked(item.id) }}
-                            style={{ alignSelf: 'center' }}
-                        />
+const PengendalianDiri = ({ navigation }) => {
 
-                    </TouchableOpacity>
-                </View>
+    const dispatch = useDispatch()
+    const hasilPengendalianDiri = useSelector(state => state.resultPengendalianDiri)
+    const [radioPengendalianDiri, setRadioPengendalianDiri] = useState([
+        {
+            id: '1',
+            label: 'Yes',
+            value: 0
+        },
+        {
+            id: '2',
+            label: 'No',
+            value: 100
+        },
+    ]);
 
-            )
-        })
-    }
-
-    getSelectedData() {
-        var keys = this.state.data.map((t) => t.key)
-        var checks = this.state.data.map((t) => t.checked)
-        var values = this.state.data.map((t) => t.value)
-        let Selected = []
-        for (let i = 0; i < checks.length; i++) {
-            if (checks[i] == true) {
-                Selected.push(values[i])
-            }
+    const handleRadio = (value, getYesValue, getNoValue) => {
+        // alert(value)
+        if (value == 0) {
+            getYesValue = value
+            alert('Senang : ' + getYesValue)
+            dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: getYesValue });
         }
-        alert(Selected)
+        if (value == 100) {
+            getNoValue = value
+            alert('Biasa Saja : ' + getNoValue)
+            dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: getNoValue });
+        }
+
     }
 
-
-    render() {
-        return (
-            <SafeAreaView style={styles.mainContainer}>
-                <Text style={styles.textStyle}>Apakah Anda mengkonsumsi beberapa pilihan dibawah ini ?</Text>
-                <View style={{ flexDirection: 'row' }}>
-                    {this.renderData()}
-                </View>
-                <TouchableOpacity onPress={() => { this.getSelectedData() }}>
-                    <Text>Button</Text>
-                </TouchableOpacity>
-
-                <ButtonNext
-                    title="Berikutnya"
-                    onPress={() => this.props.navigation.navigate('Udara Segar')}
-                    name="navigate-next"
-                    size={22}
+    return (
+        <View style={styles.container}>
+            <Text>Nilai Global : {hasilPengendalianDiri}</Text>
+            <Text style={styles.textStyle}>Apakah Anda seorang perokok pasif atau menkonsumsi rokok/kafein/alkohol?</Text>
+            <View style={styles.radioFormContainer}>
+                <RadioForm
+                    radio_props={radioPengendalianDiri}
+                    initial={-1}
+                    onPress={(value) => handleRadio(value)}
+                    formHorizontal={true}
+                    selectedButtonColor={'#9B51E0'}
+                    selectedLabelColor={'#9B51E0'}
+                    buttonColor={'#757575'}
+                    buttonSize={12}
+                    labelStyle={styles.radioLabelStyle}
                 />
-            </SafeAreaView>
-        );
-    }
+            </View>
+
+            <ButtonNext
+                title="Berikutnya"
+                onPress={() => navigation.navigate('Udara Segar')}
+                name="navigate-next"
+                size={22}
+            />
+        </View>
+    )
 }
 
-export default PengendalianDiri;
+export default PengendalianDiri
 
 const styles = StyleSheet.create({
-    mainContainer: {
+    container: {
         flex: 1,
         marginTop: 32,
         marginHorizontal: 25,
+    },
+
+    radioFormContainer: {
+        marginTop: 11,
+    },
+
+    radioLabelStyle: {
+        fontSize: 15,
+        letterSpacing: 0.3,
+        marginRight: 35,
     },
 
     textStyle: {
         fontSize: 18,
         letterSpacing: 0.5,
     },
-
-    checkboxStyle: {
-    },
-
-    checkBoxText: {
-        marginRight: 10,
-        alignSelf: 'center',
-        fontSize: 16,
-        lineHeight: 17,
-    }
 })

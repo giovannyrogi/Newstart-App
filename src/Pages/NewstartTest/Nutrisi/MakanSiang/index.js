@@ -68,6 +68,7 @@ const MakanSiang = () => {
     }
 
     const renderMakanSiang = () => {
+
         dispatch({ type: 'SUM_CALORIES_MKN_SIANG', value: totalCalories });
         if (selectedDataFood != '' && selectedDataCalories != 0) {
             return (
@@ -75,21 +76,23 @@ const MakanSiang = () => {
                     <View style={{ flexDirection: 'row', marginBottom: 5, marginTop: 8 }}>
                         <View style={{ flex: 1, marginLeft: 20 }}>
                             <Text style={{ fontFamily: 'Poppins-Bold' }}>Nama Makanan</Text>
-                            {selectedDataFood.map((item) => (
-                                <Text key={item} style={{ fontSize: 15 }}>{item}</Text>
+                            {selectedDataFood.map((item, id) => (
+
+                                <Text key={id} style={{ fontSize: 15 }}>{item}</Text>
                             ))}
                         </View>
                         <View style={{ flex: 1, alignItems: 'flex-end' }}>
                             <Text style={{ marginRight: 25, fontFamily: 'Poppins-Bold' }}>Kalori</Text>
-                            {selectedDataCalories.map((item) => (
-                                <Text key={item} style={{ marginRight: 35, fontSize: 15 }}>{item}</Text>
+                            {selectedDataCalories.map((item, id) => (
+                                <Text key={id} style={{ marginRight: 35, fontSize: 15 }}>{item}</Text>
                             ))}
                         </View>
                     </View>
                     <View style={{ borderTopWidth: 1, flexDirection: 'row' }}>
                         <Text style={{ flex: 4, textAlign: 'right', fontFamily: 'Poppins-Bold', paddingVertical: 5 }}>Total </Text>
-                        <Text style={{ flex: 1.4, textAlign: 'center', fontFamily: 'Poppins-Bold', paddingVertical: 5 }}>{totalCalories}</Text>
+                        <Text style={{ left: 2, flex: 1.4, textAlign: 'center', fontFamily: 'Poppins-Bold', paddingVertical: 5 }}>{totalCalories}</Text>
                     </View>
+
                 </View>
 
             )
@@ -102,6 +105,7 @@ const MakanSiang = () => {
             return (
                 <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => onCheckedMakananPokok(item.id)}>
+                        <Text>{id}</Text>
                         <CheckBox
 
                             value={item.checkedMakananPokok}
@@ -128,6 +132,7 @@ const MakanSiang = () => {
             return (
                 <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => onCheckedLaukPauk(item.id)}>
+                        <Text>{id}</Text>
                         <CheckBox
                             value={item.checkedLaukPauk}
                             onValueChange={() => onCheckedLaukPauk(item.id)}
@@ -149,10 +154,12 @@ const MakanSiang = () => {
 
     // untuk menampilkan data laukpauk di modal
     const renderDataSayur = () => {
-        return sayur.map((item, id) => {
+        return sayur.map((item, nama) => {
             return (
-                <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                <View key={nama} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => onCheckedSayur(item.id)}>
+                        <Text>{nama}</Text>
                         <CheckBox
 
                             value={item.checkedSayur}
@@ -179,8 +186,8 @@ const MakanSiang = () => {
             return (
                 <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => onCheckedBuah(item.id)}>
+                        <Text>{id}</Text>
                         <CheckBox
-
                             value={item.checkedBuah}
                             onValueChange={() => onCheckedBuah(item.id)}
                             style={{ alignSelf: 'center' }}
@@ -232,7 +239,7 @@ const MakanSiang = () => {
     }
 
 
-    const getSelectedData = (hasilKalori) => {
+    const getSelectedData = (hasilKalori, sum) => {
         var namaMakananPokok = MakananPokok.map((t) => t.nama)
         var checksMakananPokok = MakananPokok.map((t) => t.checkedMakananPokok)
         var caloriMakananPokok = MakananPokok.map((t) => t.kalori)
@@ -251,43 +258,47 @@ const MakanSiang = () => {
 
         const SelectedCalori = []
         const SelectedMakanan = []
-        for (let i = 0; i < checksMakananPokok.length
-            && checksLaukpauk.length
-            && checksSayur.length
-            && checksBuah.length; i++) {
+        for (let i = 0; i < checksSayur.length; i++) {
+            if (checksSayur[i] == true) {
+                SelectedMakanan.push(namaSayur[i])
+                SelectedCalori.push(caloriSayur[i])
+                sum = SelectedCalori.reduce((a, c) => {
+                    return a + c
+                }, 0);
+
+            }
+        }
+        for (let i = 0; i < checksMakananPokok.length; i++) {
 
             if (checksMakananPokok[i] == true) {
                 SelectedMakanan.push(namaMakananPokok[i])
                 SelectedCalori.push(caloriMakananPokok[i])
-                var sum = SelectedCalori.reduce((a, c) => {
+                sum = SelectedCalori.reduce((a, c) => {
                     return a + c
                 }, 0);
             }
-
+        }
+        for (let i = 0; i < checksLaukpauk.length; i++) {
             if (checksLaukpauk[i] == true) {
                 SelectedMakanan.push(namaLaukpauk[i])
                 SelectedCalori.push(caloriLaukpauk[i])
-                var sum = SelectedCalori.reduce((a, c) => {
+                sum = SelectedCalori.reduce((a, c) => {
                     return a + c
                 }, 0);
             }
 
-            if (checksSayur[i] == true) {
-                SelectedMakanan.push(namaSayur[i])
-                SelectedCalori.push(caloriSayur[i])
-                var sum = SelectedCalori.reduce((a, c) => {
-                    return a + c
-                }, 0);
-
-            }
-
+        }
+        for (let i = 0; i < checksBuah.length; i++) {
             if (checksBuah[i] == true) {
                 SelectedMakanan.push(namaBuah[i])
                 SelectedCalori.push(caloriBuah[i])
-                var sum = SelectedCalori.reduce((a, c) => {
+                sum = SelectedCalori.reduce((a, c) => {
                     return a + c
                 }, 0);
             }
+        }
+        if (sum == null) {
+            sum = 0;
         }
         hasilKalori = sum
         console.log(SelectedCalori)
@@ -298,6 +309,7 @@ const MakanSiang = () => {
     }
 
     return (
+
         <SafeAreaView>
             {/* Makan Siang */}
             <View style={styles.makananContainer}>

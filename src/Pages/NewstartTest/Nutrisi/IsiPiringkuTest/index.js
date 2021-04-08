@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const IsiPiringkuTest = () => {
 
     const [showModal, setShowModal] = useState(false);
+    const isiPiringku = useSelector((state) => state.resultIsiPiringku)
     const [radioNutrisi, setRadioNutrisi] = useState([
         {
             label: "Ya",
@@ -18,14 +19,13 @@ const IsiPiringkuTest = () => {
         },
         {
             label: "No",
-            value: 0
+            value: 30
         }
     ]);
 
+
     const dispatch = useDispatch();
 
-    const isiPiringkuResult = useSelector((state) => state.resultIsiPiringku)
-    // const isiPiringkuResult = useSelector((state) => radioNutrisi.value)
 
     const HideModalMakanPagi = () => {
         setShowModal(false)
@@ -35,89 +35,104 @@ const IsiPiringkuTest = () => {
         setShowModal(true)
     }
 
+    const handleRadio = (value, getValueNo, getValueYes) => {
+        if (value == 50) {
+            alert('Yes : ' + value)
+            getValueYes = value
+            dispatch({ type: 'RESULT_ISI_PIRINGKU', value: getValueYes });
+        }
+        if (value == 30) {
+            alert('No : ' + value)
+            getValueNo = value
+            dispatch({ type: 'RESULT_ISI_PIRINGKU', value: getValueNo });
+        }
+        if (value != null) {
+            value = 0;
+        }
+    }
+
 
     return (
         <View>
-            {/* <Text> value : {radioPoin} </Text> */}
-            <Text style={styles.textStyle}>
-                Apakah makanan yang Anda konsumsi sudah sesuai dengan <Text></Text>
-                <Text
+            <View style={styles.isiPiringkuContainer}>
+                <Text style={styles.textStyle}>
+                    Apakah makanan yang Anda konsumsi sudah sesuai dengan <Text></Text>
+                    <Text
 
-                    onPress={ShowModalMakanpagi}
-                    style={styles.textStyle2}>Isi Piringku?
+                        onPress={ShowModalMakanpagi}
+                        style={styles.textStyle2}>Isi Piringku?
                     </Text>
-            </Text>
+                </Text>
 
-            <ModalIsiPiringku
-                animationIn='fadeInUp'
-                animationInTiming={1500}
-                animationOut='fadeOutDown'
-                animationOutTiming={1000}
-                isVisible={showModal}
-                hasBackdrop={true}
-                onBackdropPress={HideModalMakanPagi}
-                style={styles.modalContainer}
-            >
-                <View>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View style={styles.modalSubContainer}>
-                            <View style={{ marginLeft: 15, flex: 0, alignItems: 'center' }}>
+
+                <ModalIsiPiringku
+                    animationIn='fadeInUp'
+                    animationInTiming={1500}
+                    animationOut='fadeOutDown'
+                    animationOutTiming={1000}
+                    isVisible={showModal}
+                    hasBackdrop={true}
+                    onBackdropPress={HideModalMakanPagi}
+                    style={styles.modalContainer}
+                >
+                    <View>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <View style={styles.modalSubContainer}>
+                                <View style={{ marginLeft: 15, flex: 0, alignItems: 'center' }}>
+                                    <TouchableOpacity
+                                        onPress={HideModalMakanPagi}
+                                    >
+                                        <BackArrow
+                                            name='arrow-back-ios'
+                                            size={25}
+                                            style={{ color: '#9B51E0' }}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ flex: 1, alignItems: 'center' }}>
+
+                                    <Text style={styles.judulStyle}>Isi Piringku</Text>
+                                </View>
+                            </View>
+                            <IsiPiringkuContent />
+                            <View style={styles.buttonContainer}>
                                 <TouchableOpacity
                                     onPress={HideModalMakanPagi}
+                                    style={styles.buttonStyle}
                                 >
-                                    <BackArrow
-                                        name='arrow-back-ios'
-                                        size={25}
-                                        style={{ color: '#9B51E0' }}
+                                    <ButtonIconKembali
+                                        name="doubleleft"
+                                        size={18}
+                                        style={styles.buttonKembaliStyle}
                                     />
+                                    <Text style={styles.buttonText}>Kembali</Text>
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ flex: 1, alignItems: 'center' }}>
+                        </ScrollView>
+                    </View>
+                </ModalIsiPiringku>
 
-                                <Text style={styles.judulStyle}>Isi Piringku</Text>
-                            </View>
-                        </View>
-                        <IsiPiringkuContent />
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity
-                                onPress={HideModalMakanPagi}
-                                style={styles.buttonStyle}
-                            >
-                                <ButtonIconKembali
-                                    name="doubleleft"
-                                    size={18}
-                                    style={styles.buttonKembaliStyle}
-                                />
-                                <Text style={styles.buttonText}>Kembali</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
+
+
+                <View style={styles.radioFormContainer}>
+                    <RadioForm
+                        radio_props={radioNutrisi}
+                        initial={-1}
+                        onPress={(value) => handleRadio(value)}
+                        formHorizontal={true}
+                        selectedButtonColor={'#9B51E0'}
+                        selectedLabelColor={'#9B51E0'}
+                        buttonColor={'#757575'}
+                        buttonSize={15}
+                        labelStyle={styles.radioLabelStyle}
+                    />
                 </View>
-            </ModalIsiPiringku>
-
-            <View style={styles.radioFormContainer}>
-                <RadioForm
-                    radio_props={radioNutrisi}
-                    initial={-1}
-                    onPress={(value) => alert(value)}
-                    formHorizontal={true}
-                    selectedButtonColor={'#9B51E0'}
-                    selectedLabelColor={'#9B51E0'}
-                    buttonColor={'#757575'}
-                    buttonSize={15}
-                    labelStyle={styles.radioLabelStyle}
-                />
             </View>
         </View>
     );
 
 }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         isiPiringkuResult: state.resultIsiPiringku
-//     }
-// }
 export default IsiPiringkuTest;
 
 const styles = StyleSheet.create({
@@ -129,12 +144,21 @@ const styles = StyleSheet.create({
 
     },
 
+    isiPiringkuContainer: {
+        borderTopWidth: 0.4,
+        borderBottomWidth: 0.4,
+        borderColor: '#757575',
+        marginTop: 30,
+        paddingBottom: 20
+    },
+
     buttonContainer: {
         flex: 1,
         marginVertical: 25,
         alignItems: 'center',
         justifyContent: 'center',
     },
+
 
     buttonStyle: {
         flexDirection: 'row',

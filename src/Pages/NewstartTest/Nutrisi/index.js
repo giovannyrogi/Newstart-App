@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, View, ScrollView } from 'react-native';
 
 import { ButtonNext } from '../../../Components/';
 import IconPlus from 'react-native-vector-icons/Entypo';
 
+import firebase from '../../../Config/Firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import MakanPagi from './MakanPagi';
 import MakanSiang from './MakanSiang';
@@ -14,17 +15,62 @@ import IsiPiringkuTest from './IsiPiringkuTest/';
 const Nutrisi = ({ navigation }) => {
 
     const dispatch = useDispatch();
+    const CaloriTarget = useSelector((state) => state.TargetCalori)
     const sumGlobalCaloriMknPagi = useSelector((state) => state.resultCaloriMakanPagi)
     const sumGlobalCaloriMknSiang = useSelector((state) => state.resultCaloriMakanSiang)
     const sumGlobalCaloriMknMalam = useSelector((state) => state.resultCaloriMakanMalam)
-    const resultKeseluruhan = useSelector((state) => state.resultAllCalories)
+    const resultKeseluruhanKalori = useSelector((state) => state.resultAllCalories)
     const isiPiringkuResult = useSelector((state) => state.resultIsiPiringku)
+    const TotalPerhitunganNutrisi = useSelector((state) => state.resultNutrisi)
+    const userId = useSelector((state) => state.uid)
 
-    const handleSum = () => {
-        const sum = sumGlobalCaloriMknPagi + sumGlobalCaloriMknSiang + sumGlobalCaloriMknMalam;
-        alert(sum)
+    const [test, settest] = useState(0)
+    const [targetCalori, setTargetCalori] = useState(0)
+
+    const handleSum = (sum, newResultCalori, totalKeseluruhan) => {
+        sum = sumGlobalCaloriMknPagi + sumGlobalCaloriMknSiang + sumGlobalCaloriMknMalam;
+        // alert('Total Kalori keseluruhan : ' + sum)
         dispatch({ type: 'SUM_ALL_CALORIES', value: sum });
+
+        if (isiPiringkuResult != 0) {
+            if (sum == targetCalori) {
+                newResultCalori = 50;
+                // alert('Poin : ' + newResultCalori)
+            }
+            if (sum <= targetCalori && sum != 0) {
+                newResultCalori = 30;
+                // alert('Poin: ' + newResultCalori)
+            }
+            if (sum >= targetCalori) {
+                newResultCalori = 30;
+                // alert('Poin : ' + newResultCalori)
+            }
+
+            totalKeseluruhan = newResultCalori + isiPiringkuResult;
+            dispatch({ type: 'RESULT_NUTRISI', value: totalKeseluruhan });
+
+            settest(newResultCalori)
+            navigation.navigate('Olahraga')
+        }
+        if (isiPiringkuResult == 0) {
+            alert('Isi pilihan isi piringku')
+        }
+
     }
+
+    useEffect(() => {
+        firebase.database().ref('users/' + userId + '/userResult/resultKalori').get().then((snapshot) => {
+            if (snapshot.exists) {
+
+                // radioAir[1].label = snapshot;
+                setTargetCalori(snapshot.val().toFixed());
+                console.log('Snapshot : ' + snapshot);
+
+            }
+        })
+
+
+    }, [])
 
     return (
 
@@ -35,8 +81,11 @@ const Nutrisi = ({ navigation }) => {
                 <Text>Total calori makan pagi : {sumGlobalCaloriMknPagi}</Text>
                 <Text>Total Calori makan siang: {sumGlobalCaloriMknSiang}</Text>
                 <Text>Total Calori makan malam: {sumGlobalCaloriMknMalam}</Text>
-                <Text>Total Calori keselurahan: {resultKeseluruhan}</Text>
+                <Text>Total Calori keselurahan: {resultKeseluruhanKalori}</Text>
                 <Text>Isi Piringku Poin: {isiPiringkuResult}</Text>
+                <Text>Hasil Poin Kalori : {test}</Text>
+                <Text>Total keseluruhan Nutrisi : {TotalPerhitunganNutrisi}</Text>
+                <Text>Calori target dari database : {targetCalori}</Text>
                 <View style={styles.textNoteContainer}>
                     <Text style={{ fontSize: 15 }}>Silahkan tekan</Text>
                     <IconPlus
@@ -58,13 +107,17 @@ const Nutrisi = ({ navigation }) => {
                 {/* Isi Piringku */}
                 <IsiPiringkuTest />
 
-                <ButtonNext
-                    title="Berikutnya"
-                    onPress={() => handleSum()}
-                    name="navigate-next"
-                    size={22}
 
-                />
+                {/* Button berikutnya */}
+                <View style={styles.buttonNextContainer}>
+                    <ButtonNext
+                        title="Berikutnya"
+                        onPress={() => handleSum()}
+                        name="navigate-next"
+                        size={22}
+
+                    />
+                </View>
             </ScrollView>
         </View>
 
@@ -81,16 +134,26 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
 
+    buttonNextContainer: {
+        marginBottom: 30
+    },
+
+    IsiPiringkuContainer: {
+        borderTopWidth: 1,
+    },
+
+
     textNoteContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center'
     },
 
+
+
     plusIconStyle: {
         color: '#9B51E0',
         marginLeft: 10
     },
-
 
 })
