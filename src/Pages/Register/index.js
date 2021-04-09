@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import firebase from '../../Config/Firebase';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,6 +17,7 @@ const Register = ({ navigation }) => {
     const dispatch = useDispatch();
     const globalState = useSelector((state) => state)
     const [SecureTextEntry, setSecureTextEntry] = useState(true)
+    // const [UserKey, setUserKey] = useState(true)
     const [form, setForm] = useState({
         email: '',
         username: '',
@@ -35,20 +36,15 @@ const Register = ({ navigation }) => {
     }
 
     const Daftar = () => {
-
         firebase.auth().createUserWithEmailAndPassword(form.email, form.password)
             .then((dataDiterima) => {
                 // Signed in
                 dispatch({ type: 'SET_UID', value: dataDiterima.user.uid });
-                navigation.navigate('DataProfil');
                 firebase.database().ref('users/' + dataDiterima.user.uid + '/userInfo/').set({
                     username: form.username,
                     email: form.email,
                 });
-                // firebase.database().ref('result/uid/2021/04/02').push({
-                //     makanan: 50,
-                //     olahraga: 60,
-                // })
+                navigation.navigate('DataProfil');
 
             })
             .catch((error) => {
@@ -60,9 +56,11 @@ const Register = ({ navigation }) => {
             });
     }
 
+
     return (
         <SafeAreaView style={styles.container1}>
             <ScrollView showsVerticalScrollIndicator={false}>
+
                 <Text style={styles.textStyle1}>Memulai. </Text>
                 <Text style={styles.textStyle2}>Buat akun untuk melanjutkan ! </Text>
 
@@ -144,7 +142,7 @@ const Register = ({ navigation }) => {
                 </View>
             </ScrollView>
 
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 

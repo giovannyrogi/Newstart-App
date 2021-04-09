@@ -68,7 +68,6 @@ const Air = ({ navigation }) => {
                 // radioAir[1].label = snapshot;
                 setWotahVisible(snapshot.val().toFixed(1));
                 console.log(snapshot);
-
             }
 
         })

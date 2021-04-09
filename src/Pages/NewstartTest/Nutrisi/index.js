@@ -24,7 +24,7 @@ const Nutrisi = ({ navigation }) => {
     const TotalPerhitunganNutrisi = useSelector((state) => state.resultNutrisi)
     const userId = useSelector((state) => state.uid)
 
-    const [test, settest] = useState(0)
+    const [hasilKalori, setHasilKalori] = useState(0)
     const [targetCalori, setTargetCalori] = useState(0)
 
     const handleSum = (sum, newResultCalori, totalKeseluruhan) => {
@@ -49,20 +49,18 @@ const Nutrisi = ({ navigation }) => {
             totalKeseluruhan = newResultCalori + isiPiringkuResult;
             dispatch({ type: 'RESULT_NUTRISI', value: totalKeseluruhan });
 
-            settest(newResultCalori)
+            setHasilKalori(newResultCalori)
             navigation.navigate('Olahraga')
         }
-        if (isiPiringkuResult == 0) {
-            alert('Isi pilihan isi piringku')
-        }
-
+        // if (isiPiringkuResult == 0) {
+        //     alert('Isi pilihan isi piringku')
+        // }
+        navigation.navigate('Olahraga')
     }
 
     useEffect(() => {
         firebase.database().ref('users/' + userId + '/userResult/resultKalori').get().then((snapshot) => {
             if (snapshot.exists) {
-
-                // radioAir[1].label = snapshot;
                 setTargetCalori(snapshot.val().toFixed());
                 console.log('Snapshot : ' + snapshot);
 
@@ -83,7 +81,7 @@ const Nutrisi = ({ navigation }) => {
                 <Text>Total Calori makan malam: {sumGlobalCaloriMknMalam}</Text>
                 <Text>Total Calori keselurahan: {resultKeseluruhanKalori}</Text>
                 <Text>Isi Piringku Poin: {isiPiringkuResult}</Text>
-                <Text>Hasil Poin Kalori : {test}</Text>
+                <Text>Hasil Poin Kalori : {hasilKalori}</Text>
                 <Text>Total keseluruhan Nutrisi : {TotalPerhitunganNutrisi}</Text>
                 <Text>Calori target dari database : {targetCalori}</Text>
                 <View style={styles.textNoteContainer}>

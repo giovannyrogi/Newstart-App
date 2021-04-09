@@ -19,7 +19,7 @@ import PengendalianDiri from '../Pages/NewstartTest/PengendalianDiri';
 import UdaraSegar from '../Pages/NewstartTest/UdaraSegar';
 import Tidur from '../Pages/NewstartTest/Tidur';
 import HubunganDgnTuhan from '../Pages/NewstartTest/HubunganDgnTuhan';
-import HatiSenang from '../Pages/NewstartTest/HatiSenang';
+import HatiSenang from '../Pages/NewstartTest/HatiSenang/';
 
 
 

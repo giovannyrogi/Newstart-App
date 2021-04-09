@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet, TextInput } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 
 import firebase from '../../Config/Firebase';
 import { Picker } from '@react-native-picker/picker';
 import { ButtonSelesai, Input } from '../../Components';
 import GenderIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import DatePickerTTL from './DatePickerTTL';
 import CalenderIcon from 'react-native-vector-icons/Octicons';
 import TinggiBadanIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import BeratBadanIcon from 'react-native-vector-icons/FontAwesome';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import BeratBadanIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const DataProfil = ({ navigation }) => {
@@ -44,7 +41,7 @@ const DataProfil = ({ navigation }) => {
         }
         if (form.gender == 'Perempuan') {
             resultWater = -2097 + (0.1069 * form.height) + (0.2466 * form.weight);
-            targetKalori = 655 + (9.6 * form.form.weight) + (1.8 * form.height)
+            targetKalori = 655 + (9.6 * form.weight) + (1.8 * form.height)
         }
 
 
@@ -149,8 +146,8 @@ const DataProfil = ({ navigation }) => {
                 <Text style={styles.textStyle3}>Berat Badan</Text>
                 <View style={styles.container2}>
                     <BeratBadanIcon
-                        name="balance-scale"
-                        size={25}
+                        name="weight-kilogram"
+                        size={29}
                         style={styles.IconStyle}
                     />
                     <TextInput

@@ -1,11 +1,13 @@
 const initialState = {
     uid: '',
+
     resultIsiPiringku: 0,
     resultCaloriMakanPagi: 0,
     resultCaloriMakanSiang: 0,
     resultCaloriMakanMalam: 0,
     resultAllCalories: 0,
     resultNutrisi: 0,
+
     resultOlahraga: 0,
     resultAir: 0,
     resultSinarMatahari: 0,
@@ -14,7 +16,16 @@ const initialState = {
     resultTidur: 0,
     resultHubunganDgnTuhan: 0,
     resultHatiSenang: 0,
+
     resultNewstart: 0,
+    getSelectedDate: '',
+
+    goodHealthGlobal: '',
+    goodHealthGlobal: '',
+    goodHealthGlobal: '',
+    goodHealthGlobal: '',
+    goodHealthGlobal: '',
+    goodHealthGlobal: '',
 
 }
 
@@ -105,6 +116,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 resultNewstart: action.value,
+            }
+        case 'SELECTED_DATE':
+            return {
+                ...state,
+                getSelectedDate: action.value,
             }
         default:
             return state;

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView, StyleSheet, View } from 'react-native';
 
+import firebase from '../../../Config/Firebase/';
 import Senang from 'react-native-vector-icons/Ionicons';
 import RadioForm from 'react-native-simple-radio-button';
 import { ButtonSelesai } from '../../../Components';
@@ -21,8 +22,15 @@ const HatiSenang = ({ navigation }) => {
     const HubunganDgnTuhan = useSelector((state) => state.resultHubunganDgnTuhan)
     const hasilHatiSenang = useSelector(state => state.resultHatiSenang)
     const resultNewstartF = useSelector(state => state.resultNewstart)
+    const userId = useSelector(state => state.uid)
 
+    const [disease, setDisease] = useState('Disease');
+    const [poorHealth, setPoorHealth] = useState('Poor Health');
+    const [neutral, setNeutral] = useState('Neutral');
+    const [goodHealth, setGoodHealth] = useState('Good Health');
+    const [optimumHealth, setOptimumHealth] = useState('Optimum Health');
 
+    const [currentDate, setCurrentDate] = useState('')
     const [radioHatiSenang, setRadioHatiSenang] = useState([
         {
             label: "Senang",
@@ -38,12 +46,57 @@ const HatiSenang = ({ navigation }) => {
         },
     ]);
 
-    handleSum = (result) => {
+    const handleSum = (result) => {
         result = (Nutrisi * 25 / 100) + (Olahraga * 15 / 100) + (Water * 10 / 100)
             + (SinarMatahari * 5 / 100) + (PengendalianDiri * 5 / 100) + (UdaraSegar * 5 / 100)
             + (Tidur * 15 / 100) + (HubunganDgnTuhan * 10 / 100) + (hasilHatiSenang * 10 / 100);
         dispatch({ type: 'RESULT_NEWSTART', value: result });
-        console.log(result);
+
+        if (result > 0 && result < 20) {
+            // alert('Dari Disease : ' + result)
+
+            firebase.database().ref('users/' + userId + '/userHistory/').push({
+                Date: currentDate,
+                newstartResult: result,
+                interpretasiResult: disease
+            });
+        }
+        if (result >= 20 && result < 40) {
+            // alert('Dari poorHealth : ' + result)
+            firebase.database().ref('users/' + userId + '/userHistory/').push({
+                Date: currentDate,
+                newstartResult: result,
+                interpretasiResult: poorHealth
+            });
+        }
+        if (result >= 40 && result < 60) {
+            // alert('Dari Neutral : ' + result)
+            firebase.database().ref('users/' + userId + '/userHistory/').push({
+                Date: currentDate,
+                newstartResult: result,
+                interpretasiResult: neutral
+            });
+        }
+        if (result >= 60 && result < 90) {
+            // alert('Dari GoodHealth : ' + result)
+            firebase.database().ref('users/' + userId + '/userHistory/').push({
+                Date: currentDate,
+                newstartResult: result,
+                interpretasiResult: goodHealth
+            });
+        }
+        if (result >= 90 && result < 100) {
+            // alert('Dari OptimumHealth : ' + result)
+            firebase.database().ref('users/' + userId + '/userHistory/').push({
+                Date: currentDate,
+                newstartResult: result,
+                interpretasiResult: optimumHealth
+            });
+        }
+
+
+
+        // alert(result);
         navigation.replace('Home');
     }
 
@@ -67,10 +120,22 @@ const HatiSenang = ({ navigation }) => {
         }
     }
 
+
+    useEffect(() => {
+        var date = new Date().getDate() // current Date
+        var month = new Date().getMonth() + 1 //current Month
+        var year = new Date().getFullYear() //current Year
+        // var hours = new Date().getHours() //current Hours
+        // var min = new Date().getMinutes() //current Minutes
+        // var sec = new Date().getSeconds() //current Seconds
+        setCurrentDate(date - 1 + '/' + month + '/' + year)
+    }, [])
+
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Nilai Global : {hasilHatiSenang}</Text>
+            <Text>Nilai Global Hati Senang: {hasilHatiSenang}</Text>
             <Text>Nilai Newstart : {resultNewstartF}</Text>
+            <Text>Date : {currentDate}</Text>
             <Text style={styles.textStyle}>Bagaimana perasaan Anda ?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm

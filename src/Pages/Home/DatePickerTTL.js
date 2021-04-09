@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment'
 
 
 
 const DatePickerTTL = (props) => {
+
     const { defaultDate } = props;
+    const dispatch = useDispatch()
     const [date, setDate] = useState(moment(defaultDate));
     const [show, setShow] = useState(false);
 
 
     const onChange = (e, selectedDate) => {
         setDate(moment(selectedDate));
-
+        alert(selectedDate)
+        dispatch({ type: 'SELECTED_DATE', value: date });
     }
 
     const onCancel = () => {
@@ -29,7 +33,7 @@ const DatePickerTTL = (props) => {
     return (
         <View style={styles.datePickerContainer}>
             <TouchableOpacity onPress={() => setShow(true)}>
-                <Text style={styles.textStyle}>{date.format('MMMM Do, YYYY')}</Text>
+                <Text style={styles.textStyle}>{date.format('DD/MMMM/YYYY')}</Text>
                 <DateTimePickerModal
                     isVisible={show}
                     timeZoneOffsetInMinutes={0}
@@ -60,10 +64,13 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight: -15,
         paddingVertical: 15,
+
     },
 
     textStyle: {
         letterSpacing: 2,
         marginLeft: 5,
+        color: '#fff',
+        fontFamily: 'Roboto-Bold'
     }
 })
