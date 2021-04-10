@@ -1,6 +1,8 @@
 const initialState = {
+    //untuk menampung user id
     uid: '',
 
+    //untuk menampung hasil perhitungan nutrisi
     resultIsiPiringku: 0,
     resultCaloriMakanPagi: 0,
     resultCaloriMakanSiang: 0,
@@ -8,6 +10,7 @@ const initialState = {
     resultAllCalories: 0,
     resultNutrisi: 0,
 
+    //untuk menampung hasil perhitungan seluruh newstart test
     resultOlahraga: 0,
     resultAir: 0,
     resultSinarMatahari: 0,
@@ -17,15 +20,15 @@ const initialState = {
     resultHubunganDgnTuhan: 0,
     resultHatiSenang: 0,
 
+    //menampung hasil akhir dari seluruh newstart test
     resultNewstart: 0,
-    getSelectedDate: '',
 
-    goodHealthGlobal: '',
-    goodHealthGlobal: '',
-    goodHealthGlobal: '',
-    goodHealthGlobal: '',
-    goodHealthGlobal: '',
-    goodHealthGlobal: '',
+    // state uji coba
+    getSelectedDate: '',
+    getSelectedMakananPagi: [],
+    getSelectedMakananSiang: [],
+    getSelectedMakananMalam: [],
+
 
 }
 
@@ -117,10 +120,20 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 resultNewstart: action.value,
             }
-        case 'SELECTED_DATE':
+        case 'SELECTED_MKN_PAGI':
             return {
                 ...state,
-                getSelectedDate: action.value,
+                getSelectedMakananPagi: action.value,
+            }
+        case 'SELECTED_MKN_SIANG':
+            return {
+                ...state,
+                getSelectedMakananSiang: action.value,
+            }
+        case 'SELECTED_MKN_MALAM':
+            return {
+                ...state,
+                getSelectedMakananMalam: action.value,
             }
         default:
             return state;

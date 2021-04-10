@@ -293,6 +293,8 @@ const MakanMalam = () => {
         if (sum == null) {
             sum = 0;
         }
+
+        dispatch({ type: 'SELECTED_MKN_MALAM', value: SelectedMakanan });
         hasilKalori = sum
         console.log(SelectedCalori)
         setSelectedDataFood(SelectedMakanan)

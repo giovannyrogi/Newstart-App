@@ -17,6 +17,7 @@ const Home = ({ navigation }) => {
     const userId = useSelector(state => state.uid)
 
     const [dataNewstart, setDataNewstart] = useState('')
+    const [dataHistory, setDataHistory] = useState('')
 
     // ? Fungsi untuk back button agar saat di tekan akan keluar dari app
     const disableBackButton = () => {
@@ -30,11 +31,20 @@ const Home = ({ navigation }) => {
         BackHandler.removeEventListener('hardwareBackPress', this.disableBackButton);
     }
 
-    useEffect(() => {
 
+    //mengambil data yang ada di firebase realtime database
+    useEffect(() => {
+        // mengambil data kalori dan bmi
         firebase.database().ref('users/' + userId + '/userResult/').get().then((snapshot) => {
             if (snapshot.exists()) {
                 setDataNewstart(snapshot.val())
+                console.log(snapshot)
+            }
+        })
+        // mengambil data riwayat(tanggal, hasil dan interpretasi)
+        firebase.database().ref('users/' + userId + '/userHistory/').get().then((snapshot) => {
+            if (snapshot.exists()) {
+                setDataHistory(snapshot.val())
                 console.log(snapshot)
             }
         })
@@ -44,6 +54,7 @@ const Home = ({ navigation }) => {
             });
     }, [])
 
+    //menampilkan tingkat kesehatan jika hasil tidak kosong / 0
     const showInter = () => {
         if (resultNewstartF != 0) {
             return (
@@ -52,6 +63,7 @@ const Home = ({ navigation }) => {
         }
     }
 
+    // menampilkan target kalori user
     const showCalori = (targetC) => {
         targetC = dataNewstart.resultKalori
         return (
@@ -71,6 +83,7 @@ const Home = ({ navigation }) => {
         )
     }
 
+    // menampilkan BMI user
     const showBMI = (userBMI) => {
         userBMI = dataNewstart.resultBMI
         return (
@@ -87,6 +100,8 @@ const Home = ({ navigation }) => {
         )
     }
 
+    // mengganti tombol jika belum mengikuti test akan tampil Newstart Test, 
+    // jika sudah mengikuti test akan tampil Test Lagi
     const switchButton = () => {
         if (resultNewstartF == 0) {
             return (
@@ -106,6 +121,7 @@ const Home = ({ navigation }) => {
         }
     }
 
+    // menampilkan tingkat kesehatan sesuai hasil poin
     const inter = () => {
         if (resultNewstartF > 0 && resultNewstartF < 20) {
             // alert('Dari Disease : ' + result)
@@ -134,44 +150,46 @@ const Home = ({ navigation }) => {
 
     return (
 
-        <View style={styles.container}>
-            <View style={styles.container2}>
-                <View style={{ marginHorizontal: 6 }}>
-                    <Text style={styles.tanggalStyle}></Text>
-                    <Text style={styles.textHasilStyle}>HASIL</Text>
-                    <Text style={styles.textPoinStyle}>{resultNewstartF}</Text>
-                    <View style={{ flexDirection: 'row' }}>
-                        {showInter()}
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.container}>
+                <View style={styles.container2}>
+                    <View style={{ marginHorizontal: 6 }}>
+                        <Text style={styles.tanggalStyle}></Text>
+                        <Text style={styles.textHasilStyle}>HASIL</Text>
+                        <Text style={styles.textPoinStyle}>{resultNewstartF}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            {showInter()}
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.container3}>
+                    <View style={styles.containerResultDate}>
+                        <Text style={styles.textRiwayat}>Riwayat</Text>
+                        <View style={styles.subJudulContainer}>
+                            <Text style={styles.subDataJudul}>Tanggal</Text>
+                            <Text style={styles.subDataJudul}>Hasil</Text>
+                            <Text style={styles.subDataJudul}>Interpretasi</Text>
+                        </View>
+                        <View style={styles.dataResultContainer}>
+                            <Text style={styles.dataStyle}>{dataHistory.Date} </Text>
+                            <Text style={styles.dataStyle}>{dataHistory.newstartResult} </Text>
+                            <Text style={styles.dataInterStyle}>{dataHistory.interpretasiResult} </Text>
+                        </View>
+                    </View>
+                    <View style={styles.bmiAndCaloriContainer}>
+                        <View style={styles.caloriAndBMISubContainer}>
+                            {showCalori()}
+                        </View>
+                        <View style={styles.caloriAndBMISubContainer}>
+                            {showBMI()}
+                        </View>
+                    </View>
+                    <View style={styles.buttonContainer}>
+                        {switchButton()}
                     </View>
                 </View>
             </View>
-            <View style={styles.container3}>
-                <View style={styles.containerResultDate}>
-                    <Text style={styles.textRiwayat}>Riwayat</Text>
-                    <View style={styles.subJudulContainer}>
-                        <Text style={styles.subDataJudul}>Tanggal</Text>
-                        <Text style={styles.subDataJudul}>Hasil</Text>
-                        <Text style={styles.subDataJudul}>Interpretasi</Text>
-                    </View>
-                    <View style={styles.dataResultContainer}>
-                        <Text style={styles.dataStyle}>{dataNewstart.Date} </Text>
-                        <Text style={styles.dataStyle}>{dataNewstart.newstartResult} </Text>
-                        <Text style={styles.dataInterStyle}>{dataNewstart.interpretasiResult} </Text>
-                    </View>
-                </View>
-                <View style={styles.bmiAndCaloriContainer}>
-                    <View style={styles.caloriAndBMISubContainer}>
-                        {showCalori()}
-                    </View>
-                    <View style={styles.caloriAndBMISubContainer}>
-                        {showBMI()}
-                    </View>
-                </View>
-                <View style={styles.buttonContainer}>
-                    {switchButton()}
-                </View>
-            </View>
-        </View>
+        </ScrollView>
 
     )
 }
@@ -249,7 +267,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-
+        marginBottom: 30
     },
 
 

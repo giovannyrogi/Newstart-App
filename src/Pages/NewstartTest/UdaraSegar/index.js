@@ -55,7 +55,7 @@ const UdaraSegar = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.mainContainer}>
             <Text> Nilai Global {hasilUdaraSegar}</Text>
-            <Text style={styles.textStyle}>Berapa lama Anda telah menghirup udara segar hari ini?</Text>
+            <Text style={styles.textStyle}>Berapa lama Anda telah menghirup udara segar?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm
                     radio_props={radioUdaraSegar}

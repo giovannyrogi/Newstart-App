@@ -62,11 +62,11 @@ const Air = ({ navigation }) => {
     }
 
     useEffect(() => {
-        firebase.database().ref('users/' + userId + '/userResult/resultWatson').get().then((snapshot) => {
+        firebase.database().ref('users/' + userId + '/userResult/resultWater').get().then((snapshot) => {
             if (snapshot.exists) {
 
                 // radioAir[1].label = snapshot;
-                setWotahVisible(snapshot.val().toFixed(1));
+                setWotahVisible(snapshot.val());
                 console.log(snapshot);
             }
 

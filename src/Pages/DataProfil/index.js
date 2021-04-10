@@ -15,8 +15,8 @@ const DataProfil = ({ navigation }) => {
 
     const userId = useSelector((state) => state.uid);
 
-    // const [resultWater, setWater] = useState(0)
-    // const [waterWanita, setWaterWanita] = useState(0)
+    // const [fixedWater, setFixedWater] = useState()
+    // const [fixedCalori, setFixedCalori] = useState()
     const [form, setForm] = useState({
         gender: 'Laki-laki',
         age: '',
@@ -31,19 +31,13 @@ const DataProfil = ({ navigation }) => {
         });
     };
 
-
-    const Selesai = (resultWater, targetKalori, resultBMI) => {
-        let convertTinggi = form.height / 100;
-        resultBMI = form.weight / (convertTinggi * convertTinggi);
-        if (form.gender == 'Laki-laki') {
-            resultWater = (2447 - (0.09145 * form.age) + (0.1074 * form.height) + (0.3362 * form.weight)) / 1000;
-            targetKalori = 66 + (13.7 * form.weight) + (5 * form.height) - (6.8 * form.age);
-        }
-        if (form.gender == 'Perempuan') {
-            resultWater = -2097 + (0.1069 * form.height) + (0.2466 * form.weight);
-            targetKalori = 655 + (9.6 * form.weight) + (1.8 * form.height)
-        }
-
+    const setFixed = (targetCalori, targetWater, userBMI, fixedUserBMI, fixedWater, fixedCalori) => {
+        fixedCalori = targetCalori.toFixed();
+        fixedWater = targetWater.toFixed(1);
+        fixedUserBMI = userBMI.toFixed(1);
+        // console.log('newCalori : ' + fixedCalori)
+        // console.log('newWater : ' + fixedWater)
+        // console.log('newUserBMI : ' + fixedUserBMI)
 
         if (form.gender != '' && form.age != '' && form.weight != '' && form.height != '') {
             firebase.database().ref('users/' + userId + '/userInfo/').update({
@@ -53,17 +47,29 @@ const DataProfil = ({ navigation }) => {
                 umur: form.age,
             })
             firebase.database().ref('users/' + userId + '/userResult/').update({
-                resultBMI: resultBMI,
-                resultWatson: resultWater,
-                resultKalori: targetKalori
+                resultBMI: fixedUserBMI,
+                resultWater: fixedWater,
+                resultKalori: fixedCalori
 
             });
             alert('Pendaftaran berhasil, Silahkan Login.');
             navigation.replace('Login');
         }
-        else {
-            alert('Lengkapi semua data, tidak boleh kosong.')
+    }
+
+    const Selesai = (userBMI, targetWater, targetCalori) => {
+        let convertTinggi = form.height / 100;
+        userBMI = form.weight / (convertTinggi * convertTinggi);
+
+        if (form.gender == 'Laki-laki') {
+            targetWater = (2447 - (0.09145 * form.age) + (0.1074 * form.height) + (0.3362 * form.weight)) / 1000;
+            targetCalori = 66 + (13.7 * form.weight) + (5 * form.height) - (6.8 * form.age);
         }
+        if (form.gender == 'Perempuan') {
+            targetWater = -2097 + (0.1069 * form.height) + (0.2466 * form.weight);
+            targetCalori = 655 + (9.6 * form.weight) + (1.8 * form.height)
+        }
+        { setFixed(targetCalori, targetWater, userBMI) }
 
     }
 

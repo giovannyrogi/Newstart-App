@@ -44,7 +44,7 @@ const PengendalianDiri = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text>Nilai Global : {hasilPengendalianDiri}</Text>
-            <Text style={styles.textStyle}>Apakah Anda seorang perokok pasif atau menkonsumsi rokok/kafein/alkohol?</Text>
+            <Text style={styles.textStyle}>Apakah Anda seorang perokok/perokok pasif atau mengkonsumsi kafein/alkohol?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm
                     radio_props={radioPengendalianDiri}

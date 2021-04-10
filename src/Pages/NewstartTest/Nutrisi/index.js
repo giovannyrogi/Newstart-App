@@ -15,13 +15,15 @@ import IsiPiringkuTest from './IsiPiringkuTest/';
 const Nutrisi = ({ navigation }) => {
 
     const dispatch = useDispatch();
-    const CaloriTarget = useSelector((state) => state.TargetCalori)
     const sumGlobalCaloriMknPagi = useSelector((state) => state.resultCaloriMakanPagi)
     const sumGlobalCaloriMknSiang = useSelector((state) => state.resultCaloriMakanSiang)
     const sumGlobalCaloriMknMalam = useSelector((state) => state.resultCaloriMakanMalam)
     const resultKeseluruhanKalori = useSelector((state) => state.resultAllCalories)
     const isiPiringkuResult = useSelector((state) => state.resultIsiPiringku)
     const TotalPerhitunganNutrisi = useSelector((state) => state.resultNutrisi)
+    const selectedMknPagi = useSelector((state) => state.getSelectedMakanPagi)
+    const selectedMknSiang = useSelector((state) => state.getSelectedMakanSiang)
+    const selectedMknMalam = useSelector((state) => state.getSelectedMakanMalam)
     const userId = useSelector((state) => state.uid)
 
     const [hasilKalori, setHasilKalori] = useState(0)
@@ -61,7 +63,7 @@ const Nutrisi = ({ navigation }) => {
     useEffect(() => {
         firebase.database().ref('users/' + userId + '/userResult/resultKalori').get().then((snapshot) => {
             if (snapshot.exists) {
-                setTargetCalori(snapshot.val().toFixed());
+                setTargetCalori(snapshot.val());
                 console.log('Snapshot : ' + snapshot);
 
             }
