@@ -14,16 +14,17 @@ import IsiPiringkuTest from './IsiPiringkuTest/';
 
 const Nutrisi = ({ navigation }) => {
 
+
     const dispatch = useDispatch();
+    //memanggil state global dan menyimpan ke state lokal
     const sumGlobalCaloriMknPagi = useSelector((state) => state.resultCaloriMakanPagi)
     const sumGlobalCaloriMknSiang = useSelector((state) => state.resultCaloriMakanSiang)
     const sumGlobalCaloriMknMalam = useSelector((state) => state.resultCaloriMakanMalam)
     const resultKeseluruhanKalori = useSelector((state) => state.resultAllCalories)
+
     const isiPiringkuResult = useSelector((state) => state.resultIsiPiringku)
     const TotalPerhitunganNutrisi = useSelector((state) => state.resultNutrisi)
-    const selectedMknPagi = useSelector((state) => state.getSelectedMakanPagi)
-    const selectedMknSiang = useSelector((state) => state.getSelectedMakanSiang)
-    const selectedMknMalam = useSelector((state) => state.getSelectedMakanMalam)
+
     const userId = useSelector((state) => state.uid)
 
     const [hasilKalori, setHasilKalori] = useState(0)
@@ -50,16 +51,20 @@ const Nutrisi = ({ navigation }) => {
 
             totalKeseluruhan = newResultCalori + isiPiringkuResult;
             dispatch({ type: 'RESULT_NUTRISI', value: totalKeseluruhan });
-
-            setHasilKalori(newResultCalori)
-            navigation.navigate('Olahraga')
+            setHasilKalori(newResultCalori);
         }
-        // if (isiPiringkuResult == 0) {
-        //     alert('Isi pilihan isi piringku')
-        // }
-        navigation.navigate('Olahraga')
+
+        //menghindari error jika sum dan totalkeseluruhan bernilai null atau 0
+        if (sum == 0) {
+            sum = 0;
+            totalKeseluruhan = 0;
+            // alert('sum : ' + sum);
+            // alert('totalKeseluruhan : ' + sum);
+        }
+        navigation.navigate('Olahraga');
     }
 
+    //mengambil data kalori user dari firebase realtime database
     useEffect(() => {
         firebase.database().ref('users/' + userId + '/userResult/resultKalori').get().then((snapshot) => {
             if (snapshot.exists) {
@@ -76,8 +81,6 @@ const Nutrisi = ({ navigation }) => {
 
         <View style={styles.maincontainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
-
-                {/* instruksi */}
                 <Text>Total calori makan pagi : {sumGlobalCaloriMknPagi}</Text>
                 <Text>Total Calori makan siang: {sumGlobalCaloriMknSiang}</Text>
                 <Text>Total Calori makan malam: {sumGlobalCaloriMknMalam}</Text>
@@ -86,6 +89,7 @@ const Nutrisi = ({ navigation }) => {
                 <Text>Hasil Poin Kalori : {hasilKalori}</Text>
                 <Text>Total keseluruhan Nutrisi : {TotalPerhitunganNutrisi}</Text>
                 <Text>Calori target dari database : {targetCalori}</Text>
+                {/* instruksi */}
                 <View style={styles.textNoteContainer}>
                     <Text style={{ fontSize: 15 }}>Silahkan tekan</Text>
                     <IconPlus

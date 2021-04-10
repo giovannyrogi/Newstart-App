@@ -64,8 +64,7 @@ const Home = ({ navigation }) => {
     }
 
     // menampilkan target kalori user
-    const showCalori = (targetC) => {
-        targetC = dataNewstart.resultKalori
+    const showCalori = () => {
         return (
             <View>
                 <View style={styles.iconBMIContainer}>
@@ -77,15 +76,43 @@ const Home = ({ navigation }) => {
                 </View>
                 <View style={{ alignSelf: 'center', flexDirection: 'row' }}>
                     <Text style={styles.textCalori}>{userCalori} / </Text>
-                    <Text style={styles.textCaloriTarget}>{targetC}(Target)</Text>
+                    <Text style={styles.textCaloriTarget}>{dataNewstart.resultKalori}(Target)</Text>
                 </View>
             </View>
         )
     }
 
+    //Menampilkan Interpretasi BMI sesuai perhitungan dari userBMI
+    const interpretasiBMI = () => {
+        if (dataNewstart.resultBMI < 18.5) {
+            return (
+                <Text>Kurus</Text>
+            )
+        }
+        if (dataNewstart.resultBMI > 18.5 && dataNewstart.resultBMI < 22.9) {
+            return (
+                <Text>Normal</Text>
+            )
+        }
+        if (dataNewstart.resultBMI > 23 && dataNewstart.resultBMI < 24.9) {
+            return (
+                <Text>Resiko Gemuk</Text>
+            )
+        }
+        if (dataNewstart.resultBMI > 25 && dataNewstart.resultBMI < 29.9) {
+            return (
+                <Text>Obesitas I</Text>
+            )
+        }
+        if (dataNewstart.resultBMI > 25 && dataNewstart.resultBMI < 29.9) {
+            return (
+                <Text>Obesitas II</Text>
+            )
+        }
+    }
+
     // menampilkan BMI user
-    const showBMI = (userBMI) => {
-        userBMI = dataNewstart.resultBMI
+    const showBMI = () => {
         return (
             <View>
                 <View style={styles.iconBMIContainer}>
@@ -95,7 +122,11 @@ const Home = ({ navigation }) => {
                     />
                     <Text style={styles.textIconBMIStyle}>BMI</Text>
                 </View>
-                <Text style={styles.textBMI}>{userBMI}</Text>
+                <View style={{ alignSelf: 'center', flexDirection: 'row' }}>
+                    <Text style={styles.textBMI}>{interpretasiBMI()} / </Text>
+                    <Text style={styles.textBMI}>{dataNewstart.resultBMI}</Text>
+                </View>
+                {/* <Text style={styles.textBMI}>{userBMI}</Text> */}
             </View >
         )
     }
@@ -361,6 +392,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Roboto-Bold',
         textAlign: 'center',
         marginBottom: 10,
+
     },
 
     textCaloriTarget: {
@@ -368,6 +400,7 @@ const styles = StyleSheet.create({
         color: '#9B51E0',
         textAlign: 'center',
         marginBottom: 10,
+
     },
 
     iconBMIContainer: {
@@ -384,14 +417,16 @@ const styles = StyleSheet.create({
         marginTop: 15,
         fontFamily: 'Poppins-Bold',
         fontSize: 15,
-        textAlign: 'center'
+        textAlign: 'center',
+
     },
 
     textBMI: {
         fontFamily: 'Roboto-Bold',
+        top: 3,
+        color: '#000',
         textAlign: 'center',
         marginBottom: 10,
-        marginRight: 7
     },
 
     textIconKkal: {
@@ -399,7 +434,8 @@ const styles = StyleSheet.create({
         marginTop: 15,
         fontFamily: 'Poppins-Bold',
         fontSize: 15,
-        textAlign: 'center'
+        textAlign: 'center',
+
     }
 
 });

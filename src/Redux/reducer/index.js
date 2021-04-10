@@ -25,11 +25,6 @@ const initialState = {
 
     // state uji coba
     getSelectedDate: '',
-    getSelectedMakananPagi: [],
-    getSelectedMakananSiang: [],
-    getSelectedMakananMalam: [],
-
-
 }
 
 const reducer = (state = initialState, action) => {
@@ -119,21 +114,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 resultNewstart: action.value,
-            }
-        case 'SELECTED_MKN_PAGI':
-            return {
-                ...state,
-                getSelectedMakananPagi: action.value,
-            }
-        case 'SELECTED_MKN_SIANG':
-            return {
-                ...state,
-                getSelectedMakananSiang: action.value,
-            }
-        case 'SELECTED_MKN_MALAM':
-            return {
-                ...state,
-                getSelectedMakananMalam: action.value,
             }
         default:
             return state;
