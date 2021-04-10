@@ -30,12 +30,12 @@ const PengendalianDiri = ({ navigation }) => {
         // alert(value)
         if (value == 0) {
             getYesValue = value
-            alert('Senang : ' + getYesValue)
+            // alert('Senang : ' + getYesValue)
             dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: getYesValue });
         }
         if (value == 100) {
             getNoValue = value
-            alert('Biasa Saja : ' + getNoValue)
+            // alert('Biasa Saja : ' + getNoValue)
             dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: getNoValue });
         }
 
@@ -43,7 +43,7 @@ const PengendalianDiri = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text>Nilai Global : {hasilPengendalianDiri}</Text>
+            {/* <Text>Nilai Global : {hasilPengendalianDiri}</Text> */}
             <Text style={styles.textStyle}>Apakah Anda seorang perokok/perokok pasif atau mengkonsumsi kafein/alkohol?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm

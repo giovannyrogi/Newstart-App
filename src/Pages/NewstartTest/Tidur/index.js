@@ -29,26 +29,26 @@ const Tidur = ({ navigation }) => {
         // alert(value)
         if (value == 75) {
             get7jamMin = value
-            alert('<7 Jam : ' + get7jamMin)
+            // alert('<7 Jam : ' + get7jamMin)
             dispatch({ type: 'RESULT_TIDUR', value: get7jamMin });
         }
         if (value == 100) {
             get78jam = value
-            alert('7-8 Jam : ' + get78jam)
+            // alert('7-8 Jam : ' + get78jam)
             dispatch({ type: 'RESULT_TIDUR', value: get78jam });
         }
         if (value == 75) {
             get8jamPlus = value
-            alert('>8 Jam: ' + get8jamPlus)
+            // alert('>8 Jam: ' + get8jamPlus)
             dispatch({ type: 'RESULT_TIDUR', value: get8jamPlus });
         }
     }
 
     return (
         <SafeAreaView style={styles.mainContainer}>
-            <Text>
+            {/* <Text>
                 {hasilTidur}
-            </Text>
+            </Text> */}
             <Text style={styles.textStyle}>Berapa lama waktu Anda tidur?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm

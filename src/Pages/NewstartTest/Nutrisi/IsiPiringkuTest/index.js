@@ -37,12 +37,12 @@ const IsiPiringkuTest = () => {
 
     const handleRadio = (value, getValueNo, getValueYes) => {
         if (value == 50) {
-            alert('Yes : ' + value)
+            // alert('Yes : ' + value)
             getValueYes = value
             dispatch({ type: 'RESULT_ISI_PIRINGKU', value: getValueYes });
         }
         if (value == 30) {
-            alert('No : ' + value)
+            // alert('No : ' + value)
             getValueNo = value
             dispatch({ type: 'RESULT_ISI_PIRINGKU', value: getValueNo });
         }

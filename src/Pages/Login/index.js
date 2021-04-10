@@ -10,13 +10,16 @@ import LinearGradient from 'react-native-linear-gradient';
 import EyeIcon from 'react-native-vector-icons/Entypo';
 import { Input } from '../../Components';
 import { useDispatch, useSelector } from 'react-redux';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 const Login = ({ navigation }) => {
 
-    const [SecureTextEntry, setSecureTextEntry] = useState(true)
-    const globalState = useSelector((state) => state);
     const dispatch = useDispatch();
+
+
+
+    const [SecureTextEntry, setSecureTextEntry] = useState(true)
     const [form, setForm] = useState({
         email: '',
         username: '',
@@ -36,7 +39,41 @@ const Login = ({ navigation }) => {
                 var errorMessage = error.message;
                 Alert.alert(errorCode, errorMessage);
             });
+
+        const refreshIsiPiringku = 0;
+        const refreshCaloriMakanPagi = 0;
+        const refreshCaloriMakanSiang = 0;
+        const refreshCaloriMakanMalam = 0;
+        const refreshAllCalories = 0;
+        const refreshresultNutrisi = 0;
+        const refreshresultOlahraga = 0;
+        const refreshresultAir = 0;
+        const refreshresultSinarMatahari = 0;
+        const refreshPengendalianDiri = 0;
+        const refreshUdaraSegar = 0;
+        const refreshresultTidur = 0;
+        const refreshHubunganDgnTuhan = 0;
+        const refreshresultHatiSenang = 0;
+        const refreshresultNewstart = 0;
+
+        dispatch({ type: 'RESULT_ISI_PIRINGKU', value: refreshIsiPiringku })
+        dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: refreshCaloriMakanPagi })
+        dispatch({ type: 'SUM_CALORIES_MKN_SIANG', value: refreshCaloriMakanSiang })
+        dispatch({ type: 'SUM_CALORIES_MKN_MALAM', value: refreshCaloriMakanMalam })
+        dispatch({ type: 'SUM_ALL_CALORIES', value: refreshAllCalories })
+        dispatch({ type: 'RESULT_NUTRISI', value: refreshresultNutrisi })
+        dispatch({ type: 'RESULT_OLAHRAGA', value: refreshresultOlahraga })
+        dispatch({ type: 'RESULT_AIR', value: refreshresultAir })
+        dispatch({ type: 'RESULT_SINAR_MATAHARI', value: refreshresultSinarMatahari })
+        dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: refreshPengendalianDiri })
+        dispatch({ type: 'RESULT_UDARA_SEGAR', value: refreshUdaraSegar })
+        dispatch({ type: 'RESULT_TIDUR', value: refreshresultTidur })
+        dispatch({ type: 'RESULT_HUB_DGN_TUHAN', value: refreshHubunganDgnTuhan })
+        dispatch({ type: 'RESULT_HATI_SENANG', value: refreshresultHatiSenang })
+        dispatch({ type: 'RESULT_NEWSTART', value: refreshresultNewstart })
     }
+
+
     const onChangeText = (value, input) => {
         setForm({
             ...form,
@@ -49,71 +86,74 @@ const Login = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={styles.container1}>
-            <Text style={styles.textStyle1}>Ayo masuk ! </Text>
-            <Text style={styles.textStyle2}>Selamat datang, silahkan login. </Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.container1}>
 
-            {/* Text input email  */}
-            <Text style={styles.textStyle3}>Email</Text>
-            <View style={styles.usernameContainer}>
-                <UsernameIcon
-                    name="user"
-                    size={25}
-                />
-                <Input
-                    placeholder="Masukkan disini . . ."
-                    value={form.email}
-                    onChangeText={(value) => onChangeText(value, 'email')}
-                />
-            </View >
+                <Text style={styles.textStyle1}>Ayo masuk ! </Text>
+                <Text style={styles.textStyle2}>Selamat datang, silahkan login. </Text>
 
-            {/* Text input password  */}
-            <Text style={styles.textStyle4}>Password</Text>
-            <View style={styles.passwordContainer}>
-                <PasswordIcon
-                    name="lock"
-                    size={25}
-                />
-                <Input
-                    placeholder="Masukkan disini . . ."
-                    value={form.password}
-                    onChangeText={(value) => onChangeText(value, 'password')}
-                    secureTextEntry={SecureTextEntry}
-                />
-                <TouchableOpacity
-                    onPress={() => ShowSecureTextEntry()}
-                >
-                    <EyeIcon
-                        name="eye"
+                {/* Text input email  */}
+                <Text style={styles.textStyle3}>Email</Text>
+                <View style={styles.usernameContainer}>
+                    <UsernameIcon
+                        name="user"
                         size={25}
                     />
-                </TouchableOpacity>
+                    <Input
+                        placeholder="Masukkan disini . . ."
+                        value={form.email}
+                        onChangeText={(value) => onChangeText(value, 'email')}
+                    />
+                </View >
+
+                {/* Text input password  */}
+                <Text style={styles.textStyle4}>Password</Text>
+                <View style={styles.passwordContainer}>
+                    <PasswordIcon
+                        name="lock"
+                        size={25}
+                    />
+                    <Input
+                        placeholder="Masukkan disini . . ."
+                        value={form.password}
+                        onChangeText={(value) => onChangeText(value, 'password')}
+                        secureTextEntry={SecureTextEntry}
+                    />
+                    <TouchableOpacity
+                        onPress={() => ShowSecureTextEntry()}
+                    >
+                        <EyeIcon
+                            name="eye"
+                            size={25}
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                {/* Button login  */}
+                <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
+                    <TouchableOpacity style={styles.containerButton}
+
+                        onPress={Masuk}>
+                        <Text style={styles.tittleStyle}>Login</Text>
+
+                        <LoginIcon
+                            name="login"
+                            size={24}
+                            color="#fff"
+                            style={{ left: 120, }} />
+                    </TouchableOpacity>
+                </LinearGradient>
+
+                {/* Button daftar  */}
+                <View style={styles.container2}>
+                    <Text style={styles.textStyle5}>Tidak punya akun ? </Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Register')}>
+                        <Text style={styles.buttonStyleDaftar}>Daftar</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-
-            {/* Button login  */}
-            <LinearGradient colors={['#A95EFA', '#8A49F7']} style={styles.buttonStyle}>
-                <TouchableOpacity style={styles.containerButton}
-
-                    onPress={Masuk}>
-                    <Text style={styles.tittleStyle}>Login</Text>
-
-                    <LoginIcon
-                        name="login"
-                        size={24}
-                        color="#fff"
-                        style={{ left: 120, }} />
-                </TouchableOpacity>
-            </LinearGradient>
-
-            {/* Button daftar  */}
-            <View style={styles.container2}>
-                <Text style={styles.textStyle5}>Tidak punya akun ? </Text>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Register')}>
-                    <Text style={styles.buttonStyleDaftar}>Daftar</Text>
-                </TouchableOpacity>
-            </View>
-        </SafeAreaView>
+        </ScrollView>
     )
 }
 

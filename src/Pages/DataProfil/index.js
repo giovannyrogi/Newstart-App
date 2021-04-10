@@ -36,7 +36,7 @@ const DataProfil = ({ navigation }) => {
         fixedWater = targetWater.toFixed(1);
         fixedUserBMI = userBMI.toFixed(1);
         // console.log('newCalori : ' + fixedCalori)
-        // console.log('newWater : ' + fixedWater)
+        console.log('newWater : ' + fixedWater)
         // console.log('newUserBMI : ' + fixedUserBMI)
 
         if (form.gender != '' && form.age != '' && form.weight != '' && form.height != '') {
@@ -66,7 +66,7 @@ const DataProfil = ({ navigation }) => {
             targetCalori = 66 + (13.7 * form.weight) + (5 * form.height) - (6.8 * form.age);
         }
         if (form.gender == 'Perempuan') {
-            targetWater = -2097 + (0.1069 * form.height) + (0.2466 * form.weight);
+            targetWater = (2097 + (0.1069 * form.height) + (0.2466 * form.weight)) / 1000;
             targetCalori = 655 + (9.6 * form.weight) + (1.8 * form.height)
         }
         { setFixed(targetCalori, targetWater, userBMI) }

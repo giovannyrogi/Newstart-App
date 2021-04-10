@@ -42,22 +42,22 @@ const SinarMatahari = ({ navigation }) => {
         // alert(value)
         if (value == 100) {
             get15Minute = value
-            alert('15 Menit : ' + get15Minute)
+            // alert('15 Menit : ' + get15Minute)
             dispatch({ type: 'RESULT_SINAR_MATAHARI', value: get15Minute });
         }
         if (value == 75) {
             get15mPlus = value
-            alert('Diatas 15 Menit : ' + get15mPlus)
+            // alert('Diatas 15 Menit : ' + get15mPlus)
             dispatch({ type: 'RESULT_SINAR_MATAHARI', value: get15mPlus });
         }
         if (value == 50) {
             get15mMin = value
-            alert('Dibawah 15 Menit : ' + get15mMin)
+            // alert('Dibawah 15 Menit : ' + get15mMin)
             dispatch({ type: 'RESULT_SINAR_MATAHARI', value: get15mMin });
         }
         if (value == 0) {
             getNoneValue = value
-            alert('None : ' + getNoneValue)
+            // alert('None : ' + getNoneValue)
             dispatch({ type: 'RESULT_SINAR_MATAHARI', value: getNoneValue });
         }
     }
@@ -66,9 +66,9 @@ const SinarMatahari = ({ navigation }) => {
         <SafeAreaView style={styles.mainContainer}>
             <View >
                 <View>
-                    <Text>
+                    {/* <Text>
                         {hasilSinarMatahari}
-                    </Text>
+                    </Text> */}
                     <Text style={styles.textStyle}>Berapa lama Anda berjemur dibawah sinar matahari?</Text>
 
                 </View>

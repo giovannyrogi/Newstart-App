@@ -61,6 +61,7 @@ const Nutrisi = ({ navigation }) => {
             // alert('sum : ' + sum);
             // alert('totalKeseluruhan : ' + totalKeseluruhan);
         }
+
         navigation.navigate('Olahraga');
     }
 
@@ -81,14 +82,14 @@ const Nutrisi = ({ navigation }) => {
 
         <View style={styles.maincontainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Text>Total calori makan pagi : {sumGlobalCaloriMknPagi}</Text>
+                {/* <Text>Total calori makan pagi : {sumGlobalCaloriMknPagi}</Text>
                 <Text>Total Calori makan siang: {sumGlobalCaloriMknSiang}</Text>
                 <Text>Total Calori makan malam: {sumGlobalCaloriMknMalam}</Text>
                 <Text>Total Calori keselurahan: {resultKeseluruhanKalori}</Text>
                 <Text>Isi Piringku Poin: {isiPiringkuResult}</Text>
                 <Text>Hasil Poin Kalori : {hasilKalori}</Text>
                 <Text>Total keseluruhan Nutrisi : {TotalPerhitunganNutrisi}</Text>
-                <Text>Calori target dari database : {targetCalori}</Text>
+                <Text>Calori target dari database : {targetCalori}</Text> */}
                 {/* instruksi */}
                 <View style={styles.textNoteContainer}>
                     <Text style={{ fontSize: 15 }}>Silahkan tekan</Text>

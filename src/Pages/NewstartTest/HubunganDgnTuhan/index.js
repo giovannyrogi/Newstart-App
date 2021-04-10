@@ -85,7 +85,7 @@ const HubunganDgnTuhan = ({ navigation }) => {
 
     return (
         <View style={styles.mainContainer}>
-            <Text>Nilai Global : {hasiltHubDgnTuhan}</Text>
+            {/* <Text>Nilai Global : {hasiltHubDgnTuhan}</Text> */}
             <Text style={styles.textStyle}>Apakah Anda sudah menjalin hubungan dengan Tuhan ?</Text>
             <View style={{ flexDirection: 'row' }}>
                 {renderData()}

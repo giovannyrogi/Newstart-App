@@ -46,17 +46,17 @@ const Air = ({ navigation }) => {
         // alert(value)
         if (value == 50) {
             get1liter = value
-            alert('1 Liter : ' + get1liter)
+            // alert('1 Liter : ' + get1liter)
             dispatch({ type: 'RESULT_AIR', value: get1liter });
         }
         if (value == 100) {
             get2liter = value
-            alert('2 Liter : ' + get2liter)
+            // alert('2 Liter : ' + get2liter)
             dispatch({ type: 'RESULT_AIR', value: get2liter });
         }
         if (value == 50) {
             get3liter = value
-            alert('3 Liter : ' + get3liter)
+            // alert('3 Liter : ' + get3liter)
             dispatch({ type: 'RESULT_AIR', value: get3liter });
         }
     }

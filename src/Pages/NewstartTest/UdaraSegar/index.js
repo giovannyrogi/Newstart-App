@@ -32,29 +32,29 @@ const UdaraSegar = ({ navigation }) => {
         // alert(value)
         if (value == 100) {
             get15Minute = value
-            alert('15 Menit : ' + get15Minute)
+            // alert('15 Menit : ' + get15Minute)
             dispatch({ type: 'RESULT_UDARA_SEGAR', value: get15Minute });
         }
         if (value == 75) {
             get15mPlus = value
-            alert('Diatas 15 Menit : ' + get15mPlus)
+            // alert('Diatas 15 Menit : ' + get15mPlus)
             dispatch({ type: 'RESULT_UDARA_SEGAR', value: get15mPlus });
         }
         if (value == 50) {
             get15mMin = value
-            alert('Dibawah 15 Menit : ' + get15mMin)
+            // alert('Dibawah 15 Menit : ' + get15mMin)
             dispatch({ type: 'RESULT_UDARA_SEGAR', value: get15mMin });
         }
         if (value == 0) {
             getNoneValue = value
-            alert('None : ' + getNoneValue)
+            // alert('None : ' + getNoneValue)
             dispatch({ type: 'RESULT_UDARA_SEGAR', value: getNoneValue });
         }
     }
 
     return (
         <SafeAreaView style={styles.mainContainer}>
-            <Text> Nilai Global {hasilUdaraSegar}</Text>
+            {/* <Text> Nilai Global {hasilUdaraSegar}</Text> */}
             <Text style={styles.textStyle}>Berapa lama Anda telah menghirup udara segar?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm

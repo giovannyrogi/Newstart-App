@@ -105,17 +105,17 @@ const HatiSenang = ({ navigation }) => {
 
         if (value == 100) {
             getSenang = value
-            alert('Senang : ' + getSenang)
+            // alert('Senang : ' + getSenang)
             dispatch({ type: 'RESULT_HATI_SENANG', value: getSenang });
         }
         if (value == 75) {
             getBiasaSaja = value
-            alert('Biasa Saja : ' + getBiasaSaja)
+            // alert('Biasa Saja : ' + getBiasaSaja)
             dispatch({ type: 'RESULT_HATI_SENANG', value: getBiasaSaja });
         }
         if (value == 50) {
             getSedih = value
-            alert('Sedih: ' + getSedih)
+            // alert('Sedih: ' + getSedih)
             dispatch({ type: 'RESULT_HATI_SENANG', value: getSedih });
         }
     }
@@ -133,9 +133,9 @@ const HatiSenang = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Nilai Global Hati Senang: {hasilHatiSenang}</Text>
+            {/* <Text>Nilai Global Hati Senang: {hasilHatiSenang}</Text>
             <Text>Nilai Newstart : {resultNewstartF}</Text>
-            <Text>Date : {currentDate}</Text>
+            <Text>Date : {currentDate}</Text> */}
             <Text style={styles.textStyle}>Bagaimana perasaan Anda ?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm

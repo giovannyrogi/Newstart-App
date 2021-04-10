@@ -19,6 +19,8 @@ const Home = ({ navigation }) => {
     const [dataNewstart, setDataNewstart] = useState('')
     const [dataHistory, setDataHistory] = useState('')
 
+    const getKey = Object.keys(dataHistory)
+
     // ? Fungsi untuk back button agar saat di tekan akan keluar dari app
     const disableBackButton = () => {
         BackHandler.exitApp();
@@ -44,6 +46,7 @@ const Home = ({ navigation }) => {
         // mengambil data riwayat(tanggal, hasil dan interpretasi)
         firebase.database().ref('users/' + userId + '/userHistory/').get().then((snapshot) => {
             if (snapshot.exists()) {
+
                 setDataHistory(snapshot.val())
                 console.log(snapshot)
             }
@@ -177,6 +180,41 @@ const Home = ({ navigation }) => {
         }
     }
 
+    const renderDataDate = () => {
+        return (
+            <View >
+                {
+                    getKey.map((item) => (
+                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].Date}</Text>
+                    ))
+                }
+            </View>
+        )
+    }
+
+    const renderDataHasil = () => {
+        return (
+            <View >
+                {
+                    getKey.map((item) => (
+                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].newstartResult}</Text>
+                    ))
+                }
+            </View>
+        )
+    }
+
+    const renderDataInterpretasi = () => {
+        return (
+            <View >
+                {
+                    getKey.map((item) => (
+                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].interpretasiResult}</Text>
+                    ))
+                }
+            </View>
+        )
+    }
 
 
     return (
@@ -184,7 +222,7 @@ const Home = ({ navigation }) => {
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
                 <View style={styles.container2}>
-                    <View style={{ marginHorizontal: 6 }}>
+                    <View style={{ marginHorizontal: 6, }}>
                         <Text style={styles.tanggalStyle}></Text>
                         <Text style={styles.textHasilStyle}>HASIL</Text>
                         <Text style={styles.textPoinStyle}>{resultNewstartF}</Text>
@@ -202,9 +240,15 @@ const Home = ({ navigation }) => {
                             <Text style={styles.subDataJudul}>Interpretasi</Text>
                         </View>
                         <View style={styles.dataResultContainer}>
-                            <Text style={styles.dataStyle}>{dataHistory.Date} </Text>
-                            <Text style={styles.dataStyle}>{dataHistory.newstartResult} </Text>
-                            <Text style={styles.dataInterStyle}>{dataHistory.interpretasiResult} </Text>
+                            <View style={styles.dataRiwayatStyle}>
+                                <Text>{renderDataDate()}</Text>
+                            </View>
+                            <View style={styles.dataRiwayatStyle}>
+                                <Text> {renderDataHasil()}</Text>
+                            </View>
+                            <View style={styles.dataRiwayatStyle}>
+                                <Text>{renderDataInterpretasi()}</Text>
+                            </View>
                         </View>
                     </View>
                     <View style={styles.bmiAndCaloriContainer}>
@@ -278,7 +322,14 @@ const styles = StyleSheet.create({
     },
 
     dataResultContainer: {
-        flexDirection: 'row'
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    dataRiwayatStyle: {
+        flex: 1,
+        alignItems: 'center'
     },
 
     dataStyle: {
@@ -313,8 +364,8 @@ const styles = StyleSheet.create({
         fontSize: 30,
         color: '#fff',
         fontFamily: 'Poppins-Bold',
-        marginBottom: 15,
         letterSpacing: 1,
+        top: 30,
         textShadowOffset: {
             width: -1,
             height: 1.
@@ -337,7 +388,6 @@ const styles = StyleSheet.create({
         textShadowColor: '#000',
         textShadowRadius: 10,
         elevation: 5,
-        bottom: 35
     },
 
     interStyle: {
@@ -357,13 +407,13 @@ const styles = StyleSheet.create({
     },
 
     tingkatKesehatan: {
+        flex: 1,
         textAlign: 'center',
         fontSize: 14,
         color: '#fff',
         fontFamily: 'Poppins-Regular',
         letterSpacing: 1,
-        marginLeft: 10,
-        bottom: 52,
+        marginBottom: 10,
         textShadowOffset: {
             width: -2,
             height: 2.
