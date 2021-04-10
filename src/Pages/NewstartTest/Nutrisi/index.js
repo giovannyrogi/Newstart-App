@@ -54,12 +54,12 @@ const Nutrisi = ({ navigation }) => {
             setHasilKalori(newResultCalori);
         }
 
-        //menghindari error jika sum dan totalkeseluruhan bernilai null atau 0
+        //menghindari error jika sum dan totalkeseluruhan bernilai null
         if (sum == 0) {
             sum = 0;
             totalKeseluruhan = 0;
             // alert('sum : ' + sum);
-            // alert('totalKeseluruhan : ' + sum);
+            // alert('totalKeseluruhan : ' + totalKeseluruhan);
         }
         navigation.navigate('Olahraga');
     }

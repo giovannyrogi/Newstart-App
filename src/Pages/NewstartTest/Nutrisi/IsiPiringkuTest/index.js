@@ -71,8 +71,6 @@ const IsiPiringkuTest = () => {
                     animationOut='fadeOutDown'
                     animationOutTiming={1000}
                     isVisible={showModal}
-                    hasBackdrop={true}
-                    onBackdropPress={HideModalMakanPagi}
                     style={styles.modalContainer}
                 >
                     <View>

@@ -1,40 +1,42 @@
-import React from 'react';
-import { SafeAreaView, Text, View, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { Image, Text, View, StyleSheet } from 'react-native';
+
+import { MakananPokok } from '../../../../assets'
 
 const IsiPiringkuContent = () => {
-    return (
-        <SafeAreaView>
-            <View style={styles.container}>
-                <Text style={styles.textStyle}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec at vehicula dui. Sed accumsan nisl lectus,
-                    id feugiat sapien blandit id. Donec mollis tristique odio.
-                    Aliquam vel dui tristique, feugiat dui et, pretium velit.
-                    Nam condimentum nisl id aliquet vulputate. Donec pellentesque leo lorem,
-                    non aliquam nisi euismod quis. Nam sit amet odio at risus imperdiet accumsan.
-                    Aliquam eu eros vitae nibh fringilla porta. Proin finibus sapien mi,
-                    sed tempor justo accumsan sit amet. Suspendisse pharetra neque in ligula
-                    dignissim tincidunt. Fusce scelerisque rutrum augue a consequat.
-                    Cras dui orci, sodales et nulla at, rhoncus congue ex. Pellentesque ante dolor,
-                    bibendum vel dolor sed, porttitor dapibus leo. Suspendisse ac lectus orci.
-                    Nulla sit amet lectus eu nisi pellentesque finibus blandit eget sapien.
 
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Donec at vehicula dui. Sed accumsan nisl lectus,
-                    id feugiat sapien blandit id. Donec mollis tristique odio.
-                    Aliquam vel dui tristique, feugiat dui et, pretium velit.
-                    Nam condimentum nisl id aliquet vulputate. Donec pellentesque leo lorem,
-                    non aliquam nisi euismod quis. Nam sit amet odio at risus imperdiet accumsan.
-                    Aliquam eu eros vitae nibh fringilla porta. Proin finibus sapien mi,
-                    sed tempor justo accumsan sit amet. Suspendisse pharetra neque in ligula
-                    dignissim tincidunt. Fusce scelerisque rutrum augue a consequat.
-                    Cras dui orci, sodales et nulla at, rhoncus congue ex. Pellentesque ante dolor,
-                    bibendum vel dolor sed, porttitor dapibus leo. Suspendisse ac lectus orci.
-                    Nulla sit amet lectus eu nisi pellentesque finibus blandit eget sapien.
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.IsiPiringkuContentStyle}>
+                <Text style={styles.textStyle}>
+                    Isi Piringku adalah sebuah pedoman yang dibuat oleh pemerintah Indonesia untuk
+                    memberi pemahaman kepada seluruh masyarakat Indonesia tentang pentingnya
+                    mengkonsumsi makanan sehat dengan gizi yang seimbang. Isi Piringku berisi informasi
+                    mengenai bagaimana cara penyajian setiap porsi makanan yang baik dan benar agar dapat
+                    memperoleh gizi yang seimbang. Dalam Isi Piringku cara penyajian makanan dalam 1 porsi piring terbagi
+                    menjadi 4 bagian yaitu makanan pokok, lauk-pauk, sayur-sayuran dan buah-buahan.
                 </Text>
             </View>
+            <View style={styles.makananPokokContainer}>
+                <Text style={styles.subJudul}>Makanan Pokok</Text>
+                <Text style={styles.textStyle}>
+                    Makanan pokok adalah pangan yang mengandung karbohidrat
+                    dan sering dikonsumsi oleh masyarakat Indonesia sejak lama.
+                    Makanan pokok ini beragam seperti beras, jagung, singkong, ubi, sagu.
+                    Termasuk juga produk olahan yaitu roti, pasta, mie dan lain-lain.
+                    Menurut Isi piringku sajian makanan pokok dalam 1 porsi piring hanya
+                    2/3 dari 1/2 piring. Untuk lebih jelasnya silahkan lihat gambar dibawah ini.
+                </Text>
 
-        </SafeAreaView>
+                <View style={{ marginTop: 15 }}>
+                    <Image
+                        style={styles.stretch}
+                        source={MakananPokok}
+                    />
+                </View>
+            </View>
+        </View>
     )
 }
 
@@ -43,12 +45,37 @@ export default IsiPiringkuContent;
 const styles = StyleSheet.create({
     container: {
         marginVertical: 8,
+
     },
 
-    textStyle: {
+    IsiPiringkuContentStyle: {
+        marginTop: 20,
+        marginHorizontal: 20,
+    },
+
+    makananPokokContainer: {
+        marginTop: 20,
+        marginHorizontal: 20,
+    },
+
+    subJudul: {
+        fontFamily: 'Poppins-Bold',
         fontSize: 15,
         letterSpacing: 1,
         lineHeight: 22,
-        marginHorizontal: 20,
-    }
+        color: '#9B51E0',
+    },
+
+    textStyle: {
+        fontFamily: 'Roboto-Regular',
+        textAlign: 'justify',
+        fontSize: 15,
+        letterSpacing: 1,
+        lineHeight: 22,
+    },
+
+    stretch: {
+        width: 330,
+        height: 280,
+    },
 })
