@@ -31,6 +31,7 @@ const HatiSenang = ({ navigation }) => {
     const [optimumHealth, setOptimumHealth] = useState('Optimum Health');
 
     const [currentDate, setCurrentDate] = useState('')
+    const [currentTime, setCurrentTime] = useState('')
     const [radioHatiSenang, setRadioHatiSenang] = useState([
         {
             label: "Senang",
@@ -57,6 +58,7 @@ const HatiSenang = ({ navigation }) => {
 
             firebase.database().ref('users/' + userId + '/userHistory/').push({
                 Date: currentDate,
+                Time: currentTime,
                 newstartResult: result,
                 interpretasiResult: disease
             });
@@ -65,6 +67,7 @@ const HatiSenang = ({ navigation }) => {
             // alert('Dari poorHealth : ' + result)
             firebase.database().ref('users/' + userId + '/userHistory/').push({
                 Date: currentDate,
+                Time: currentTime,
                 newstartResult: result,
                 interpretasiResult: poorHealth
             });
@@ -73,6 +76,7 @@ const HatiSenang = ({ navigation }) => {
             // alert('Dari Neutral : ' + result)
             firebase.database().ref('users/' + userId + '/userHistory/').push({
                 Date: currentDate,
+                Time: currentTime,
                 newstartResult: result,
                 interpretasiResult: neutral
             });
@@ -81,6 +85,7 @@ const HatiSenang = ({ navigation }) => {
             // alert('Dari GoodHealth : ' + result)
             firebase.database().ref('users/' + userId + '/userHistory/').push({
                 Date: currentDate,
+                Time: currentTime,
                 newstartResult: result,
                 interpretasiResult: goodHealth
             });
@@ -89,6 +94,7 @@ const HatiSenang = ({ navigation }) => {
             // alert('Dari OptimumHealth : ' + result)
             firebase.database().ref('users/' + userId + '/userHistory/').push({
                 Date: currentDate,
+                Time: currentTime,
                 newstartResult: result,
                 interpretasiResult: optimumHealth
             });
@@ -125,17 +131,18 @@ const HatiSenang = ({ navigation }) => {
         var date = new Date().getDate() // current Date
         var month = new Date().getMonth() + 1 //current Month
         var year = new Date().getFullYear() //current Year
-        // var hours = new Date().getHours() //current Hours
-        // var min = new Date().getMinutes() //current Minutes
-        // var sec = new Date().getSeconds() //current Seconds
+        var hours = new Date().getHours() //current Hours
+        var min = new Date().getMinutes() //current Minutes
+        var sec = new Date().getSeconds() //current Seconds
         setCurrentDate(date - 1 + '/' + month + '/' + year)
+        setCurrentTime(hours + ':' + min + ':' + sec)
     }, [])
 
     return (
         <SafeAreaView style={styles.container}>
             {/* <Text>Nilai Global Hati Senang: {hasilHatiSenang}</Text>
             <Text>Nilai Newstart : {resultNewstartF}</Text>
-            <Text>Date : {currentDate}</Text> */}
+            <Text>Date : {currentTime}</Text> */}
             <Text style={styles.textStyle}>Bagaimana perasaan Anda ?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm

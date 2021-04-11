@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, SafeAreaView, StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
 import RadioForm from 'react-native-simple-radio-button';
-import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 
 import firebase from '../../../Config/Firebase';
@@ -34,14 +33,6 @@ const Air = ({ navigation }) => {
 
     ];
 
-
-    const showModal = () => {
-        setModalVisible(true);
-    };
-
-    const hideModal = () => {
-        setModalVisible(false);
-    };
     const handleRadio = (value, get1liter, get2liter, get3liter) => {
         // alert(value)
         if (value == 50) {
@@ -81,36 +72,8 @@ const Air = ({ navigation }) => {
 
                 </Text>
                 <Text style={styles.textStyle}>Berapa banyak air yang sudah Anda konsumsi? <View></View>
-                    <Text onPress={showModal} style={styles.textStyle2}>Informasi takaran air putih</Text>
                 </Text>
             </View>
-
-            <Modal
-                animationIn='fadeInDown'
-                animationInTiming={1000}
-                animationOut='slideOutDown'
-                animationOutTiming={1000}
-                isVisible={isModalVisible}
-                hasBackdrop={true}
-                onBackdropPress={hideModal}
-                style={styles.modalContainer}
-            >
-                <SafeAreaView>
-                    <ScrollView>
-                        <Text style={styles.judulStyle}>Takaran Air Putih</Text>
-                        <TakaranAir />
-                        <View style={styles.buttonContainer}>
-
-                            <TouchableOpacity
-                                onPress={hideModal}
-                                style={styles.buttonBackStyle}
-                            >
-                                <Text style={styles.buttonTextStyle}>Kembali</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ScrollView>
-                </SafeAreaView>
-            </Modal>
 
             <View style={styles.radioFormContainer}>
                 <RadioForm

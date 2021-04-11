@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, BackHandler, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, BackHandler, TouchableOpacity, ScrollView } from 'react-native';
 
-import { ButtonNext } from '../../Components';
-import { useDispatch, useSelector } from 'react-redux';
 import firebase from '../../Config/Firebase';
-import DatePickerTTL from './DatePickerTTL';
 
 import IconCalori from 'react-native-vector-icons/Ionicons'
 import IconBMI from 'react-native-vector-icons/FontAwesome5'
+import CardView from 'react-native-cardview'
+import { ButtonNext } from '../../Components';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Home = ({ navigation }) => {
 
+    const dispatch = useDispatch()
     const userCalori = useSelector((state) => state.resultAllCalories);
     const resultNewstartF = useSelector(state => state.resultNewstart);
     const userId = useSelector(state => state.uid)
 
-    const [dataNewstart, setDataNewstart] = useState('')
     const [dataHistory, setDataHistory] = useState('')
+    const [dataNewstart, setDataNewstart] = useState('')
+
 
     const getKey = Object.keys(dataHistory)
 
@@ -33,7 +35,6 @@ const Home = ({ navigation }) => {
         BackHandler.removeEventListener('hardwareBackPress', this.disableBackButton);
     }
 
-
     //mengambil data yang ada di firebase realtime database
     useEffect(() => {
         // mengambil data kalori dan bmi
@@ -42,47 +43,144 @@ const Home = ({ navigation }) => {
                 setDataNewstart(snapshot.val())
                 console.log(snapshot)
             }
-        })
-        // mengambil data riwayat(tanggal, hasil dan interpretasi)
-        firebase.database().ref('users/' + userId + '/userHistory/').get().then((snapshot) => {
-            if (snapshot.exists()) {
-
-                setDataHistory(snapshot.val())
-                console.log(snapshot)
-            }
-        })
-            .catch(function (error) {
-                console.log('Error : ' + error.message);
-                throw error;
-            });
+            // mengambil data riwayat(tanggal, hasil dan interpretasi)
+            firebase.database().ref('users/' + userId + '/userHistory/').get().then((snapshot) => {
+                if (snapshot.exists()) {
+                    setDataHistory(snapshot.val())
+                    console.log(snapshot)
+                }
+            })
+        }).catch(function (error) {
+            console.log('Error : ' + error.message);
+            throw error;
+        });
+        dispatch({ type: 'GET_USER_KEY', value: getKey });
     }, [])
 
-    //menampilkan tingkat kesehatan jika hasil tidak kosong / 0
+
+
+
+
+    // menampilkan Interpretasi bedasarkan hasil yang didapatkan oleh user
     const showInter = () => {
         if (resultNewstartF != 0) {
             return (
-                <Text style={styles.tingkatKesehatan}>Tingkat kesehatan Anda adalah {inter()}</Text>
+                <View>
+                    <CardView
+                        cardElevation={10}
+                        cardMaxElevation={10}
+                        cornerRadius={8}
+                        style={styles.cardContainer}
+                    >
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.textInteStyle}>Tingkat Kesehatan Anda : {inter()}</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate('ButtonDetail')} style={{ alignItems: 'center' }}>
+                                <Text style={styles.textButtonDetail}>(Detail)</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </CardView>
+
+                </View>
             )
         }
     }
 
-    // menampilkan target kalori user
-    const showCalori = () => {
+    // menampilkan tingkat kesehatan sesuai hasil poin
+    const inter = () => {
+        if (resultNewstartF > 0 && resultNewstartF < 20) {
+            // alert('Dari Disease : ' + result)
+            // return (<Text style={styles.interDiseaseStyle}>Disease</Text>)
+            return (<Text style={styles.interOptimumHealthStyle}>Optimum Health</Text>)
+        }
+        if (resultNewstartF >= 20 && resultNewstartF < 40) {
+            // alert('Dari poorHealth : ' + result)
+            return (<Text style={styles.interPoorHealthStyle}>Poor Health </Text>)
+        }
+        if (resultNewstartF >= 40 && resultNewstartF < 60) {
+            // alert('Dari Neutral : ' + result)
+            return (<Text style={styles.interNeutralStyle}>Neutral </Text>)
+        }
+        if (resultNewstartF >= 60 && resultNewstartF < 90) {
+            // alert('Dari GoodHealth : ' + result)
+            return (<Text style={styles.interGoodHealthStyle}>Good Health</Text>)
+        }
+        if (resultNewstartF >= 90 && resultNewstartF < 100) {
+            // alert('Dari OptimumHealth : ' + result)
+            return (<Text style={styles.interOptimumHealthStyle}>Optimum Health</Text>)
+
+        }
+    }
+
+    //mengambil data tanggal dari firebase
+    const renderDataDate = () => {
         return (
-            <View>
-                <View style={styles.iconBMIContainer}>
-                    <IconCalori
-                        name="restaurant-outline"
-                        size={60}
-                    />
-                    <Text style={styles.textIconKkal}>Kkal</Text>
-                </View>
-                <View style={{ alignSelf: 'center', flexDirection: 'row' }}>
-                    <Text style={styles.textCalori}>{userCalori} / </Text>
-                    <Text style={styles.textCaloriTarget}>{dataNewstart.resultKalori}(Target)</Text>
-                </View>
+            <View >
+                {
+                    getKey.map((item) => (
+                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].Date}</Text>
+                    ))
+                }
             </View>
         )
+    }
+
+    //mengambil data jam dari firebase
+    const renderDataTime = () => {
+        return (
+            <View >
+                {
+                    getKey.map((item) => (
+                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].Time}</Text>
+                    ))
+                }
+            </View>
+        )
+    }
+
+    //mengambil data hasil dari firebase
+    const renderDataHasil = () => {
+        return (
+            <View >
+                {
+                    getKey.map((item) => (
+                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].newstartResult}</Text>
+                    ))
+                }
+            </View>
+        )
+    }
+
+    //mengambil data interpretasi dari firebase
+    const renderDataInterpretasi = () => {
+        return (
+            <View >
+                {
+                    getKey.map((item) => (
+                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].interpretasiResult}</Text>
+                    ))
+                }
+            </View>
+        )
+    }
+
+    //mengganti tombol saat hasil == 0 atau !=0
+    const switchButton = () => {
+        if (resultNewstartF == 0) {
+            return (
+                <ButtonNext
+                    title="Newstart Test"
+                    onPress={() => navigation.navigate('Nutrisi')}
+                />
+            )
+        }
+        if (resultNewstartF > 0) {
+            return (
+                <ButtonNext
+                    title="Test Lagi"
+                    onPress={() => navigation.navigate('Nutrisi')}
+                />
+            )
+        }
     }
 
     //Menampilkan Interpretasi BMI sesuai perhitungan dari userBMI
@@ -114,258 +212,214 @@ const Home = ({ navigation }) => {
         }
     }
 
-    // menampilkan BMI user
+    {/* menampilkan user kalori perhari dan target kalori */ }
+    const showCalori = () => {
+        return (
+            <View style={{ flex: 1, }}>
+                <CardView
+                    cardElevation={15}
+                    cardMaxElevation={15}
+                    cornerRadius={15}
+                    style={styles.cardContainer2}
+                >
+                    <View style={styles.iconContainer}>
+                        <IconCalori
+                            name="restaurant-outline"
+                            size={65}
+                            style={{ marginLeft: 25 }}
+                        />
+                        <Text style={styles.textIcon}>Kkal</Text>
+                    </View>
+                    <View style={styles.targetCaloriContainer}>
+                        <Text style={styles.userCalori}>{userCalori} / </Text>
+                        <Text style={styles.userTargetCalori}>{dataNewstart.resultKalori}(target)</Text>
+                    </View>
+                </CardView>
+            </View>
+        )
+    }
+
+    {/* menampilkan data BMI user dan Interpretasi BMI */ }
     const showBMI = () => {
         return (
-            <View>
-                <View style={styles.iconBMIContainer}>
-                    <IconBMI
-                        name="weight"
-                        size={60}
-                    />
-                    <Text style={styles.textIconBMIStyle}>BMI</Text>
-                </View>
-                <View style={{ alignSelf: 'center', flexDirection: 'row' }}>
-                    <Text style={styles.textBMI}>{interpretasiBMI()} / </Text>
-                    <Text style={styles.textBMI}>{dataNewstart.resultBMI}</Text>
-                </View>
-                {/* <Text style={styles.textBMI}>{userBMI}</Text> */}
-            </View >
-        )
-    }
-
-    // mengganti tombol jika belum mengikuti test akan tampil Newstart Test, 
-    // jika sudah mengikuti test akan tampil Test Lagi
-    const switchButton = () => {
-        if (resultNewstartF == 0) {
-            return (
-                <ButtonNext
-                    title="Newstart Test"
-                    onPress={() => navigation.navigate('Nutrisi')}
-                />
-            )
-        }
-        if (resultNewstartF > 0) {
-            return (
-                <ButtonNext
-                    title="Test Lagi"
-                    onPress={() => navigation.navigate('Nutrisi')}
-                />
-            )
-        }
-    }
-
-    // menampilkan tingkat kesehatan sesuai hasil poin
-    const inter = () => {
-        if (resultNewstartF > 0 && resultNewstartF < 20) {
-            // alert('Dari Disease : ' + result)
-            return (<Text style={styles.interStyle}>Disease</Text>)
-        }
-        if (resultNewstartF >= 20 && resultNewstartF < 40) {
-            // alert('Dari poorHealth : ' + result)
-            return (<Text style={styles.interStyle}>Poor Health </Text>)
-        }
-        if (resultNewstartF >= 40 && resultNewstartF < 60) {
-            // alert('Dari Neutral : ' + result)
-
-            return (<Text style={styles.interStyle}>Neutral </Text>)
-        }
-        if (resultNewstartF >= 60 && resultNewstartF < 90) {
-            // alert('Dari GoodHealth : ' + result)
-            return (<Text style={styles.interStyle}>Good Health</Text>)
-        }
-        if (resultNewstartF >= 90 && resultNewstartF < 100) {
-            // alert('Dari OptimumHealth : ' + result)
-            return (<Text style={styles.interStyle}>Optimum Health</Text>)
-        }
-    }
-
-    const renderDataDate = () => {
-        return (
-            <View >
-                {
-                    getKey.map((item) => (
-                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].Date}</Text>
-                    ))
-                }
-            </View>
-        )
-    }
-
-    const renderDataHasil = () => {
-        return (
-            <View >
-                {
-                    getKey.map((item) => (
-                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].newstartResult}</Text>
-                    ))
-                }
-            </View>
-        )
-    }
-
-    const renderDataInterpretasi = () => {
-        return (
-            <View >
-                {
-                    getKey.map((item) => (
-                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].interpretasiResult}</Text>
-                    ))
-                }
+            <View style={{ flex: 1, }}>
+                <CardView
+                    cardElevation={15}
+                    cardMaxElevation={15}
+                    cornerRadius={15}
+                    style={styles.cardContainer2}
+                >
+                    <View style={styles.iconContainer}>
+                        <IconBMI
+                            name="weight"
+                            size={65}
+                            style={{ marginLeft: 25 }}
+                        />
+                        <Text style={styles.textIcon}>BMI</Text>
+                    </View>
+                    <View style={styles.targetCaloriContainer}>
+                        <Text style={styles.textInterStyle}>{interpretasiBMI()} / </Text>
+                        <Text style={styles.userBMIStyle}>{dataNewstart.resultBMI}</Text>
+                    </View>
+                </CardView>
             </View>
         )
     }
 
 
     return (
-
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.container}>
-                <View style={styles.container2}>
-                    <View style={{ marginHorizontal: 6, }}>
-                        <Text style={styles.tanggalStyle}></Text>
-                        <Text style={styles.textHasilStyle}>HASIL</Text>
-                        <Text style={styles.textPoinStyle}>{resultNewstartF}</Text>
-                        <View style={{ flexDirection: 'row' }}>
-                            {showInter()}
-                        </View>
-                    </View>
+        <View style={styles.mainContainer}>
+            <View style={styles.subContainer1}>
+                <View style={styles.resultContainer}>
+                    <Text style={styles.textHasilStyle}>HASIL</Text>
+                    <Text style={styles.textPoinStyle}>{resultNewstartF}</Text>
                 </View>
-                <View style={styles.container3}>
-                    <View style={styles.containerResultDate}>
-                        <Text style={styles.textRiwayat}>Riwayat</Text>
-                        <View style={styles.subJudulContainer}>
-                            <Text style={styles.subDataJudul}>Tanggal</Text>
-                            <Text style={styles.subDataJudul}>Hasil</Text>
-                            <Text style={styles.subDataJudul}>Interpretasi</Text>
-                        </View>
-                        <View style={styles.dataResultContainer}>
-                            <View style={styles.dataRiwayatStyle}>
-                                <Text>{renderDataDate()}</Text>
+                {showInter()}
+            </View>
+            <View style={styles.subContainer2}>
+                <Text style={styles.judulRiwayat}>Riwayat</Text>
+                <View style={{ flex: 0.9, marginTop: 15, }}>
+                    <CardView
+                        cardElevation={15}
+                        cardMaxElevation={15}
+                        cornerRadius={15}
+                        style={styles.riwayatCardContainer}
+                    >
+                        <View style={styles.riwayatSubContainer}>
+                            <View style={styles.subJudulContainer}>
+                                <Text style={styles.textSubJudulStyle}>Tanggal</Text>
+                            </View >
+                            <View style={styles.subJudulContainer}>
+                                <Text style={styles.textSubJudulStyle}>Jam</Text>
                             </View>
-                            <View style={styles.dataRiwayatStyle}>
-                                <Text> {renderDataHasil()}</Text>
+                            <View style={styles.subJudulContainer}>
+                                <Text style={styles.textSubJudulStyle}>Hasil</Text>
                             </View>
-                            <View style={styles.dataRiwayatStyle}>
-                                <Text>{renderDataInterpretasi()}</Text>
+                            <View style={styles.subJudulContainer}>
+                                <Text style={styles.textSubJudulStyle}>Interpretasi</Text>
                             </View>
                         </View>
-                    </View>
-                    <View style={styles.bmiAndCaloriContainer}>
-                        <View style={styles.caloriAndBMISubContainer}>
-                            {showCalori()}
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={styles.dataContainer}>
+                                {renderDataDate()}
+                            </View>
+                            <View style={styles.dataContainer}>
+                                {renderDataTime()}
+                            </View>
+                            <View style={styles.dataContainer}>
+                                {renderDataHasil()}
+                            </View>
+                            <View style={styles.dataContainer}>
+                                {renderDataInterpretasi()}
+                            </View>
                         </View>
-                        <View style={styles.caloriAndBMISubContainer}>
-                            {showBMI()}
-                        </View>
-                    </View>
-                    <View style={styles.buttonContainer}>
-                        {switchButton()}
-                    </View>
+                    </CardView>
+                </View>
+                <View style={styles.caloriAndBMIContainer}>
+                    {/* menampilkan user kalori perhari dan target kalori */}
+                    {showCalori()}
+
+                    {/* menampilkan data BMI user dan Interpretasi BMI */}
+                    {showBMI()}
+                </View>
+                <View style={styles.buttonContainer}>
+                    {switchButton()}
                 </View>
             </View>
-        </ScrollView>
-
+        </View >
     )
 }
 
 export default Home;
 
-
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
         flex: 1,
+        backgroundColor: '#A393D0'
     },
 
-    container2: {
-        flex: 0.8,
-        backgroundColor: '#A393D0',
-        borderBottomWidth: 2,
-        borderColor: '#BDBDBD',
-        elevation: 5,
+    subContainer1: {
+        flex: 0.5,
+        // backgroundColor: 'pink'
+
     },
 
-    container3: {
-        flex: 1.5,
-        marginHorizontal: 10,
+    subContainer2: {
+        flex: 1.2,
+        backgroundColor: '#F5F5F5',
+        borderTopLeftRadius: 35,
+        borderTopRightRadius: 35,
+        borderTopWidth: 0.7,
+        borderColor: '#303030',
+        elevation: 30,
     },
 
-    containerResultDate: {
-        marginTop: 30,
-        borderWidth: 0.6,
-        borderRadius: 10,
+    caloriAndBMIContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        top: 15
     },
 
-    textRiwayat: {
+    cardContainer2: {
+        flex: 1,
+        marginHorizontal: 13
+    },
+
+    iconContainer: {
+        flex: 3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
+
+    textIcon: {
+        alignSelf: 'center',
+        fontFamily: 'Poppins-Bold',
+        fontSize: 16,
+        marginTop: 5,
+        left: 5,
+    },
+
+    targetCaloriContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+
+    textInterStyle: {
+        textAlign: 'center',
+        fontFamily: 'Roboto-Bold'
+    },
+
+    userBMIStyle: {
+        textAlign: 'center',
+        fontFamily: 'Roboto-Bold'
+    },
+
+    userCalori: {
         textAlign: 'center',
         fontFamily: 'Roboto-Bold',
-        fontSize: 16,
-        letterSpacing: 1,
-        marginTop: 5,
+        color: '#9B51E0',
     },
 
-    subJudulContainer: {
-        flexDirection: 'row',
-        borderTopWidth: 0.6,
-        borderBottomWidth: 0.6,
-        marginVertical: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 3,
-    },
-
-    subDataJudul: {
-        flex: 1,
-        fontSize: 15,
-        fontFamily: 'Poppins-Regular',
-        textAlign: 'center'
-    },
-
-    dataResultContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-
-    dataRiwayatStyle: {
-        flex: 1,
-        alignItems: 'center'
-    },
-
-    dataStyle: {
-        flex: 1,
+    userTargetCalori: {
+        fontFamily: 'Roboto-Bold',
+        color: 'green',
         textAlign: 'center',
-        marginBottom: 6,
-        fontFamily: 'Poppins-Regular'
     },
 
-    dataInterStyle: {
-        flex: 1,
-        textAlign: 'center',
-        marginBottom: 6,
-        fontFamily: 'Poppins-Regular'
-    },
-
-    buttonContainer: {
+    resultContainer: {
+        flex: 1.5,
         alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 30
-    },
-
-
-    tanggalStyle: {
-        fontSize: 14,
-        alignSelf: 'flex-end',
-        right: 25,
+        justifyContent: 'center'
     },
 
     textHasilStyle: {
-        textAlign: 'center',
+        marginTop: 25,
         fontSize: 30,
         color: '#fff',
         fontFamily: 'Poppins-Bold',
         letterSpacing: 1,
-        top: 30,
         textShadowOffset: {
             width: -1,
             height: 1.
@@ -376,7 +430,7 @@ const styles = StyleSheet.create({
     },
 
     textPoinStyle: {
-        textAlign: 'center',
+        marginTop: -25,
         fontSize: 30,
         color: '#fff',
         fontSize: 70,
@@ -390,102 +444,153 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
 
-    interStyle: {
+    judulRiwayat: {
         textAlign: 'center',
-        fontSize: 16,
-        color: '#fff',
-        fontFamily: 'Poppins-Regular',
-        letterSpacing: 1,
-        bottom: 53.5,
-        marginLeft: 5,
-        textShadowOffset: {
-            width: -2,
-            height: 2.
-        },
-        textShadowColor: '#000',
-        textShadowRadius: 8,
+        fontFamily: 'Roboto-Regular',
+        letterSpacing: 0.8,
+        color: '#303030',
+        fontSize: 20,
+        marginTop: 5
     },
 
-    tingkatKesehatan: {
-        flex: 1,
-        textAlign: 'center',
-        fontSize: 14,
-        color: '#fff',
-        fontFamily: 'Poppins-Regular',
-        letterSpacing: 1,
-        marginBottom: 10,
-        textShadowOffset: {
-            width: -2,
-            height: 2.
-        },
-        textShadowColor: '#000',
-        textShadowRadius: 8,
-    },
-
-    bmiAndCaloriContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        marginTop: 20,
-
-    },
-
-    caloriAndBMISubContainer: {
-        flex: 1,
+    cardContainer: {
+        marginHorizontal: 16,
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 1,
-        borderRadius: 10,
-        marginHorizontal: 10
-    },
-
-    textCalori: {
-        fontFamily: 'Roboto-Bold',
-        textAlign: 'center',
         marginBottom: 10,
-
+        elevation: 20,
     },
 
-    textCaloriTarget: {
-        fontFamily: 'Roboto-Bold',
-        color: '#9B51E0',
+    interGoodHealthStyle: {
         textAlign: 'center',
-        marginBottom: 10,
-
-    },
-
-    iconBMIContainer: {
-        flex: 1,
-        marginLeft: 25,
-        marginTop: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
-
-    textIconBMIStyle: {
-        marginLeft: 5,
-        marginTop: 15,
-        fontFamily: 'Poppins-Bold',
         fontSize: 15,
-        textAlign: 'center',
-
+        color: 'teal',
+        fontFamily: 'Roboto-Bold',
+        letterSpacing: 1,
+        textShadowOffset: {
+            width: -1,
+            height: 0.5,
+        },
+        textShadowColor: '#757575',
+        textShadowRadius: 1,
     },
 
-    textBMI: {
+    interNeutralStyle: {
+        textAlign: 'center',
+        fontSize: 15,
+        color: '#0fb542',
         fontFamily: 'Roboto-Bold',
-        top: 3,
+        letterSpacing: 1,
+        textShadowOffset: {
+            width: -1,
+            height: 0.5,
+        },
+        textShadowColor: '#757575',
+        textShadowRadius: 1,
+    },
+
+    interDiseaseStyle: {
+        textAlign: 'center',
+        fontSize: 15,
+        color: 'crimson',
+        fontFamily: 'Roboto-Bold',
+        letterSpacing: 1,
+        textShadowOffset: {
+            width: -1,
+            height: 0.5,
+        },
+        textShadowColor: '#757575',
+        textShadowRadius: 1,
+    },
+
+    interOptimumHealthStyle: {
+        textAlign: 'center',
+        fontSize: 15,
+        color: '#7577dc',
+        fontFamily: 'Roboto-Bold',
+        letterSpacing: 1,
+        textShadowOffset: {
+            width: -1,
+            height: 0.5,
+        },
+        textShadowColor: '#757575',
+        textShadowRadius: 1,
+    },
+
+    interPoorHealthStyle: {
+        textAlign: 'center',
+        fontSize: 15,
+        color: '#e3c53c',
+        fontFamily: 'Roboto-Bold',
+        letterSpacing: 1,
+        textShadowOffset: {
+            width: -0.5,
+            height: 0.5,
+        },
+        textShadowColor: '#757575',
+        textShadowRadius: 1,
+    },
+
+    textInteStyle: {
+        textAlign: 'center',
+        fontSize: 14.5,
         color: '#000',
-        textAlign: 'center',
-        marginBottom: 10,
+        fontFamily: 'Roboto-Regular',
+        letterSpacing: 0.5,
+        paddingVertical: 2,
     },
 
-    textIconKkal: {
-        marginLeft: 5,
-        marginTop: 15,
-        fontFamily: 'Poppins-Bold',
-        fontSize: 15,
+    textButtonDetail: {
+        color: 'dodgerblue',
+        marginTop: 2.5,
+        marginLeft: 2.5,
+        letterSpacing: 0.5,
+        fontFamily: 'Roboto-Bold'
+    },
+
+    buttonContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 12,
+        marginBottom: 30
+    },
+
+    riwayatCardContainer: {
+        flex: 1,
+        marginBottom: 13,
+        marginHorizontal: 20,
+    },
+
+    riwayatSubContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        borderBottomWidth: 0.8,
+        borderColor: '#757575',
+        marginBottom: 3,
+    },
+
+    subJudulContainer: {
+        flex: 1,
+        alignItems: 'center',
+        marginTop: 5,
+
+    },
+
+    textSubJudulStyle: {
+        fontFamily: 'Poppins-Regular',
+        fontSize: 14,
+        color: '#000',
+        right: 4,
+    },
+
+    dataContainer: {
+        flex: 1,
+        alignItems: 'center',
+    },
+
+    dataStyle: {
+        padding: 1,
         textAlign: 'center',
-
-    }
-
-});
+        right: 4,
+    },
+})

@@ -7,6 +7,7 @@ import MakananPokok from '../assets/artikel/gambar/MakananPokok.png'
 import LaukPauk from '../assets/artikel/gambar/LaukPauk.png'
 import BuahBuahan from '../assets/artikel/gambar/BuahBuahan.png'
 import SayurSayuran from '../assets/artikel/gambar/SayurSayuran.png'
+import Interpretasi from '../assets/artikel/gambar/Interpretasi.png'
 
 export {
     BG,
@@ -18,4 +19,5 @@ export {
     LaukPauk,
     BuahBuahan,
     SayurSayuran,
+    Interpretasi
 }

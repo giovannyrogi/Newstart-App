@@ -21,6 +21,9 @@ import Tidur from '../Pages/NewstartTest/Tidur';
 import HubunganDgnTuhan from '../Pages/NewstartTest/HubunganDgnTuhan';
 import HatiSenang from '../Pages/NewstartTest/HatiSenang/';
 
+import ButtonDetail from '../Pages/Home/detailButton';
+
+
 
 
 const Stack = createStackNavigator();
@@ -58,13 +61,19 @@ const Router = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator
-                initialRouteName='Login'
+                initialRouteName='Home'
             >
 
                 {/* Halaman */}
                 <Stack.Screen
                     name="Splash"
                     component={Splash}
+                    options={{ ...noHeaderShown }}
+                />
+
+                <Stack.Screen
+                    name="ButtonDetail"
+                    component={ButtonDetail}
                     options={{ ...noHeaderShown }}
                 />
 
