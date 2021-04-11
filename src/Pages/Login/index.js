@@ -7,7 +7,8 @@ import LoginIcon from 'react-native-vector-icons/MaterialIcons';
 import UsernameIcon from 'react-native-vector-icons/AntDesign';
 import PasswordIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
-import EyeIcon from 'react-native-vector-icons/Entypo';
+import EyeIconShow from 'react-native-vector-icons/Entypo';
+import EyeIconHide from 'react-native-vector-icons/Entypo';
 import { Input } from '../../Components';
 import { useDispatch, useSelector } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -85,6 +86,25 @@ const Login = ({ navigation }) => {
         setSecureTextEntry(SecureTextEntry ? false : true)
     }
 
+    const switchIcon = () => {
+        if (SecureTextEntry == false) {
+            return (
+                <EyeIconShow
+                    name="eye"
+                    size={25}
+                />
+            )
+        }
+        if (SecureTextEntry == true) {
+            return (
+                <EyeIconHide
+                    name="eye-with-line"
+                    size={25}
+                />
+            )
+        }
+    }
+
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container1}>
@@ -122,10 +142,7 @@ const Login = ({ navigation }) => {
                     <TouchableOpacity
                         onPress={() => ShowSecureTextEntry()}
                     >
-                        <EyeIcon
-                            name="eye"
-                            size={25}
-                        />
+                        {switchIcon()}
                     </TouchableOpacity>
                 </View>
 

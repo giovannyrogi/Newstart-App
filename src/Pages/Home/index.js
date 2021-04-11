@@ -41,20 +41,21 @@ const Home = ({ navigation }) => {
         firebase.database().ref('users/' + userId + '/userResult/').get().then((snapshot) => {
             if (snapshot.exists()) {
                 setDataNewstart(snapshot.val())
-                console.log(snapshot)
+                // console.log(snapshot)
             }
-            // mengambil data riwayat(tanggal, hasil dan interpretasi)
-            firebase.database().ref('users/' + userId + '/userHistory/').get().then((snapshot) => {
+
+        })
+        // mengambil data riwayat(tanggal, hasil dan interpretasi)
+        firebase.database().ref('users/' + userId + '/userHistory/').orderByKey().limitToLast(3)
+            .get().then((snapshot) => {
                 if (snapshot.exists()) {
                     setDataHistory(snapshot.val())
                     console.log(snapshot)
                 }
-            })
-        }).catch(function (error) {
-            console.log('Error : ' + error.message);
-            throw error;
-        });
-        dispatch({ type: 'GET_USER_KEY', value: getKey });
+            }).catch(function (error) {
+                console.log('Error : ' + error.message);
+                throw error;
+            });
     }, [])
 
 
@@ -65,20 +66,23 @@ const Home = ({ navigation }) => {
     const showInter = () => {
         if (resultNewstartF != 0) {
             return (
-                <View>
-                    <CardView
-                        cardElevation={10}
-                        cardMaxElevation={10}
-                        cornerRadius={8}
-                        style={styles.cardContainer}
-                    >
-                        <View style={{ flexDirection: 'row' }}>
-                            <Text style={styles.textInteStyle}>Tingkat Kesehatan Anda : {inter()}</Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('ButtonDetail')} style={{ alignItems: 'center' }}>
-                                <Text style={styles.textButtonDetail}>(Detail)</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </CardView>
+                <View style={styles.subInterpretasiContainer1} >
+                    <View style={styles.subInterpretasiContainer2}>
+                        <Text style={styles.textInteStyle}>Tingkat Kesehatan Anda :</Text>
+                        <CardView
+                            cardElevation={15}
+                            cardMaxElevation={20}
+                            cornerRadius={8}
+                            style={styles.cardContainer}
+                        >
+                            <View style={styles.subCardContainer}>
+                                <Text > {inter()}</Text>
+                                <TouchableOpacity onPress={() => navigation.navigate('ButtonDetail')} style={{ alignItems: 'center' }}>
+                                    <Text style={styles.textButtonDetail}>(Detail)</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </CardView>
+                    </View>
 
                 </View>
             )
@@ -89,8 +93,7 @@ const Home = ({ navigation }) => {
     const inter = () => {
         if (resultNewstartF > 0 && resultNewstartF < 20) {
             // alert('Dari Disease : ' + result)
-            // return (<Text style={styles.interDiseaseStyle}>Disease</Text>)
-            return (<Text style={styles.interOptimumHealthStyle}>Optimum Health</Text>)
+            return (<Text style={styles.interDiseaseStyle}>Disease</Text>)
         }
         if (resultNewstartF >= 20 && resultNewstartF < 40) {
             // alert('Dari poorHealth : ' + result)
@@ -274,7 +277,9 @@ const Home = ({ navigation }) => {
                     <Text style={styles.textHasilStyle}>HASIL</Text>
                     <Text style={styles.textPoinStyle}>{resultNewstartF}</Text>
                 </View>
-                {showInter()}
+                <View style={styles.interMainContainer}>
+                    {showInter()}
+                </View>
             </View>
             <View style={styles.subContainer2}>
                 <Text style={styles.judulRiwayat}>Riwayat</Text>
@@ -295,7 +300,7 @@ const Home = ({ navigation }) => {
                             <View style={styles.subJudulContainer}>
                                 <Text style={styles.textSubJudulStyle}>Hasil</Text>
                             </View>
-                            <View style={styles.subJudulContainer}>
+                            <View style={styles.subJudulInterContainer}>
                                 <Text style={styles.textSubJudulStyle}>Interpretasi</Text>
                             </View>
                         </View>
@@ -309,7 +314,7 @@ const Home = ({ navigation }) => {
                             <View style={styles.dataContainer}>
                                 {renderDataHasil()}
                             </View>
-                            <View style={styles.dataContainer}>
+                            <View style={styles.dataInterContainer}>
                                 {renderDataInterpretasi()}
                             </View>
                         </View>
@@ -358,6 +363,27 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         top: 15
+    },
+
+    interMainContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 5,
+        marginBottom: 8
+    },
+
+    subInterpretasiContainer1: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    subInterpretasiContainer2: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
     cardContainer2: {
@@ -409,13 +435,13 @@ const styles = StyleSheet.create({
     },
 
     resultContainer: {
-        flex: 1.5,
+        flex: 4,
         alignItems: 'center',
         justifyContent: 'center'
     },
 
     textHasilStyle: {
-        marginTop: 25,
+        marginTop: 30,
         fontSize: 30,
         color: '#fff',
         fontFamily: 'Poppins-Bold',
@@ -430,7 +456,7 @@ const styles = StyleSheet.create({
     },
 
     textPoinStyle: {
-        marginTop: -25,
+        marginTop: -28,
         fontSize: 30,
         color: '#fff',
         fontSize: 70,
@@ -454,11 +480,15 @@ const styles = StyleSheet.create({
     },
 
     cardContainer: {
-        marginHorizontal: 16,
+        paddingVertical: 2,
+        paddingHorizontal: 4,
+        elevation: 20,
+    },
+
+    subCardContainer: {
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 10,
-        elevation: 20,
     },
 
     interGoodHealthStyle: {
@@ -531,18 +561,21 @@ const styles = StyleSheet.create({
         textShadowRadius: 1,
     },
 
+    interContainer: {
+        flexDirection: 'row',
+    },
+
     textInteStyle: {
+        marginRight: 10,
         textAlign: 'center',
-        fontSize: 14.5,
-        color: '#000',
-        fontFamily: 'Roboto-Regular',
-        letterSpacing: 0.5,
-        paddingVertical: 2,
+        fontSize: 15,
+        color: '#fff',
+        fontFamily: 'Roboto-Bold',
+        letterSpacing: 0.8,
     },
 
     textButtonDetail: {
         color: 'dodgerblue',
-        marginTop: 2.5,
         marginLeft: 2.5,
         letterSpacing: 0.5,
         fontFamily: 'Roboto-Bold'
@@ -558,7 +591,7 @@ const styles = StyleSheet.create({
     riwayatCardContainer: {
         flex: 1,
         marginBottom: 13,
-        marginHorizontal: 20,
+        marginHorizontal: 15,
     },
 
     riwayatSubContainer: {
@@ -576,6 +609,12 @@ const styles = StyleSheet.create({
 
     },
 
+    subJudulInterContainer: {
+        flex: 1.5,
+        alignItems: 'center',
+        marginTop: 5,
+    },
+
     textSubJudulStyle: {
         fontFamily: 'Poppins-Regular',
         fontSize: 14,
@@ -585,6 +624,11 @@ const styles = StyleSheet.create({
 
     dataContainer: {
         flex: 1,
+        alignItems: 'center',
+    },
+
+    dataInterContainer: {
+        flex: 1.5,
         alignItems: 'center',
     },
 

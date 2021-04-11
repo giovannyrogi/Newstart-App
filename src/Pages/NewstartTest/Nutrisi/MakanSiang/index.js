@@ -105,7 +105,7 @@ const MakanSiang = () => {
             return (
                 <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => onCheckedMakananPokok(item.id)}>
-                        <Text>{id}</Text>
+                        {/* <Text>{id}</Text> */}
                         <CheckBox
 
                             value={item.checkedMakananPokok}
@@ -132,7 +132,7 @@ const MakanSiang = () => {
             return (
                 <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => onCheckedLaukPauk(item.id)}>
-                        <Text>{id}</Text>
+                        {/* <Text>{id}</Text> */}
                         <CheckBox
                             value={item.checkedLaukPauk}
                             onValueChange={() => onCheckedLaukPauk(item.id)}
@@ -154,12 +154,12 @@ const MakanSiang = () => {
 
     // untuk menampilkan data laukpauk di modal
     const renderDataSayur = () => {
-        return sayur.map((item, nama) => {
+        return sayur.map((item, id) => {
             return (
 
-                <View key={nama} style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => onCheckedSayur(item.id)}>
-                        <Text>{nama}</Text>
+                        {/* <Text>{id}</Text> */}
                         <CheckBox
 
                             value={item.checkedSayur}
@@ -182,11 +182,11 @@ const MakanSiang = () => {
 
     // untuk menampilkan data buah-buahan di modal
     const renderDataBuah = () => {
-        return buahBuahan.map((item, id) => {
+        return buahBuahan.map((item, id, nama) => {
             return (
                 <View key={id} style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => onCheckedBuah(item.id)}>
-                        <Text>{id}</Text>
+                        {/* <Text>{id}</Text> */}
                         <CheckBox
                             value={item.checkedBuah}
                             onValueChange={() => onCheckedBuah(item.id)}
@@ -239,7 +239,7 @@ const MakanSiang = () => {
     }
 
 
-    const getSelectedData = (hasilKalori, sum) => {
+    const getSelectedData = (hasilKalori, sum, refreshSelectedMkn) => {
         var namaMakananPokok = MakananPokok.map((t) => t.nama)
         var checksMakananPokok = MakananPokok.map((t) => t.checkedMakananPokok)
         var caloriMakananPokok = MakananPokok.map((t) => t.kalori)
@@ -309,6 +309,7 @@ const MakanSiang = () => {
         setSelectedDataCalories(SelectedCalori)
         setTotalCalories(hasilKalori)
         setShowModal(false)
+
     }
 
     return (

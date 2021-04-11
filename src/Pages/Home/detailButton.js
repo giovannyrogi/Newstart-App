@@ -25,6 +25,7 @@ const DetailButton = ({ navigation }) => {
                         cropHeight={140}
                         imageWidth={400}
                         imageHeight={140}
+                        style={{ backgroundColor: 'white' }}
                     >
                         <Image
                             style={styles.stretch}

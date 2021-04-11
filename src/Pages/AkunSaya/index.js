@@ -1,162 +1,250 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 
+import firebase from '../../Config/Firebase';
 import Modal from 'react-native-modal';
 import ArrowButtonNext from 'react-native-vector-icons/MaterialIcons';
 import { GantiEmail } from '../../Components';
-
+import { useDispatch, useSelector } from 'react-redux';
 
 const AkunSaya = () => {
 
-    const [isModalVisible, setModalVisible] = useState(false);
-
-    const showModal = () => {
-        setModalVisible(true);
-    };
-
-    const hideModal = () => {
-        setModalVisible(false);
-    };
+    const userId = useSelector(state => state.uid)
+    const [userInfo, setUserInfo] = useState('')
 
 
-    return (
-        <SafeAreaView style={styles.Maincontainer}>
+    // const [isModalVisible, setModalVisible] = useState(false);
 
-            {/* Foto */}
-            <View style={styles.subContainer1}>
-                <Text style={{ fontSize: 25 }}>Foto</Text>
-            </View>
+    // const showModal = () => {
+    //     setModalVisible(true);
+    // };
 
-            {/* Data Akun */}
-            <View style={styles.subContainer2}>
+    // const hideModal = () => {
+    //     setModalVisible(false);
+    // };
 
-                {/* Email */}
-                <TouchableOpacity onPress={showModal} >
-                    <View style={styles.border}>
-                        <View style={styles.dataContainer}>
-                            <Text style={styles.textStyle}>Email</Text>
-                            <Text style={styles.DataStyle}>giovannirogi@gmail.com</Text>
+    useEffect(() => {
+        // mengambil data kalori dan bmi
+        firebase.database().ref('users/' + userId + '/userInfo/').get().then((snapshot) => {
+            if (snapshot.exists()) {
+                setUserInfo(snapshot.val())
+                console.log(snapshot)
+            }
 
+        })
+    }, [])
+
+    // useEffect(() => {
+    //     return () => {
+    //         firebase.database().ref('users/' + userId + '/userInfo/').get().then((snapshot) => {
+    //             if (snapshot.exists()) {
+    //                 setUserInfo(snapshot.val())
+    //                 console.log(snapshot)
+    //             }
+    //         }).catch(function (error) {
+    //             console.log('Error : ' + error.message);
+    //             throw error;
+    //         });
+    //     }
+    // }, [])
+
+    const renderDataEmail = () => {
+        return (
+            <View>
+                <View style={styles.dataEmailContainer}>
+                    <View style={{ flex: 1, justifyContent: 'center', }}>
+                        <Text style={styles.textStyle}>Email </Text>
+                    </View>
+                    <View style={styles.userInfoContainer}>
+                        <Text style={styles.DataStyle}>{userInfo.email} </Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity>
                             <ArrowButtonNext
                                 name="navigate-next"
                                 size={35}
                                 style={styles.arrowButtonStyle}
                             />
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-                {/* Email modal */}
-                <Modal
-                    animationIn='fadeInDown'
-                    animationInTiming={1000}
-                    animationOut='slideOutDown'
-                    animationOutTiming={800}
-                    isVisible={isModalVisible}
-                    hasBackdrop={true}
-                    onBackdropPress={hideModal}
-                    style={styles.modalContainer}
-                >
-                    <SafeAreaView style={styles.modalDataContainer}>
-                        <ScrollView>
-                            <Text style={styles.modaltittleStyle}>Email</Text>
-                            <GantiEmail />
-                        </ScrollView>
-                    </SafeAreaView>
-                </Modal>
-
-                {/* Ganti password */}
-                <TouchableOpacity>
-                    <View style={styles.border}>
-                        <View style={styles.dataContainer}>
-                            <Text style={styles.textStyle}>Ganti password</Text>
-                            <ArrowButtonNext
-                                name="navigate-next"
-                                size={35}
-                                style={styles.arrowButtonStyle2}
-                            />
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-
-                {/* Umur */}
-                <TouchableOpacity>
-                    <View style={styles.border}>
-                        <View style={styles.dataContainer}>
-                            <Text style={styles.textStyle}>Umur</Text>
-                            <Text style={styles.DataStyle}>27</Text>
-
-                            <ArrowButtonNext
-                                name="navigate-next"
-                                size={35}
-                                style={styles.arrowButtonStyle}
-                            />
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-                {/* Jenis kelamin */}
-                <View style={styles.border}>
-                    <View style={styles.dataContainer}>
-                        <Text style={styles.textStyle}>Jenis kelamin</Text>
-                        <Text style={styles.DataStyle}>Laki-laki</Text>
-                        <Text style={{ marginRight: 37 }}></Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-
-
-                {/* Tinggi badan */}
-                <TouchableOpacity>
-                    <View style={styles.border}>
-                        <View style={styles.dataContainer}>
-                            <Text style={styles.textStyle}>Tinggi badan</Text>
-                            <Text style={styles.DataStyle}>172</Text>
-
-                            <ArrowButtonNext
-                                name="navigate-next"
-                                size={35}
-                                style={styles.arrowButtonStyle}
-                            />
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-                {/* Berat badan */}
-                <TouchableOpacity>
-                    <View style={styles.border}>
-                        <View style={styles.dataContainer}>
-                            <Text style={styles.textStyle}>Berat badan</Text>
-                            <Text style={styles.DataStyle}>85</Text>
-
-                            <ArrowButtonNext
-                                name="navigate-next"
-                                size={35}
-                                style={styles.arrowButtonStyle}
-                            />
-                        </View>
-                    </View>
-                </TouchableOpacity>
-
-                {/* Body Mass Index */}
-                <TouchableOpacity>
-                    <View style={styles.border}>
-                        <View style={styles.dataContainer}>
-                            <Text style={styles.textStyle}>Body mass index (BMI)</Text>
-                            <Text style={styles.DataStyle}>29.1</Text>
-
-                            <ArrowButtonNext
-                                name="navigate-next"
-                                size={35}
-                                style={styles.arrowButtonStyle}
-                            />
-                        </View>
-                    </View>
-                </TouchableOpacity>
             </View>
-        </SafeAreaView >
+        )
+    }
 
+    const renderDataUsername = () => {
+        return (
+            <View>
+                <View style={styles.dataEmailContainer}>
+                    <View style={{ flex: 1, justifyContent: 'center', }}>
+                        <Text style={styles.textStyle}>Username </Text>
+                    </View>
+                    <View style={styles.userInfoContainer}>
+                        <Text style={styles.DataStyle}>{userInfo.username} </Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity>
+                            <ArrowButtonNext
+                                name="navigate-next"
+                                size={35}
+                                style={styles.arrowButtonStyle}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        )
+    }
 
+    const renderPassword = () => {
+        return (
+            <View>
+                <View style={styles.dataEmailContainer}>
+                    <View style={{ flex: 1, justifyContent: 'center', }}>
+                        <Text style={styles.textStyle}>Password </Text>
+                    </View>
+                    <View style={styles.userInfoContainer}>
+                        <Text style={styles.DataStyle}></Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity>
+                            <ArrowButtonNext
+                                name="navigate-next"
+                                size={35}
+                                style={styles.arrowButtonStyle}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    const renderDataUmur = () => {
+        return (
+            <View>
+                <View style={styles.dataEmailContainer}>
+                    <View style={{ flex: 1, justifyContent: 'center', }}>
+                        <Text style={styles.textStyle}>Umur </Text>
+                    </View>
+                    <View style={styles.userInfoContainer}>
+                        <Text style={styles.DataStyle}>{userInfo.umur}</Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity>
+                            <ArrowButtonNext
+                                name="navigate-next"
+                                size={35}
+                                style={styles.arrowButtonStyle}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    const renderDataGender = () => {
+        return (
+            <View>
+                <View style={styles.dataEmailContainer}>
+                    <View style={{ flex: 1, justifyContent: 'center', }}>
+                        <Text style={styles.textStyle}>Jenis kelamin </Text>
+                    </View>
+                    <View style={styles.userInfoContainer}>
+                        <Text style={styles.DataStyle}>{userInfo.gender}</Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity>
+                            <ArrowButtonNext
+                                name="navigate-next"
+                                size={35}
+                                style={styles.arrowButtonStyle}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    const renderDataTinggi = () => {
+        return (
+            <View>
+                <View style={styles.dataEmailContainer}>
+                    <View style={{ flex: 1, justifyContent: 'center', }}>
+                        <Text style={styles.textStyle}>Tinggi badan </Text>
+                    </View>
+                    <View style={styles.userInfoContainer}>
+                        <Text style={styles.DataStyle}>{userInfo.tinggi}</Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity>
+                            <ArrowButtonNext
+                                name="navigate-next"
+                                size={35}
+                                style={styles.arrowButtonStyle}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    const renderDataBerat = () => {
+        return (
+            <View>
+                <View style={styles.dataEmailContainer}>
+                    <View style={{ flex: 1, justifyContent: 'center', }}>
+                        <Text style={styles.textStyle}>Berat badan </Text>
+                    </View>
+                    <View style={styles.userInfoContainer}>
+                        <Text style={styles.DataStyle}>{userInfo.berat}</Text>
+                    </View>
+                    <View style={styles.iconContainer}>
+                        <TouchableOpacity>
+                            <ArrowButtonNext
+                                name="navigate-next"
+                                size={35}
+                                style={styles.arrowButtonStyle}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
+    return (
+        <View style={styles.Maincontainer}>
+            <View style={styles.subContainer1}>
+                <Text style={{ fontSize: 30 }}>Foto</Text>
+            </View>
+            <View style={styles.subContainer2}>
+                <View style={styles.dataContainer}>
+                    {renderDataEmail()}
+                </View>
+                <View style={styles.dataContainer}>
+                    {renderDataUsername()}
+                </View>
+                <View style={styles.dataContainer}>
+                    {renderPassword()}
+                </View>
+                <View style={styles.dataContainer}>
+                    {renderDataUmur()}
+                </View>
+                <View style={styles.dataContainer}>
+                    {renderDataGender()}
+                </View>
+                <View style={styles.dataContainer}>
+                    {renderDataTinggi()}
+                </View>
+                <View style={styles.dataContainer}>
+                    {renderDataBerat()}
+                </View>
+            </View>
+        </View >
     );
 
 }
@@ -166,7 +254,7 @@ export default AkunSaya;
 const styles = StyleSheet.create({
 
     Maincontainer: {
-        flex: 1
+        flex: 1,
     },
 
     subContainer1: {
@@ -182,65 +270,43 @@ const styles = StyleSheet.create({
     },
 
     dataContainer: {
-        marginLeft: 22,
-        marginRight: 18,
-        flexDirection: 'row',
-        alignItems: 'center',
-        textAlign: 'center'
-    },
-
-    modalContainer: {
-        backgroundColor: 'white',
-        marginVertical: 230,
-        marginHorizontal: 25,
-        borderRadius: 10,
-    },
-
-    border: {
         borderBottomWidth: 1,
         borderColor: '#BDBDBD',
-        paddingVertical: 11
     },
 
-    modalDataContainer: {
-        flex: 1,
-
-    },
-
-    modaltittleStyle: {
-        fontSize: 20,
-        textAlign: 'center',
-        marginVertical: 10
+    dataEmailContainer: {
+        flexDirection: 'row',
+        marginLeft: 22,
+        marginRight: 14,
+        marginVertical: 3,
     },
 
     DataStyle: {
-        flex: 1,
-        textAlign: 'right',
         fontSize: 14,
-        letterSpacing: 0.7
+        letterSpacing: 1,
+        fontFamily: 'Roboto-Regular',
+    },
+
+    userInfoContainer: {
+        flex: 2,
+        alignItems: 'flex-end',
+        justifyContent: 'center'
+    },
+
+    iconContainer: {
+        flex: 0.2,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
     textStyle: {
         fontSize: 16,
-        letterSpacing: 0.7
+        letterSpacing: 0.7,
+        fontFamily: 'Roboto-Regular',
     },
 
     arrowButtonStyle: {
         color: '#9B51E0',
-        marginVertical: -12,
-
-    },
-
-    arrowButtonStyle2: {
-        color: '#9B51E0',
-        marginVertical: -12,
-        left: 214
-    },
-
-    arrowButtonStyle3: {
-        color: '#9B51E0',
-        marginVertical: -12,
-        left: 295
     },
 
 });

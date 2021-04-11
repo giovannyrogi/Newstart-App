@@ -53,28 +53,29 @@ const Olahraga = ({ navigation }) => {
         // alert(value)
         if (value == 100) {
             get30mValue = value
-            alert('30 Menit : ' + get30mValue)
+            // alert('30 Menit : ' + get30mValue)
             dispatch({ type: 'RESULT_OLAHRAGA', value: get30mValue });
         }
         if (value == 75) {
             get30mPlus = value
-            alert('Diatas 30 Menit : ' + get30mPlus)
+            // alert('Diatas 30 Menit : ' + get30mPlus)
             dispatch({ type: 'RESULT_OLAHRAGA', value: get30mPlus });
         }
         if (value == 50) {
             get30mMinus = value
-            alert('Dibawah 30 Menit : ' + get30mMinus)
+            // alert('Dibawah 30 Menit : ' + get30mMinus)
             dispatch({ type: 'RESULT_OLAHRAGA', value: get30mMinus });
         }
         if (value < 50) {
             getNoneValue = value
-            alert('None : ' + getNoneValue)
+            // alert('None : ' + getNoneValue)
             dispatch({ type: 'RESULT_OLAHRAGA', value: getNoneValue });
         }
     }
 
     return (
         <SafeAreaView style={styles.mainContainer}>
+            {/* <Text style={styles.textStyle}>Result Nutrisi : {hasilOlahraga}</Text> */}
             <Text style={styles.textStyle} >Silahkan pilih jenis olahraga yang dilakukan.</Text>
 
             <View style={{ flexDirection: 'row' }}>
@@ -122,7 +123,7 @@ const Olahraga = ({ navigation }) => {
             </View>
 
             <Text style={styles.textStyle}>Berapa lama Anda berolahraga?</Text>
-            <Text style={styles.textStyle}>Result Nutrisi : {hasilOlahraga}</Text>
+
             <View style={styles.radioFormContainer}>
                 <RadioForm
                     radio_props={radioOlahraga}

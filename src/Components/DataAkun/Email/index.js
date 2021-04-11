@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native';
 const GantiEmail = () => {
 
     return (
-        <SafeAreaView style={styles.mainContainer}>
+        <View style={styles.mainContainer}>
             <View style={styles.newEmailContainer}>
                 <TextInput
                     placeholder="Email baru"
@@ -22,7 +22,7 @@ const GantiEmail = () => {
                 />
 
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 
