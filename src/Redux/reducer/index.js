@@ -10,6 +10,21 @@ const initialState = {
     resultAllCalories: 0,
     resultNutrisi: 0,
 
+    // untuk menyimpan data makan pagi
+    selectedFoodMknPagi: [],
+    selectedCaloriMknPagi: [],
+    hasilCaloriMknPagi: 0,
+
+    //untuk menyimpan data makan siang
+    selectedFoodMknSiang: [],
+    selectedCaloriMknSiang: [],
+    hasilCaloriMknSiang: 0,
+
+    //untuk menyimpan data makan malam
+    selectedFoodMknMalam: [],
+    selectedCaloriMknMalam: [],
+    hasilCaloriMknMalam: 0,
+
     //untuk menampung hasil perhitungan seluruh newstart test
     resultOlahraga: 0,
     resultAir: 0,
@@ -25,6 +40,7 @@ const initialState = {
 
     // state uji coba
     getSelectedDate: '',
+
 }
 
 const reducer = (state = initialState, action) => {
@@ -114,6 +130,51 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 resultNewstart: action.value,
+            }
+        case 'SELECTED_CALORI_MKN_PAGI':
+            return {
+                ...state,
+                selectedCaloriMknPagi: action.value,
+            }
+        case 'SELECTED_FOOD_MKN_PAGI':
+            return {
+                ...state,
+                selectedFoodMknPagi: action.value,
+            }
+        case 'HASIL_CALORI_MKN_PAGI':
+            return {
+                ...state,
+                hasilCaloriMknPagi: action.value,
+            }
+        case 'SELECTED_CALORI_MKN_SIANG':
+            return {
+                ...state,
+                selectedCaloriMknSiang: action.value,
+            }
+        case 'SELECTED_FOOD_MKN_SIANG':
+            return {
+                ...state,
+                selectedFoodMknSiang: action.value,
+            }
+        case 'HASIL_CALORI_MKN_SIANG':
+            return {
+                ...state,
+                hasilCaloriMknSiang: action.value,
+            }
+        case 'SELECTED_CALORI_MKN_MALAM':
+            return {
+                ...state,
+                selectedCaloriMknMalam: action.value,
+            }
+        case 'SELECTED_FOOD_MKN_MALAM':
+            return {
+                ...state,
+                selectedFoodMknMalam: action.value,
+            }
+        case 'HASIL_CALORI_MKN_MALAM':
+            return {
+                ...state,
+                hasilCaloriMknMalam: action.value,
             }
         default:
             return state;

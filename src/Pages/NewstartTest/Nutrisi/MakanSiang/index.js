@@ -23,16 +23,15 @@ const MakanSiang = () => {
     const [laukPauk, setLaukPauk] = useState(dataLaukPauk);
     const [buahBuahan, setBuahBuahan] = useState(dataBuahBuahan);
     const [sayur, setSayur] = useState(dataSayur);
-    const [selectedDataFood, setSelectedDataFood] = useState('');
-    const [selectedDataCalories, setSelectedDataCalories] = useState(0);
-    const [totalCalories, setTotalCalories] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [show, setShow] = useState({
         showDataMakanSiang: true,
     });
 
     const dispatch = useDispatch();
-    const sumGlobalCalori = useSelector((state) => state.resultCaloriMakanSiang)
+    const selectedDataFood = useSelector((state) => state.selectedFoodMknSiang)
+    const selectedDataCalories = useSelector((state) => state.selectedCaloriMknSiang)
+    const totalCalories = useSelector((state) => state.hasilCaloriMknSiang)
 
     const HideModalMakanSiang = () => {
         setShowModal(false)
@@ -239,7 +238,7 @@ const MakanSiang = () => {
     }
 
 
-    const getSelectedData = (hasilKalori, sum, refreshSelectedMkn) => {
+    const getSelectedData = (SelectedMakanan, sum, SelectedCalori) => {
         var namaMakananPokok = MakananPokok.map((t) => t.nama)
         var checksMakananPokok = MakananPokok.map((t) => t.checkedMakananPokok)
         var caloriMakananPokok = MakananPokok.map((t) => t.kalori)
@@ -256,8 +255,9 @@ const MakanSiang = () => {
         var checksBuah = buahBuahan.map((t) => t.checkedBuah)
         var caloriBuah = buahBuahan.map((t) => t.kalori)
 
-        const SelectedCalori = []
-        const SelectedMakanan = []
+        SelectedCalori = []
+        SelectedMakanan = []
+
         for (let i = 0; i < checksSayur.length; i++) {
             if (checksSayur[i] == true) {
                 SelectedMakanan.push(namaSayur[i])
@@ -301,13 +301,11 @@ const MakanSiang = () => {
             sum = 0;
         }
 
-        dispatch({ type: 'SELECTED_MKN_SIANG', value: SelectedMakanan });
+        dispatch({ type: 'SELECTED_FOOD_MKN_SIANG', value: SelectedMakanan });
+        dispatch({ type: 'SELECTED_CALORI_MKN_SIANG', value: SelectedCalori });
+        dispatch({ type: 'HASIL_CALORI_MKN_SIANG', value: sum });
 
-        hasilKalori = sum
-        console.log(SelectedCalori)
-        setSelectedDataFood(SelectedMakanan)
-        setSelectedDataCalories(SelectedCalori)
-        setTotalCalories(hasilKalori)
+        // console.log(SelectedCalori)
         setShowModal(false)
 
     }
@@ -315,6 +313,9 @@ const MakanSiang = () => {
     return (
 
         <SafeAreaView>
+            {/* <Text>Calori : {selectedDataCalories}</Text>
+            <Text>Food : {selectedDataFood}</Text>
+            <Text>Total Calori : {totalCalories}</Text> */}
             {/* Makan Siang */}
             <View style={styles.makananContainer}>
                 <TouchableOpacity

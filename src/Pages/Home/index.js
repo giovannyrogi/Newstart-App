@@ -9,7 +9,6 @@ import CardView from 'react-native-cardview'
 import { ButtonNext } from '../../Components';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 const Home = ({ navigation }) => {
 
     const dispatch = useDispatch()
@@ -166,24 +165,60 @@ const Home = ({ navigation }) => {
         )
     }
 
+    const handleButton = () => {
+        //untuk reset data makanan/kalori pada page nutrisi
+        const refreshSelectedDataFoodMknPagi = [];
+        const refreshselectedDataCaloriesMknPagi = [];
+        const refreshtotalCaloriesMknPagi = 0;
+        dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: refreshSelectedDataFoodMknPagi });
+        dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: refreshselectedDataCaloriesMknPagi });
+        dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: refreshtotalCaloriesMknPagi });
+
+        //untuk reset data makanan/kalori pada page nutrisi
+        const refreshselectedDataFoodMknSiang = [];
+        const refreshselectedDataCaloriesMknSiang = [];
+        const refreshtotalCaloriesMknSiang = 0;
+        dispatch({ type: 'SELECTED_FOOD_MKN_SIANG', value: refreshselectedDataFoodMknSiang });
+        dispatch({ type: 'SELECTED_CALORI_MKN_SIANG', value: refreshselectedDataCaloriesMknSiang });
+        dispatch({ type: 'HASIL_CALORI_MKN_SIANG', value: refreshtotalCaloriesMknSiang });
+
+        //untuk reset data makanan/kalori pada page nutrisi
+        const refreshselectedDataFoodMknMalam = [];
+        const refreshselectedDataCaloriesMknMalam = [];
+        const refreshtotalCaloriesMknMalam = 0;
+        dispatch({ type: 'SELECTED_FOOD_MKN_MALAM', value: refreshselectedDataFoodMknMalam });
+        dispatch({ type: 'SELECTED_CALORI_MKN_MALAM', value: refreshselectedDataCaloriesMknMalam });
+        dispatch({ type: 'HASIL_CALORI_MKN_MALAM', value: refreshtotalCaloriesMknMalam });
+
+        navigation.navigate('Nutrisi')
+    }
+
     //mengganti tombol saat hasil == 0 atau !=0
     const switchButton = () => {
+
         if (resultNewstartF == 0) {
             return (
-                <ButtonNext
-                    title="Newstart Test"
-                    onPress={() => navigation.navigate('Nutrisi')}
-                />
+                <View>
+
+                    <ButtonNext
+                        title="Newstart Test"
+                        onPress={() => handleButton()}
+                    />
+
+                </View>
+
             )
+
         }
         if (resultNewstartF > 0) {
             return (
                 <ButtonNext
                     title="Test Lagi"
-                    onPress={() => navigation.navigate('Nutrisi')}
+                    onPress={() => handleButton()}
                 />
             )
         }
+
     }
 
     //Menampilkan Interpretasi BMI sesuai perhitungan dari userBMI
@@ -235,7 +270,7 @@ const Home = ({ navigation }) => {
                     </View>
                     <View style={styles.targetCaloriContainer}>
                         <Text style={styles.userCalori}>{userCalori} / </Text>
-                        <Text style={styles.userTargetCalori}>{dataNewstart.resultKalori}(target)</Text>
+                        <Text style={styles.userTargetCalori}>{dataNewstart.resultKalori}(Target)</Text>
                     </View>
                 </CardView>
             </View>
@@ -304,7 +339,7 @@ const Home = ({ navigation }) => {
                                 <Text style={styles.textSubJudulStyle}>Interpretasi</Text>
                             </View>
                         </View>
-                        <View style={{ flexDirection: 'row' }}>
+                        <View style={{ flexDirection: 'row', marginLeft: 5 }}>
                             <View style={styles.dataContainer}>
                                 {renderDataDate()}
                             </View>
@@ -590,7 +625,7 @@ const styles = StyleSheet.create({
 
     riwayatCardContainer: {
         flex: 1,
-        marginBottom: 13,
+        marginBottom: 10,
         marginHorizontal: 15,
     },
 
@@ -606,7 +641,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         marginTop: 5,
-
+        marginLeft: 5,
     },
 
     subJudulInterContainer: {
@@ -625,6 +660,7 @@ const styles = StyleSheet.create({
     dataContainer: {
         flex: 1,
         alignItems: 'center',
+        marginLeft: 3,
     },
 
     dataInterContainer: {

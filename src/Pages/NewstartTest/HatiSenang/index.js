@@ -24,12 +24,6 @@ const HatiSenang = ({ navigation }) => {
     const resultNewstartF = useSelector(state => state.resultNewstart)
     const userId = useSelector(state => state.uid)
 
-    const [disease, setDisease] = useState('Disease');
-    const [poorHealth, setPoorHealth] = useState('Poor Health');
-    const [neutral, setNeutral] = useState('Neutral');
-    const [goodHealth, setGoodHealth] = useState('Good Health');
-    const [optimumHealth, setOptimumHealth] = useState('Optimum Health');
-
     const [currentDate, setCurrentDate] = useState('')
     const [currentTime, setCurrentTime] = useState('')
     const [radioHatiSenang, setRadioHatiSenang] = useState([
@@ -47,11 +41,17 @@ const HatiSenang = ({ navigation }) => {
         },
     ]);
 
-    const handleSum = (result) => {
+    const handleSum = (result, disease, poorHealth, neutral, goodHealth, optimumHealth) => {
         result = (Nutrisi * 25 / 100) + (Olahraga * 15 / 100) + (Water * 10 / 100)
             + (SinarMatahari * 5 / 100) + (PengendalianDiri * 5 / 100) + (UdaraSegar * 5 / 100)
             + (Tidur * 15 / 100) + (HubunganDgnTuhan * 10 / 100) + (hasilHatiSenang * 10 / 100);
         dispatch({ type: 'RESULT_NEWSTART', value: result });
+
+        disease = 'Disease';
+        poorHealth = 'Poor Health';
+        neutral = 'Neutral';
+        goodHealth = 'Good Health';
+        optimumHealth = 'Optimum Health';
 
         if (result > 0 && result < 20) {
             // alert('Dari Disease : ' + result)
@@ -99,6 +99,30 @@ const HatiSenang = ({ navigation }) => {
                 interpretasiResult: optimumHealth
             });
         }
+
+        //untuk reset data makanan/kalori pada page nutrisi
+        const refreshSelectedDataFoodMknPagi = [];
+        const refreshselectedDataCaloriesMknPagi = [];
+        const refreshtotalCaloriesMknPagi = 0;
+        dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: refreshSelectedDataFoodMknPagi });
+        dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: refreshselectedDataCaloriesMknPagi });
+        dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: refreshtotalCaloriesMknPagi });
+
+        //untuk reset data makanan/kalori pada page nutrisi
+        const refreshselectedDataFoodMknSiang = [];
+        const refreshselectedDataCaloriesMknSiang = [];
+        const refreshtotalCaloriesMknSiang = 0;
+        dispatch({ type: 'SELECTED_FOOD_MKN_SIANG', value: refreshselectedDataFoodMknSiang });
+        dispatch({ type: 'SELECTED_CALORI_MKN_SIANG', value: refreshselectedDataCaloriesMknSiang });
+        dispatch({ type: 'HASIL_CALORI_MKN_SIANG', value: refreshtotalCaloriesMknSiang });
+
+        //untuk reset data makanan/kalori pada page nutrisi
+        const refreshselectedDataFoodMknMalam = [];
+        const refreshselectedDataCaloriesMknMalam = [];
+        const refreshtotalCaloriesMknMalam = 0;
+        dispatch({ type: 'SELECTED_FOOD_MKN_MALAM', value: refreshselectedDataFoodMknMalam });
+        dispatch({ type: 'SELECTED_CALORI_MKN_MALAM', value: refreshselectedDataCaloriesMknMalam });
+        dispatch({ type: 'HASIL_CALORI_MKN_MALAM', value: refreshtotalCaloriesMknMalam });
 
 
 

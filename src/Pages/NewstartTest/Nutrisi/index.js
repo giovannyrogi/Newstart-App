@@ -31,11 +31,14 @@ const Nutrisi = ({ navigation }) => {
     const [targetCalori, setTargetCalori] = useState(0)
 
     const handleSum = (sum, newResultCalori, totalKeseluruhan) => {
+        sum = 0;
         sum = sumGlobalCaloriMknPagi + sumGlobalCaloriMknSiang + sumGlobalCaloriMknMalam;
-        // alert('Total Kalori keseluruhan : ' + sum)
         dispatch({ type: 'SUM_ALL_CALORIES', value: sum });
+        newResultCalori = 0;
+        totalKeseluruhan = 0;
 
         if (isiPiringkuResult != 0) {
+            //menghindari error jika sum dan totalkeseluruhan bernilai null
             if (sum == targetCalori) {
                 newResultCalori = 50;
                 // alert('Poin : ' + newResultCalori)
@@ -54,15 +57,8 @@ const Nutrisi = ({ navigation }) => {
             setHasilKalori(newResultCalori);
         }
 
-        //menghindari error jika sum dan totalkeseluruhan bernilai null
-        if (sum == 0) {
-            sum = 0;
-            totalKeseluruhan = 0;
-            // alert('sum : ' + sum);
-            // alert('totalKeseluruhan : ' + totalKeseluruhan);
-        }
-
         navigation.navigate('Olahraga');
+
     }
 
     //mengambil data kalori user dari firebase realtime database
@@ -74,8 +70,6 @@ const Nutrisi = ({ navigation }) => {
 
             }
         })
-
-
     }, [])
 
     return (

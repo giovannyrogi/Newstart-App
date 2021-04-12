@@ -22,6 +22,8 @@ import HubunganDgnTuhan from '../Pages/NewstartTest/HubunganDgnTuhan';
 import HatiSenang from '../Pages/NewstartTest/HatiSenang/';
 
 import ButtonDetail from '../Pages/Home/detailButton';
+import Artikel from '../Pages/Artikel';
+import IsiPiringkuArtikel from '../Pages/Artikel/IsiPiringku';
 
 
 
@@ -111,6 +113,7 @@ const Router = () => {
                     component={BottomNavigation}
                     options={{ ...noHeaderShown }}
                 />
+
                 <Stack.Screen
                     name="Akun Saya"
                     component={AkunSaya}
@@ -166,6 +169,12 @@ const Router = () => {
                 <Stack.Screen
                     name="Hati Senang"
                     component={HatiSenang}
+                    options={{ ...myHeaderStyle }}
+                />
+
+                <Stack.Screen
+                    name="Isi Piringku"
+                    component={IsiPiringkuArtikel}
                     options={{ ...myHeaderStyle }}
                 />
 

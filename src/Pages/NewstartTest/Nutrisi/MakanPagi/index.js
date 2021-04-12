@@ -23,16 +23,15 @@ const MakanPagi = () => {
     const [laukPauk, setLaukPauk] = useState(dataLaukPauk);
     const [buahBuahan, setBuahBuahan] = useState(dataBuahBuahan);
     const [sayur, setSayur] = useState(dataSayur);
-    const [selectedDataFood, setSelectedDataFood] = useState('');
-    const [selectedDataCalories, setSelectedDataCalories] = useState(0);
-    const [totalCalories, setTotalCalories] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [show, setShow] = useState({
         showDataMakanPagi: true,
     });
 
     const dispatch = useDispatch();
-    const sumGlobalCalori = useSelector((state) => state.resultCaloriMakanPagi)
+    const selectedDataFood = useSelector((state) => state.selectedFoodMknPagi)
+    const selectedDataCalories = useSelector((state) => state.selectedCaloriMknPagi)
+    const totalCalories = useSelector((state) => state.hasilCaloriMknPagi)
 
     const HideModalMakanPagi = () => {
         setShowModal(false)
@@ -232,7 +231,7 @@ const MakanPagi = () => {
     }
 
 
-    const getSelectedData = (hasilKalori, sum) => {
+    const getSelectedData = (sum, SelectedCalori, SelectedMakanan) => {
         var namaMakananPokok = MakananPokok.map((t) => t.nama)
         var checksMakananPokok = MakananPokok.map((t) => t.checkedMakananPokok)
         var caloriMakananPokok = MakananPokok.map((t) => t.kalori)
@@ -249,8 +248,8 @@ const MakanPagi = () => {
         var checksBuah = buahBuahan.map((t) => t.checkedBuah)
         var caloriBuah = buahBuahan.map((t) => t.kalori)
 
-        const SelectedCalori = []
-        const SelectedMakanan = []
+        SelectedCalori = []
+        SelectedMakanan = []
         for (let i = 0; i < checksSayur.length; i++) {
             if (checksSayur[i] == true) {
                 SelectedMakanan.push(namaSayur[i])
@@ -294,17 +293,20 @@ const MakanPagi = () => {
             sum = 0;
         }
 
-        dispatch({ type: 'SELECTED_MKN_PAGI', value: SelectedMakanan });
-        hasilKalori = sum
-        console.log(SelectedCalori)
-        setSelectedDataFood(SelectedMakanan)
-        setSelectedDataCalories(SelectedCalori)
-        setTotalCalories(hasilKalori)
+        dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: SelectedMakanan });
+        dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: SelectedCalori });
+        dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: sum });
+        // dispatch({ type: 'CHECKED_MAKANAN_POKOK', value: checksMakananPokok });
+
+        // console.log(checksMakananPokok)
         setShowModal(false)
     }
 
     return (
         <SafeAreaView>
+            {/* <Text>Calori : {selectedDataCalories}</Text>
+            <Text>Food : {selectedDataFood}</Text>
+            <Text>Total Calori : {totalCalories}</Text> */}
             {/* Makan Pagi */}
             <View style={styles.makananContainer}>
                 <TouchableOpacity
