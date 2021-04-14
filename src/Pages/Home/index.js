@@ -7,6 +7,7 @@ import IconCalori from 'react-native-vector-icons/Ionicons'
 import IconBMI from 'react-native-vector-icons/FontAwesome5'
 import CardView from 'react-native-cardview'
 import { ButtonNext } from '../../Components';
+import DetailButton from './detailButton';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Home = ({ navigation }) => {
@@ -76,9 +77,7 @@ const Home = ({ navigation }) => {
                         >
                             <View style={styles.subCardContainer}>
                                 <Text > {inter()}</Text>
-                                <TouchableOpacity onPress={() => navigation.navigate('ButtonDetail')} style={{ alignItems: 'center' }}>
-                                    <Text style={styles.textButtonDetail}>(Detail)</Text>
-                                </TouchableOpacity>
+                                <DetailButton />
                             </View>
                         </CardView>
                     </View>
@@ -609,12 +608,7 @@ const styles = StyleSheet.create({
         letterSpacing: 0.8,
     },
 
-    textButtonDetail: {
-        color: 'dodgerblue',
-        marginLeft: 2.5,
-        letterSpacing: 0.5,
-        fontFamily: 'Roboto-Bold'
-    },
+
 
     buttonContainer: {
         alignItems: 'center',

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Text, SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { ButtonNext, JenisOlahraga } from '../../../Components';
-import Modal from 'react-native-modal';
 import { Picker } from '@react-native-picker/picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import RadioForm from 'react-native-simple-radio-button';
@@ -13,8 +12,7 @@ const Olahraga = ({ navigation }) => {
 
     const dispatch = useDispatch()
     const hasilOlahraga = useSelector(state => state.resultOlahraga)
-    const [pickerValue, setPickerValue] = useState()
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [pickerValue, setPickerValue] = useState('')
     const [radioOlahraga, setRadioOlahraga] = useState([
         {
             label: "None",
@@ -34,20 +32,6 @@ const Olahraga = ({ navigation }) => {
         }
     ]);
 
-    // var optOlahraga = [
-    //     { label: "None", value: 0 },
-    //     { label: "30 menit", value: 100 },
-    //     { label: "<30 menit", value: 50 },
-    //     { label: ">30 menit", value: 50 },
-    // ];
-
-    const showModal = () => {
-        setModalVisible(true);
-    };
-
-    const hideModal = () => {
-        setModalVisible(false);
-    };
 
     const handleRadio = (value, get30mValue, get30mPlus, get30mMinus, getNoneValue) => {
         // alert(value)
@@ -85,41 +69,11 @@ const Olahraga = ({ navigation }) => {
                         selectedValue={pickerValue}
                     >
                         <Picker.Item label="Aerobik" value="Aerobik" />
-                        <Picker.Item label="Keterampilan" value="Keterampilan" />
+                        {/* <Picker.Item label="Keterampilan" value="Keterampilan" /> */}
                         <Picker.Item label="Non Aerobik" value="Non Aerobik" />
                     </Picker>
                 </View>
-                <View>
-                    <TouchableOpacity onPress={showModal}>
-                        <Text style={styles.buttonStyle}>Jenis Olahraga</Text>
-                    </TouchableOpacity>
-                </View>
-                <Modal
-                    animationIn='fadeInDown'
-                    animationInTiming={1000}
-                    animationOut='slideOutDown'
-                    animationOutTiming={1000}
-                    isVisible={isModalVisible}
-                    hasBackdrop={true}
-                    onBackdropPress={hideModal}
-                    style={styles.modalContainer}
-                >
-                    <SafeAreaView>
-                        <ScrollView>
-                            <Text style={styles.judulStyle}>Jenis Olahraga</Text>
-                            <JenisOlahraga />
-                            <View style={styles.buttonContainer}>
-
-                                <TouchableOpacity
-                                    onPress={hideModal}
-                                    style={styles.buttonBackStyle}
-                                >
-                                    <Text style={styles.buttonTextStyle}>Kembali</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </ScrollView>
-                    </SafeAreaView>
-                </Modal>
+                <JenisOlahraga />
             </View>
 
             <Text style={styles.textStyle}>Berapa lama Anda berolahraga?</Text>

@@ -21,7 +21,7 @@ import Tidur from '../Pages/NewstartTest/Tidur';
 import HubunganDgnTuhan from '../Pages/NewstartTest/HubunganDgnTuhan';
 import HatiSenang from '../Pages/NewstartTest/HatiSenang/';
 
-import ButtonDetail from '../Pages/Home/detailButton';
+// import ButtonDetail from '../Pages/Home/detailButton';
 import Artikel from '../Pages/Artikel';
 import IsiPiringkuArtikel from '../Pages/Artikel/IsiPiringku';
 
@@ -63,7 +63,7 @@ const Router = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator
-                initialRouteName='Home'
+                initialRouteName='Welcome'
             >
 
                 {/* Halaman */}
@@ -73,11 +73,11 @@ const Router = () => {
                     options={{ ...noHeaderShown }}
                 />
 
-                <Stack.Screen
+                {/* <Stack.Screen
                     name="ButtonDetail"
                     component={ButtonDetail}
                     options={{ ...noHeaderShown }}
-                />
+                /> */}
 
                 <Stack.Screen
                     name="Welcome"
@@ -177,6 +177,7 @@ const Router = () => {
                     component={IsiPiringkuArtikel}
                     options={{ ...myHeaderStyle }}
                 />
+
 
 
             </Stack.Navigator>
