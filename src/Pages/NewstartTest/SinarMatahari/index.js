@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Text, SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
+
 import RadioForm from 'react-native-simple-radio-button';
 import Modal from 'react-native-modal';
-
 import { ButtonNext } from '../../../Components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,18 +14,20 @@ const SinarMatahari = ({ navigation }) => {
     const [radioSinarMatahari, setRadioSinarMatahari] = useState([
         {
             label: "None",
-            value: 0
+            value: 0,
+
         },
+
         {
             label: "15 Menit",
             value: 100
         },
         {
-            label: "15 >Menit",
+            label: ">15 Menit",
             value: 75
         },
         {
-            label: "15 <Menit",
+            label: "<15 Menit",
             value: 50
         }
     ]);
@@ -63,13 +65,14 @@ const SinarMatahari = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={styles.mainContainer}>
-            <View >
+        <View style={styles.mainContainer}>
+            <View  >
                 <View>
                     {/* <Text>
                         {hasilSinarMatahari}
                     </Text> */}
-                    <Text style={styles.textStyle}>Berapa lama Anda berjemur dibawah sinar matahari?</Text>
+                    <Text style={styles.textStyle}>Berapa lama Anda berjemur dibawah
+                    sinar matahari pagi(10:00-15:00)?</Text>
 
                 </View>
                 <View style={styles.radioFormContainer}>
@@ -83,6 +86,7 @@ const SinarMatahari = ({ navigation }) => {
                         buttonColor={'#757575'}
                         buttonSize={12}
                         labelStyle={styles.radioLabelStyle}
+
                     />
                 </View>
 
@@ -93,7 +97,7 @@ const SinarMatahari = ({ navigation }) => {
                     size={22}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     );
 }
 
@@ -108,6 +112,7 @@ const styles = StyleSheet.create({
 
     radioFormContainer: {
         marginTop: 11,
+
     },
 
     radioLabelStyle: {
@@ -119,5 +124,6 @@ const styles = StyleSheet.create({
     textStyle: {
         fontSize: 18,
         letterSpacing: 0.5,
+        lineHeight: 25
     },
 })

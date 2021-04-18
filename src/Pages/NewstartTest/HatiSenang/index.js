@@ -33,11 +33,11 @@ const HatiSenang = ({ navigation }) => {
         },
         {
             label: "Biasa Saja",
-            value: 75
+            value: 50
         },
         {
             label: "Sedih",
-            value: 50
+            value: 0
         },
     ]);
 
@@ -167,7 +167,7 @@ const HatiSenang = ({ navigation }) => {
             {/* <Text>Nilai Global Hati Senang: {hasilHatiSenang}</Text>
             <Text>Nilai Newstart : {resultNewstartF}</Text>
             <Text>Date : {currentTime}</Text> */}
-            <Text style={styles.textStyle}>Bagaimana perasaan Anda ?</Text>
+            <Text style={styles.textStyle}>Bagaimana suasana hati Anda kemarin ?</Text>
             <View style={styles.radioFormContainer}>
                 <RadioForm
                     radio_props={radioHatiSenang}

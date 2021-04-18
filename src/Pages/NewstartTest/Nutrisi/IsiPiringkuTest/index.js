@@ -43,7 +43,7 @@ const IsiPiringkuTest = () => {
         }
         if (value == 30) {
             // alert('No : ' + value)
-            getValueNo = value
+            // getValueNo = value
             dispatch({ type: 'RESULT_ISI_PIRINGKU', value: getValueNo });
         }
         if (value != null) {

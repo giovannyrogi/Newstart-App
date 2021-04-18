@@ -21,7 +21,9 @@ class index extends Component {
                 </View>
                 <View style={styles.container2}>
                     <Text style={styles.textStyle2}>Selamat Datang!</Text>
-                    <Text style={styles.textStyle3}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+                    <Text style={styles.textStyle3}>
+                        Pantau tingkat kesehatan Anda setiap hari dengan Newstart.
+                    </Text>
                     <View style={styles.buttonStyle}>
                         <TouchableOpacity
                             style={styles.containerButton}
@@ -102,6 +104,8 @@ const styles = StyleSheet.create({
         marginBottom: 43,
         color: '#FFFFFF',
         fontSize: 15,
+        fontFamily: 'Roboto-Reguler',
+        letterSpacing: 1.4,
     },
 
     buttonStyle: {

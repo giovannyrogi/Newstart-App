@@ -51,12 +51,16 @@ const RubahUmur = () => {
     const GantiUmur = () => {
 
         if (form.newUmur != '') {
-            firebase.database().ref('users/' + userId + '/userInfo/').update({
-                umur: form.newUmur
-            });
+            // firebase.database().ref('users/' + userId + '/userInfo/').update({
+            //     umur: form.newUmur
+            // });
+            alert('Sedang dalam tahap pengembangan')
+        }
+        if (form.newUmur == '') {
+            alert('Umur tidak boleh kosong')
         }
 
-        setUmurModal(false);
+        // setUmurModal(false);
     }
 
     return (

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         width: 350,
         height: 350,
         left: 8,
-        backgroundColor: 'white',
+        marginRight: 16,
     }
 
 

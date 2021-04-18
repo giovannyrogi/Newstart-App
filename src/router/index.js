@@ -63,7 +63,7 @@ const Router = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator
-                initialRouteName='Welcome'
+                initialRouteName='Splash'
             >
 
                 {/* Halaman */}
@@ -162,7 +162,7 @@ const Router = () => {
                     options={{ ...myHeaderStyle }}
                 />
                 <Stack.Screen
-                    name="HubunganDgnTuhan"
+                    name="Hubungan Dengan Tuhan"
                     component={HubunganDgnTuhan}
                     options={{ ...myHeaderStyle }}
                 />

@@ -15,15 +15,15 @@ const UdaraSegar = ({ navigation }) => {
             value: 0
         },
         {
-            label: "15 Menit",
+            label: "15x",
             value: 100
         },
         {
-            label: "15 >Menit",
+            label: ">15x",
             value: 75
         },
         {
-            label: "15 <Menit",
+            label: "<15x",
             value: 50
         }
     ]);

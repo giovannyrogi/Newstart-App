@@ -41,37 +41,24 @@ const Login = ({ navigation }) => {
                 Alert.alert(errorCode, errorMessage);
             });
 
-        const refreshIsiPiringku = 0;
-        const refreshCaloriMakanPagi = 0;
-        const refreshCaloriMakanSiang = 0;
-        const refreshCaloriMakanMalam = 0;
-        const refreshAllCalories = 0;
-        const refreshresultNutrisi = 0;
-        const refreshresultOlahraga = 0;
-        const refreshresultAir = 0;
-        const refreshresultSinarMatahari = 0;
-        const refreshPengendalianDiri = 0;
-        const refreshUdaraSegar = 0;
-        const refreshresultTidur = 0;
-        const refreshHubunganDgnTuhan = 0;
-        const refreshresultHatiSenang = 0;
-        const refreshresultNewstart = 0;
+        //untuk set global state semua newstart test menjadi 0;
+        const refreshAll = 0;
 
-        dispatch({ type: 'RESULT_ISI_PIRINGKU', value: refreshIsiPiringku })
-        dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: refreshCaloriMakanPagi })
-        dispatch({ type: 'SUM_CALORIES_MKN_SIANG', value: refreshCaloriMakanSiang })
-        dispatch({ type: 'SUM_CALORIES_MKN_MALAM', value: refreshCaloriMakanMalam })
-        dispatch({ type: 'SUM_ALL_CALORIES', value: refreshAllCalories })
-        dispatch({ type: 'RESULT_NUTRISI', value: refreshresultNutrisi })
-        dispatch({ type: 'RESULT_OLAHRAGA', value: refreshresultOlahraga })
-        dispatch({ type: 'RESULT_AIR', value: refreshresultAir })
-        dispatch({ type: 'RESULT_SINAR_MATAHARI', value: refreshresultSinarMatahari })
-        dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: refreshPengendalianDiri })
-        dispatch({ type: 'RESULT_UDARA_SEGAR', value: refreshUdaraSegar })
-        dispatch({ type: 'RESULT_TIDUR', value: refreshresultTidur })
-        dispatch({ type: 'RESULT_HUB_DGN_TUHAN', value: refreshHubunganDgnTuhan })
-        dispatch({ type: 'RESULT_HATI_SENANG', value: refreshresultHatiSenang })
-        dispatch({ type: 'RESULT_NEWSTART', value: refreshresultNewstart })
+        dispatch({ type: 'RESULT_ISI_PIRINGKU', value: refreshAll })
+        dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: refreshAll })
+        dispatch({ type: 'SUM_CALORIES_MKN_SIANG', value: refreshAll })
+        dispatch({ type: 'SUM_CALORIES_MKN_MALAM', value: refreshAll })
+        dispatch({ type: 'SUM_ALL_CALORIES', value: refreshAll })
+        dispatch({ type: 'RESULT_NUTRISI', value: refreshAll })
+        dispatch({ type: 'RESULT_OLAHRAGA', value: refreshAll })
+        dispatch({ type: 'RESULT_AIR', value: refreshAll })
+        dispatch({ type: 'RESULT_SINAR_MATAHARI', value: refreshAll })
+        dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: refreshAll })
+        dispatch({ type: 'RESULT_UDARA_SEGAR', value: refreshAll })
+        dispatch({ type: 'RESULT_TIDUR', value: refreshAll })
+        dispatch({ type: 'RESULT_HUB_DGN_TUHAN', value: refreshAll })
+        dispatch({ type: 'RESULT_HATI_SENANG', value: refreshAll })
+        dispatch({ type: 'RESULT_NEWSTART', value: refreshAll })
     }
 
 

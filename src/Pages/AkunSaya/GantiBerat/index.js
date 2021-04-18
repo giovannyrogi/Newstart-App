@@ -52,10 +52,11 @@ const GantiBerat = () => {
     const GantiBerat = () => {
 
         if (form.newBerat != 0) {
-            firebase.database().ref('users/' + userId + '/userInfo/').update({
-                berat: form.newBerat
-            });
-            setBeratModal(false);
+            // firebase.database().ref('users/' + userId + '/userInfo/').update({
+            //     berat: form.newBerat
+            // });
+            // setBeratModal(false);
+            alert('Sedang dalam tahap pengembangan.')
         }
         if (form.newBerat == 0) {
             alert('Berat tidak boleh kosong.')

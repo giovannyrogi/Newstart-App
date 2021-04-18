@@ -3,21 +3,10 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 
 import CardView from 'react-native-cardview'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import ModalIsiPiringku from 'react-native-modal';
 import ArticleIcon from 'react-native-vector-icons/Ionicons'
 import { IsiPiringku } from '../../../assets/'
 
 const Artikel = ({ navigation }) => {
-
-    const [showModal, setshowModal] = useState(false)
-
-    const HidaModal = () => {
-        setshowModal(false)
-    }
-
-    const ShowModal = () => {
-        setshowModal(true)
-    }
 
     return (
 

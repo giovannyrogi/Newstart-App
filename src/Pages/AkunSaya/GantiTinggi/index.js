@@ -52,10 +52,11 @@ const RubahEmail = () => {
     const GantiTinggi = () => {
 
         if (form.newTinggi != 0) {
-            firebase.database().ref('users/' + userId + '/userInfo/').update({
-                tinggi: form.newTinggi
-            });
-            setTinggiModal(false);
+            // firebase.database().ref('users/' + userId + '/userInfo/').update({
+            //     tinggi: form.newTinggi
+            // });
+            // setTinggiModal(false);
+            alert('Sedang dalam tahap pengembangan.')
         }
         if (form.newTinggi == 0) {
             alert('Tinggi tidak boleh kosong.')

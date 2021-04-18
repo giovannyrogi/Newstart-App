@@ -53,12 +53,12 @@ const RubahEmail = () => {
     const GantiGender = () => {
 
         if (form.gender != '') {
-            firebase.database().ref('users/' + userId + '/userInfo/').update({
-                gender: form.newGender
-            });
-            setGenderModal(false);
+            // firebase.database().ref('users/' + userId + '/userInfo/').update({
+            //     gender: form.newGender
+            // });
+            // setGenderModal(false);
+            alert('Sedang dalam tahap pengembangan.')
         }
-
     }
 
     return (

@@ -32,7 +32,16 @@ const AkunSaya = () => {
     return (
         <View style={styles.Maincontainer}>
             <View style={styles.subContainer1}>
-                <Text style={{ fontSize: 30 }}>Foto</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={{ left: 30 }}>
+                        <Text style={styles.fotoStyle}>Foto</Text>
+                    </View>
+                    <View style={{ left: 50, alignItems: 'center', justifyContent: 'center', }}>
+                        <TouchableOpacity>
+                            <Text style={{ color: 'dodgerblue' }}>Ganti Foto</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
                 <Text style={styles.DataStyle}>{userInfo.username} </Text>
             </View>
             <View style={styles.subContainer2}>
@@ -57,6 +66,8 @@ const AkunSaya = () => {
             </View>
         </View >
     );
+
+
 
 }
 
@@ -83,6 +94,19 @@ const styles = StyleSheet.create({
     dataContainer: {
         borderBottomWidth: 1,
         borderColor: '#BDBDBD',
+    },
+
+    fotoStyle: {
+        borderWidth: 1,
+        borderRadius: 20,
+        padding: 30,
+    },
+
+    DataStyle: {
+        fontSize: 14,
+        letterSpacing: 1,
+        fontFamily: 'Roboto-Regular',
+        marginTop: 10
     },
 
 });

@@ -53,10 +53,11 @@ const RubahEmail = () => {
     const GantiEmail = () => {
 
         if (form.newEmail == form.konfirmEmail && form.newEmail != '') {
-            firebase.database().ref('users/' + userId + '/userInfo/').update({
-                email: form.newEmail
-            });
-            setEmailModal(false);
+            // firebase.database().ref('users/' + userId + '/userInfo/').update({
+            //     email: form.newEmail
+            // });
+            // setEmailModal(false);
+            alert('Sedang dalam tahap pengembangan')
         }
         if (form.newEmail == '') {
             alert('Email tidak boleh kosong.')

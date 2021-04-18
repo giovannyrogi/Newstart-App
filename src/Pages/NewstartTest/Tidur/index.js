@@ -12,7 +12,7 @@ const Tidur = ({ navigation }) => {
     const [radioTidur, setRadioTidur] = useState([
         {
             label: "<7 Jam",
-            value: 75
+            value: 50
         },
         {
             label: "7-8 Jam",
@@ -20,14 +20,14 @@ const Tidur = ({ navigation }) => {
         },
         {
             label: ">8 Jam",
-            value: 75
+            value: 50
         },
 
     ]);
 
     const handleRadio = (value, get7jamMin, get78jam, get8jamPlus) => {
         // alert(value)
-        if (value == 75) {
+        if (value == 50) {
             get7jamMin = value
             // alert('<7 Jam : ' + get7jamMin)
             dispatch({ type: 'RESULT_TIDUR', value: get7jamMin });
@@ -37,7 +37,7 @@ const Tidur = ({ navigation }) => {
             // alert('7-8 Jam : ' + get78jam)
             dispatch({ type: 'RESULT_TIDUR', value: get78jam });
         }
-        if (value == 75) {
+        if (value == 50) {
             get8jamPlus = value
             // alert('>8 Jam: ' + get8jamPlus)
             dispatch({ type: 'RESULT_TIDUR', value: get8jamPlus });
@@ -66,7 +66,7 @@ const Tidur = ({ navigation }) => {
 
             <ButtonNext
                 title="Berikutnya"
-                onPress={() => navigation.navigate('HubunganDgnTuhan')}
+                onPress={() => navigation.navigate('Hubungan Dengan Tuhan')}
                 name="navigate-next"
                 size={22}
             />

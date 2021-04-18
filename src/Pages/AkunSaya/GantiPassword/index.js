@@ -56,8 +56,9 @@ const RubahPassword = () => {
             // firebase.database().ref('users/' + userId + '/userInfo/').update({
             //     password: form.newPassword
             // });
-            alert('password diubah')
-            setPasswordModal(false);
+            // alert('password diubah')
+            // setPasswordModal(false);
+            alert('Sedang dalam tahap pengembangan')
         }
         if (form.newPassword == '') {
             alert('Password tidak boleh kosong.')

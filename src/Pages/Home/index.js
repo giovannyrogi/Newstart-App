@@ -166,28 +166,22 @@ const Home = ({ navigation }) => {
 
     const handleButton = () => {
         //untuk reset data makanan/kalori pada page nutrisi
-        const refreshSelectedDataFoodMknPagi = [];
-        const refreshselectedDataCaloriesMknPagi = [];
-        const refreshtotalCaloriesMknPagi = 0;
-        dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: refreshSelectedDataFoodMknPagi });
-        dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: refreshselectedDataCaloriesMknPagi });
-        dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: refreshtotalCaloriesMknPagi });
+        const refreshSelectedDataFood = [];
+        const refreshselectedDataCalories = [];
+        const refreshtotalCalories = 0;
+        dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: refreshSelectedDataFood });
+        dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: refreshselectedDataCalories });
+        dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: refreshtotalCalories });
 
         //untuk reset data makanan/kalori pada page nutrisi
-        const refreshselectedDataFoodMknSiang = [];
-        const refreshselectedDataCaloriesMknSiang = [];
-        const refreshtotalCaloriesMknSiang = 0;
-        dispatch({ type: 'SELECTED_FOOD_MKN_SIANG', value: refreshselectedDataFoodMknSiang });
-        dispatch({ type: 'SELECTED_CALORI_MKN_SIANG', value: refreshselectedDataCaloriesMknSiang });
-        dispatch({ type: 'HASIL_CALORI_MKN_SIANG', value: refreshtotalCaloriesMknSiang });
+        dispatch({ type: 'SELECTED_FOOD_MKN_SIANG', value: refreshSelectedDataFood });
+        dispatch({ type: 'SELECTED_CALORI_MKN_SIANG', value: refreshselectedDataCalories });
+        dispatch({ type: 'HASIL_CALORI_MKN_SIANG', value: refreshtotalCalories });
 
         //untuk reset data makanan/kalori pada page nutrisi
-        const refreshselectedDataFoodMknMalam = [];
-        const refreshselectedDataCaloriesMknMalam = [];
-        const refreshtotalCaloriesMknMalam = 0;
-        dispatch({ type: 'SELECTED_FOOD_MKN_MALAM', value: refreshselectedDataFoodMknMalam });
-        dispatch({ type: 'SELECTED_CALORI_MKN_MALAM', value: refreshselectedDataCaloriesMknMalam });
-        dispatch({ type: 'HASIL_CALORI_MKN_MALAM', value: refreshtotalCaloriesMknMalam });
+        dispatch({ type: 'SELECTED_FOOD_MKN_MALAM', value: refreshSelectedDataFood });
+        dispatch({ type: 'SELECTED_CALORI_MKN_MALAM', value: refreshselectedDataCalories });
+        dispatch({ type: 'HASIL_CALORI_MKN_MALAM', value: refreshtotalCalories });
 
         navigation.navigate('Nutrisi')
     }
