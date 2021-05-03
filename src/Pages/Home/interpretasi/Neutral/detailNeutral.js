@@ -6,11 +6,11 @@ import CloseIcon from 'react-native-vector-icons/Ionicons';
 
 import ModalDetailButton from 'react-native-modal';
 import BackArrow from 'react-native-vector-icons/MaterialIcons';
-import { Interpretasi } from '../../../assets/'
+import { Interpretasi } from '../../../../../assets'
 import { ScrollView } from 'react-native-gesture-handler';
 
 
-const DetailButton = ({ navigation }) => {
+const DetailNeutral = () => {
 
     const [modal, setModal] = useState(false);
 
@@ -54,16 +54,18 @@ const DetailButton = ({ navigation }) => {
                                 </TouchableOpacity>
                             </View>
                             <View style={{ flex: 1, alignContent: 'center', justifyContent: 'center', }}>
-                                <Text style={styles.judulStyle}>Interpretasi</Text>
+                                <Text style={styles.judulStyle}>Neutral</Text>
                             </View>
                         </View>
                         <View style={{ marginHorizontal: 15, marginTop: 5 }}>
-                            <Text style={styles.textStyle}>Interpretasi merupakan suatu pemaknaan atau penilaian yang diberikan
+                            <Text style={styles.textStyle}>Neutral adalah
+                            </Text>
+                            {/* <Text style={styles.textStyle}>Interpretasi merupakan suatu pemaknaan atau penilaian yang diberikan
                             berdasarkan dari hasil poin yang telah diperoleh oleh Anda setelah mengikuti
                             Newstart Test. Interpretasi ini dibagi menjadi enam jenis, yaitu <Text style={styles.textBold}>Disease,
                             Poor Health, Neutral, Good Health, dan Optimum Health</Text>. Setiap interpretasi ini
                             masing-masing memliki arti yang berbeda-beda.
-                            </Text>
+                            </Text> */}
 
                             {/* <View style={{ marginTop: 10, alignItems: 'center', }}>
                                 <Text style={styles.subJudul}>Disease</Text>
@@ -104,7 +106,7 @@ const DetailButton = ({ navigation }) => {
     )
 }
 
-export default DetailButton;
+export default DetailNeutral;
 
 const styles = StyleSheet.create({
     stretch: {

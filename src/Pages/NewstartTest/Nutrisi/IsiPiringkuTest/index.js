@@ -36,6 +36,9 @@ const IsiPiringkuTest = () => {
     }
 
     const handleRadio = (value, getValueNo, getValueYes) => {
+
+        getValueNo = 0;
+        getValueYes = 0;
         if (value == 50) {
             // alert('Yes : ' + value)
             getValueYes = value

@@ -129,7 +129,7 @@ export default Nutrisi;
 const styles = StyleSheet.create({
     maincontainer: {
         flex: 1,
-        marginHorizontal: 25,
+        marginHorizontal: 20,
         marginTop: 20,
     },
 

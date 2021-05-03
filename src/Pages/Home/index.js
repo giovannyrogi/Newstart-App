@@ -6,9 +6,19 @@ import firebase from '../../Config/Firebase';
 import IconCalori from 'react-native-vector-icons/Ionicons'
 import IconBMI from 'react-native-vector-icons/FontAwesome5'
 import CardView from 'react-native-cardview'
-import { ButtonNext } from '../../Components';
-import DetailButton from './detailButton';
 import { useDispatch, useSelector } from 'react-redux';
+import { ButtonNext } from '../../Components';
+import DetailDisease from './interpretasi/Disease/detailDisease';
+import Disease from './interpretasi/Disease';
+import PoorHealth from './interpretasi/PoorHealth';
+import DetailPoorHealth from './interpretasi/PoorHealth/detailPoorHealth';
+import Neutral from './interpretasi/Neutral';
+import DetailNeutral from './interpretasi/Neutral/detailNeutral';
+import GoodHealth from './interpretasi/GoodHealth';
+import DetailGoodHealth from './interpretasi/GoodHealth/detailGoodHealth';
+import OptimumHealth from './interpretasi/OptimumHealth';
+import DetailOptimumHealth from './interpretasi/OptimumHealth/detailOptimumHealth';
+
 
 const Home = ({ navigation }) => {
 
@@ -75,10 +85,7 @@ const Home = ({ navigation }) => {
                             cornerRadius={8}
                             style={styles.cardContainer}
                         >
-                            <View style={styles.subCardContainer}>
-                                <Text > {inter()}</Text>
-                                <DetailButton />
-                            </View>
+                            <Text > {inter()}</Text>
                         </CardView>
                     </View>
 
@@ -91,24 +98,48 @@ const Home = ({ navigation }) => {
     const inter = () => {
         if (resultNewstartF > 0 && resultNewstartF < 20) {
             // alert('Dari Disease : ' + result)
-            return (<Text style={styles.interDiseaseStyle}>Disease</Text>)
+            return (
+                <View style={styles.subCardContainer}>
+                    <Disease />
+                    <DetailDisease />
+                </View>
+            )
         }
         if (resultNewstartF >= 20 && resultNewstartF < 40) {
             // alert('Dari poorHealth : ' + result)
-            return (<Text style={styles.interPoorHealthStyle}>Poor Health </Text>)
+            return (
+                <View style={styles.subCardContainer}>
+                    <PoorHealth />
+                    <DetailPoorHealth />
+                </View>
+            )
         }
         if (resultNewstartF >= 40 && resultNewstartF < 60) {
             // alert('Dari Neutral : ' + result)
-            return (<Text style={styles.interNeutralStyle}>Neutral </Text>)
+            return (
+                <View style={styles.subCardContainer}>
+                    <Neutral />
+                    <DetailNeutral />
+                </View>
+            )
         }
         if (resultNewstartF >= 60 && resultNewstartF < 90) {
             // alert('Dari GoodHealth : ' + result)
-            return (<Text style={styles.interGoodHealthStyle}>Good Health</Text>)
+            return (
+                <View style={styles.subCardContainer}>
+                    <GoodHealth />
+                    <DetailGoodHealth />
+                </View>
+            )
         }
         if (resultNewstartF >= 90 && resultNewstartF < 100) {
             // alert('Dari OptimumHealth : ' + result)
-            return (<Text style={styles.interOptimumHealthStyle}>Optimum Health</Text>)
-
+            return (
+                <View style={styles.subCardContainer}>
+                    <OptimumHealth />
+                    <DetailOptimumHealth />
+                </View>
+            )
         }
     }
 
@@ -236,7 +267,7 @@ const Home = ({ navigation }) => {
                 <Text>Obesitas I</Text>
             )
         }
-        if (dataNewstart.resultBMI > 25 && dataNewstart.resultBMI < 29.9) {
+        if (dataNewstart.resultBMI > 25) {
             return (
                 <Text>Obesitas II</Text>
             )
@@ -297,6 +328,32 @@ const Home = ({ navigation }) => {
         )
     }
 
+    const dataRiwayat = () => {
+        if (getKey != '') {
+            return (
+                <View style={{ flexDirection: 'row', marginLeft: 5, marginBottom: 5 }}>
+                    <View style={styles.dataContainer}>
+                        {renderDataDate()}
+                    </View>
+                    <View style={styles.dataContainer}>
+                        {renderDataTime()}
+                    </View>
+                    <View style={styles.dataContainer}>
+                        {renderDataHasil()}
+                    </View>
+                    <View style={styles.dataInterContainer}>
+                        {renderDataInterpretasi()}
+                    </View>
+                </View>
+            )
+        }
+        else {
+            return (
+                <Text style={{ textAlign: 'center', marginBottom: 5 }}>belum ada riwayat.</Text>
+            )
+        }
+    }
+
 
     return (
         <View style={styles.mainContainer}>
@@ -332,20 +389,7 @@ const Home = ({ navigation }) => {
                                 <Text style={styles.textSubJudulStyle}>Interpretasi</Text>
                             </View>
                         </View>
-                        <View style={{ flexDirection: 'row', marginLeft: 5 }}>
-                            <View style={styles.dataContainer}>
-                                {renderDataDate()}
-                            </View>
-                            <View style={styles.dataContainer}>
-                                {renderDataTime()}
-                            </View>
-                            <View style={styles.dataContainer}>
-                                {renderDataHasil()}
-                            </View>
-                            <View style={styles.dataInterContainer}>
-                                {renderDataInterpretasi()}
-                            </View>
-                        </View>
+                        {dataRiwayat()}
                     </CardView>
                 </View>
                 <View style={styles.caloriAndBMIContainer}>
@@ -519,76 +563,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    interGoodHealthStyle: {
-        textAlign: 'center',
-        fontSize: 15,
-        color: 'teal',
-        fontFamily: 'Roboto-Bold',
-        letterSpacing: 1,
-        textShadowOffset: {
-            width: -1,
-            height: 0.5,
-        },
-        textShadowColor: '#757575',
-        textShadowRadius: 1,
-    },
-
-    interNeutralStyle: {
-        textAlign: 'center',
-        fontSize: 15,
-        color: '#0fb542',
-        fontFamily: 'Roboto-Bold',
-        letterSpacing: 1,
-        textShadowOffset: {
-            width: -1,
-            height: 0.5,
-        },
-        textShadowColor: '#757575',
-        textShadowRadius: 1,
-    },
-
-    interDiseaseStyle: {
-        textAlign: 'center',
-        fontSize: 15,
-        color: 'crimson',
-        fontFamily: 'Roboto-Bold',
-        letterSpacing: 1,
-        textShadowOffset: {
-            width: -1,
-            height: 0.5,
-        },
-        textShadowColor: '#757575',
-        textShadowRadius: 1,
-    },
-
-    interOptimumHealthStyle: {
-        textAlign: 'center',
-        fontSize: 15,
-        color: '#7577dc',
-        fontFamily: 'Roboto-Bold',
-        letterSpacing: 1,
-        textShadowOffset: {
-            width: -1,
-            height: 0.5,
-        },
-        textShadowColor: '#757575',
-        textShadowRadius: 1,
-    },
-
-    interPoorHealthStyle: {
-        textAlign: 'center',
-        fontSize: 15,
-        color: '#e3c53c',
-        fontFamily: 'Roboto-Bold',
-        letterSpacing: 1,
-        textShadowOffset: {
-            width: -0.5,
-            height: 0.5,
-        },
-        textShadowColor: '#757575',
-        textShadowRadius: 1,
-    },
-
     interContainer: {
         flexDirection: 'row',
     },
@@ -612,7 +586,7 @@ const styles = StyleSheet.create({
     },
 
     riwayatCardContainer: {
-        flex: 1,
+        // flex: 1,
         marginBottom: 10,
         marginHorizontal: 15,
     },

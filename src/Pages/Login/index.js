@@ -42,23 +42,23 @@ const Login = ({ navigation }) => {
             });
 
         //untuk set global state semua newstart test menjadi 0;
-        const refreshAll = 0;
+        // const refreshAll = 0;
 
-        dispatch({ type: 'RESULT_ISI_PIRINGKU', value: refreshAll })
-        dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: refreshAll })
-        dispatch({ type: 'SUM_CALORIES_MKN_SIANG', value: refreshAll })
-        dispatch({ type: 'SUM_CALORIES_MKN_MALAM', value: refreshAll })
-        dispatch({ type: 'SUM_ALL_CALORIES', value: refreshAll })
-        dispatch({ type: 'RESULT_NUTRISI', value: refreshAll })
-        dispatch({ type: 'RESULT_OLAHRAGA', value: refreshAll })
-        dispatch({ type: 'RESULT_AIR', value: refreshAll })
-        dispatch({ type: 'RESULT_SINAR_MATAHARI', value: refreshAll })
-        dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: refreshAll })
-        dispatch({ type: 'RESULT_UDARA_SEGAR', value: refreshAll })
-        dispatch({ type: 'RESULT_TIDUR', value: refreshAll })
-        dispatch({ type: 'RESULT_HUB_DGN_TUHAN', value: refreshAll })
-        dispatch({ type: 'RESULT_HATI_SENANG', value: refreshAll })
-        dispatch({ type: 'RESULT_NEWSTART', value: refreshAll })
+        // dispatch({ type: 'RESULT_ISI_PIRINGKU', value: refreshAll })
+        // dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: refreshAll })
+        // dispatch({ type: 'SUM_CALORIES_MKN_SIANG', value: refreshAll })
+        // dispatch({ type: 'SUM_CALORIES_MKN_MALAM', value: refreshAll })
+        // dispatch({ type: 'SUM_ALL_CALORIES', value: refreshAll })
+        // dispatch({ type: 'RESULT_NUTRISI', value: refreshAll })
+        // dispatch({ type: 'RESULT_OLAHRAGA', value: refreshAll })
+        // dispatch({ type: 'RESULT_AIR', value: refreshAll })
+        // dispatch({ type: 'RESULT_SINAR_MATAHARI', value: refreshAll })
+        // dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: refreshAll })
+        // dispatch({ type: 'RESULT_UDARA_SEGAR', value: refreshAll })
+        // dispatch({ type: 'RESULT_TIDUR', value: refreshAll })
+        // dispatch({ type: 'RESULT_HUB_DGN_TUHAN', value: refreshAll })
+        // dispatch({ type: 'RESULT_HATI_SENANG', value: refreshAll })
+        // dispatch({ type: 'RESULT_NEWSTART', value: refreshAll })
     }
 
 

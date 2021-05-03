@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     radioLabelStyle: {
         fontSize: 15,
         letterSpacing: 0.3,
-        marginRight: 35,
+        marginRight: 20,
     },
 
     textStyle: {

@@ -4,7 +4,7 @@ import RadioForm from 'react-native-simple-radio-button';
 import { useDispatch, useSelector } from 'react-redux';
 
 import firebase from '../../../Config/Firebase';
-import { ButtonNext, TakaranAir } from '../../../Components';
+import { ButtonNext } from '../../../Components';
 
 
 const Air = ({ navigation }) => {
@@ -19,7 +19,7 @@ const Air = ({ navigation }) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const radioAir = [
         {
-            label: "< " + wotah + " Liter",
+            label: "<" + wotah + " Liter",
             value: 50
         },
         {
@@ -27,7 +27,7 @@ const Air = ({ navigation }) => {
             value: 100
         },
         {
-            label: "> " + wotah + " Liter",
+            label: ">" + wotah + " Liter",
             value: 50
         },
 
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     radioLabelStyle: {
         fontSize: 15,
         letterSpacing: 0.3,
-        marginRight: 35,
+        marginRight: 20,
     },
 
 

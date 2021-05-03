@@ -78,7 +78,11 @@ const MakanPagi = () => {
                                 <Text key={item} style={{ fontSize: 15 }}>{item}</Text>
                             ))}
                         </View>
-                        <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                        <View style={{ flex: 1, alignItems: 'center' }}>
+                            <Text style={{ fontFamily: 'Poppins-Bold' }}>Porsi</Text>
+                            <Text style={{ fontSize: 15 }}>1</Text>
+                        </View>
+                        <View style={{ flex: 0.6, alignItems: 'flex-end' }}>
                             <Text style={{ marginRight: 25, fontFamily: 'Poppins-Bold' }}>Kalori</Text>
                             {selectedDataCalories.map((item) => (
                                 <Text key={item} style={{ marginRight: 35, fontSize: 15 }}>{item}</Text>
@@ -89,7 +93,7 @@ const MakanPagi = () => {
                         <Text style={{ flex: 4, textAlign: 'right', fontFamily: 'Poppins-Bold', paddingVertical: 5 }}>Total </Text>
                         <Text style={{ left: 2, flex: 1.4, textAlign: 'center', fontFamily: 'Poppins-Bold', paddingVertical: 5 }}>{totalCalories}</Text>
                     </View>
-                </View>
+                </View >
 
             )
         }

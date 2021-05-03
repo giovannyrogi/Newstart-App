@@ -61,7 +61,7 @@ const UdaraSegar = ({ navigation }) => {
                     radio_props={radioUdaraSegar}
                     initial={-1}
                     onPress={(value) => handleRadio(value)}
-                    formHorizontal={false}
+                    formHorizontal={true}
                     selectedButtonColor={'#9B51E0'}
                     selectedLabelColor={'#9B51E0'}
                     buttonColor={'#757575'}
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     radioLabelStyle: {
         fontSize: 15,
         letterSpacing: 0.3,
-        marginRight: 35,
+        marginRight: 20,
     },
 
     textStyle: {

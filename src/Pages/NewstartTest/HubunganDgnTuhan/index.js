@@ -35,11 +35,11 @@ const HubunganDgnTuhan = ({ navigation }) => {
             return (
                 <View key={id} style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => { onChecked(item.id) }}>
-                        <Text style={{ marginTop: 5, left: 6, textAlign: 'center' }}>{item.nama}</Text>
+                        <Text style={{ marginTop: 5, textAlign: 'center' }}>{item.nama}</Text>
                         <CheckBox
                             value={item.checked}
                             onValueChange={() => { onChecked(item.id) }}
-                            style={{ alignSelf: 'center', left: 6 }}
+                            style={{ alignSelf: 'center', }}
                         />
                     </TouchableOpacity>
                 </View>
