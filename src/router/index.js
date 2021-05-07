@@ -63,7 +63,7 @@ const Router = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator
-                initialRouteName='Home'
+                initialRouteName='Login'
             >
 
                 {/* Halaman */}
@@ -72,12 +72,6 @@ const Router = () => {
                     component={Splash}
                     options={{ ...noHeaderShown }}
                 />
-
-                {/* <Stack.Screen
-                    name="ButtonDetail"
-                    component={ButtonDetail}
-                    options={{ ...noHeaderShown }}
-                /> */}
 
                 <Stack.Screen
                     name="Welcome"

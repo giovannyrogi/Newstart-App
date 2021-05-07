@@ -12,7 +12,7 @@ class Pengaturan extends Component {
         const Keluar = () => {
             firebase.auth().signOut().then(() => {
                 // Sign-out successful.
-                this.props.navigation.navigate('Login')
+                this.props.navigation.replace('Login')
             }).catch((error) => {
                 // An error happened.
             });

@@ -13,6 +13,7 @@ const initialState = {
     // untuk menyimpan data makan pagi
     selectedFoodMknPagi: [],
     selectedCaloriMknPagi: [],
+    selectedPorsiMknPagi: [],
     hasilCaloriMknPagi: 0,
 
     //untuk menyimpan data makan siang
@@ -140,6 +141,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedFoodMknPagi: action.value,
+            }
+        case 'SELECTED_PORSI_MKN_PAGI':
+            return {
+                ...state,
+                selectedPorsiMknPagi: action.value,
             }
         case 'HASIL_CALORI_MKN_PAGI':
             return {

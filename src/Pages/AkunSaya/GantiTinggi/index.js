@@ -20,6 +20,7 @@ const RubahEmail = () => {
         newTinggi: 0,
     });
 
+    var updateUserBMI = 0;
 
     useEffect(() => {
         // mengambil data user
@@ -49,17 +50,52 @@ const RubahEmail = () => {
         });
     };
 
-    const GantiTinggi = () => {
+    const setFixed = (targetCalori, targetWater, fixedWater, fixedCalori, fixedUserBMI) => {
+        fixedCalori = targetCalori.toFixed();
+        fixedWater = targetWater.toFixed(1);
+        fixedUserBMI = updateUserBMI.toFixed(1);
+        // console.log('fixedUserBMI : ' + fixedUserBMI)
+        // console.log('fixedCalori : ' + fixedCalori)
+        // console.log('fixedWater : ' + fixedWater)
 
-        if (form.newTinggi != 0) {
-            // firebase.database().ref('users/' + userId + '/userInfo/').update({
-            //     tinggi: form.newTinggi
-            // });
-            // setTinggiModal(false);
-            alert('Sedang dalam tahap pengembangan.')
+        firebase.database().ref('users/' + userId + '/userInfo/').update({
+            tinggi: form.newTinggi
+        });
+        firebase.database().ref('users/' + userId + '/userResult/').update({
+            resultWater: fixedWater,
+            resultKalori: fixedCalori,
+            resultBMI: fixedUserBMI,
+        });
+        alert('Berhasil merubah data, silahkan login kembali untuk melihat perubahan.')
+        setTinggiModal(false);
+    }
+
+    const GantiTinggi = (targetWater, targetCalori, userBMI, convertTinggi) => {
+        convertTinggi = form.newTinggi / 100;
+        userBMI = userInfo.berat / (convertTinggi * convertTinggi);
+        updateUserBMI = userBMI;
+
+        if (form.newTinggi == userInfo.tinggi) {
+            alert('Tinggi badan tidak boleh sama.')
+        }
+
+        if (form.newTinggi != 0 && form.newTinggi != userInfo.tinggi) {
+            if (userInfo.gender == 'Laki-laki') {
+                targetWater = (2447 - (0.09145 * userInfo.umur) + (0.1074 * form.newTinggi) + (0.3362 * userInfo.berat)) / 1000;
+                targetCalori = 66 + (13.7 * userInfo.berat) + (5 * form.newTinggi) - (6.8 * userInfo.umur);
+                // console.log('targetwater : ' + targetWater)
+                // console.log('targetcalori : ' + targetCalori)
+            }
+            if (userInfo.gender == 'Perempuan') {
+                targetWater = (2097 + (0.1069 * form.newTinggi) + (0.2466 * userInfo.berat)) / 1000;
+                targetCalori = 655 + (9.6 * userInfo.berat) + (1.8 * form.newTinggi)
+                // console.log('targetwater : ' + targetWater)
+                // console.log('targetcalori : ' + targetCalori)
+            }
+            { setFixed(targetCalori, targetWater) }
         }
         if (form.newTinggi == 0) {
-            alert('Tinggi tidak boleh kosong.')
+            alert('Tinggi badan tidak boleh kosong.')
         }
     }
 
@@ -108,7 +144,7 @@ const RubahEmail = () => {
                         </View>
                         <View style={styles.textInputEmailBaruContainer}>
                             <Input
-                                placeholder="Tinggi Anda . . ."
+                                placeholder="Satuan cm . . ."
                                 style={styles.textInputEmailBaruStyle}
                                 value={form.newTinggi}
                                 onChangeText={(value) => onChangeText(value, 'newTinggi')}

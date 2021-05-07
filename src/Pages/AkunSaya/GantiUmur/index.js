@@ -8,15 +8,14 @@ import { ButtonSelesai, Input } from '../../../Components';
 import { useDispatch, useSelector } from 'react-redux';
 import BackArrow from 'react-native-vector-icons/MaterialIcons';
 
-const RubahUmur = () => {
-
+const RubahUmur = ({ navigation }) => {
 
     const userId = useSelector(state => state.uid)
 
     const [userInfo, setUserInfo] = useState('')
     const [umurModal, setUmurModal] = useState(false);
     const [form, setForm] = useState({
-        newUmur: '',
+        newUmur: 0,
     });
 
 
@@ -48,19 +47,42 @@ const RubahUmur = () => {
         });
     };
 
-    const GantiUmur = () => {
+    const setFixed = (targetCalori, targetWater, fixedWater, fixedCalori) => {
+        fixedCalori = targetCalori.toFixed();
+        fixedWater = targetWater.toFixed(1);
+        // console.log('fixedCalori : ' + fixedCalori)
+        // console.log('fixedWater : ' + fixedWater)
+        firebase.database().ref('users/' + userId + '/userInfo/').update({
+            umur: form.newUmur
+        });
+        firebase.database().ref('users/' + userId + '/userResult/').update({
+            resultWater: fixedWater,
+            resultKalori: fixedCalori
+        });
+        alert('Berhasil merubah data, silahkan login kembali untuk melihat perubahan.')
+        setUmurModal(false);
+    }
 
-        if (form.newUmur != '') {
-            // firebase.database().ref('users/' + userId + '/userInfo/').update({
-            //     umur: form.newUmur
-            // });
-            alert('Sedang dalam tahap pengembangan')
+    const GantiUmur = (targetCalori, targetWater) => {
+
+        if (form.newUmur == userInfo.umur) {
+            alert('Umur tidak boleh sama.')
         }
-        if (form.newUmur == '') {
+        if (form.newUmur != 0 && form.newUmur != userInfo.umur) {
+            if (userInfo.gender == 'Laki-laki') {
+                targetWater = (2447 - (0.09145 * form.newUmur) + (0.1074 * userInfo.tinggi) + (0.3362 * userInfo.berat)) / 1000;
+                targetCalori = 66 + (13.7 * userInfo.berat) + (5 * userInfo.tinggi) - (6.8 * form.newUmur);
+                // console.log('calori : ' + targetCalori)
+                // console.log('water : ' + targetWater)
+                { setFixed(targetCalori, targetWater) }
+            }
+
+            // alert('Sedang dalam tahap pengembangan')
+        }
+        if (form.newUmur == 0) {
             alert('Umur tidak boleh kosong')
         }
 
-        // setUmurModal(false);
     }
 
     return (

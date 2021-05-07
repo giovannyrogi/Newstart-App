@@ -50,14 +50,43 @@ const RubahEmail = () => {
         });
     };
 
-    const GantiGender = () => {
+    const setFixed = (targetCalori, targetWater, fixedWater, fixedCalori) => {
+        fixedCalori = targetCalori.toFixed();
+        fixedWater = targetWater.toFixed(1);
+        // console.log('fixedCalori : ' + fixedCalori)
+        // console.log('fixedWater : ' + fixedWater)
 
-        if (form.gender != '') {
-            // firebase.database().ref('users/' + userId + '/userInfo/').update({
-            //     gender: form.newGender
-            // });
-            // setGenderModal(false);
-            alert('Sedang dalam tahap pengembangan.')
+        firebase.database().ref('users/' + userId + '/userInfo/').update({
+            gender: form.newGender
+        });
+        firebase.database().ref('users/' + userId + '/userResult/').update({
+            resultWater: fixedWater,
+            resultKalori: fixedCalori
+        });
+        alert('Berhasil merubah data, silahkan login kembali untuk melihat perubahan.')
+        setGenderModal(false);
+    }
+
+    const GantiGender = (targetWater, targetCalori) => {
+
+        if (form.newGender == userInfo.gender) {
+            alert('Jenis kelamin tidak boleh sama.')
+        }
+
+        if (form.newGender != userInfo.gender) {
+            if (form.newGender == 'Laki-laki') {
+                targetWater = (2447 - (0.09145 * userInfo.umur) + (0.1074 * userInfo.tinggi) + (0.3362 * userInfo.berat)) / 1000;
+                targetCalori = 66 + (13.7 * userInfo.berat) + (5 * userInfo.tinggi) - (6.8 * userInfo.umur);
+                // console.log('targetwater : ' + targetWater)
+                // console.log('targetcalori : ' + targetCalori)
+            }
+            if (form.newGender == 'Perempuan') {
+                targetWater = (2097 + (0.1069 * userInfo.tinggi) + (0.2466 * userInfo.berat)) / 1000;
+                targetCalori = 655 + (9.6 * userInfo.berat) + (1.8 * userInfo.tinggi)
+                // console.log('targetwater : ' + targetWater)
+                // console.log('targetcalori : ' + targetCalori)
+            }
+            { setFixed(targetCalori, targetWater) }
         }
     }
 
@@ -106,8 +135,8 @@ const RubahEmail = () => {
                         </View>
                         <View style={styles.textInputEmailBaruContainer}>
                             <Picker
-                                onValueChange={(value) => onChangeText(value, 'gender')}
-                                selectedValue={form.gender}
+                                onValueChange={(value) => onChangeText(value, 'newGender')}
+                                selectedValue={form.newGender}
                             // style={styles.pickerContainer}
                             >
                                 <Picker.Item label="Laki-laki" value="Laki-laki" />

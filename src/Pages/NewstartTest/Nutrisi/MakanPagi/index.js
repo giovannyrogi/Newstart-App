@@ -7,6 +7,8 @@ import ModalMakanPagi from 'react-native-modal';
 import { ButtonNext } from '../../../../Components';
 import ButtonIconSelesai from 'react-native-vector-icons/Ionicons';
 import IconPlus from 'react-native-vector-icons/Entypo';
+import IconPorsiPlus from 'react-native-vector-icons/Entypo';
+import IconPorsiMin from 'react-native-vector-icons/Entypo';
 import BackArrow from 'react-native-vector-icons/MaterialIcons';
 import UpArrow from 'react-native-vector-icons/MaterialIcons';
 import DownArrow from 'react-native-vector-icons/MaterialIcons';
@@ -20,6 +22,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const MakanPagi = () => {
 
     const [MakananPokok, setMakananPokok] = useState(dataMakananPokok);
+    const [selectedDataPorsi, setSelectedDataPorsi] = useState([]);
     const [laukPauk, setLaukPauk] = useState(dataLaukPauk);
     const [buahBuahan, setBuahBuahan] = useState(dataBuahBuahan);
     const [sayur, setSayur] = useState(dataSayur);
@@ -30,6 +33,7 @@ const MakanPagi = () => {
 
     const dispatch = useDispatch();
     const selectedDataFood = useSelector((state) => state.selectedFoodMknPagi)
+    // const selectedDataPorsi = useSelector((state) => state.selectedPorsiMknPagi)
     const selectedDataCalories = useSelector((state) => state.selectedCaloriMknPagi)
     const totalCalories = useSelector((state) => state.hasilCaloriMknPagi)
 
@@ -66,6 +70,22 @@ const MakanPagi = () => {
         }
     }
 
+    const handlePlus = (item, index, updatePorsi) => {
+        updatePorsi = [...selectedDataPorsi];
+        // updatePorsi[index].item += 1;
+        console.log('Porsi : ' + updatePorsi)
+        // console.log('Index : ' + index)
+    }
+
+    const handleMin = (item, index) => {
+        // const porsi = [...dataMakananPokok];
+        if (item > 1) {
+            item -= 1;
+        }
+        console.log('Porsi : ' + item)
+        // dispatch({ type: 'HANDLE_MIN' });
+    }
+
     const renderMakanPagi = () => {
         dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: totalCalories });
         if (selectedDataFood != '' && selectedDataCalories != 0) {
@@ -80,7 +100,29 @@ const MakanPagi = () => {
                         </View>
                         <View style={{ flex: 1, alignItems: 'center' }}>
                             <Text style={{ fontFamily: 'Poppins-Bold' }}>Porsi</Text>
-                            <Text style={{ fontSize: 15 }}>1</Text>
+                            {selectedDataPorsi.map((item, index) => (
+                                <View style={{ flexDirection: 'row' }}>
+                                    <TouchableOpacity onPress={() => handleMin(item, index)}>
+                                        <IconPorsiMin
+                                            name='minus'
+                                            size={22}
+                                            style={{ color: '#616161' }}
+                                        />
+                                    </TouchableOpacity>
+                                    <View style={{ marginHorizontal: 5, backgroundColor: 'white', paddingHorizontal: 15, borderWidth: 1, borderRadius: 5, borderColor: '#BDBDBD' }}>
+                                        <Text key={item} style={{ fontSize: 15 }}>{item}</Text>
+                                    </View>
+
+                                    <TouchableOpacity onPress={() => handlePlus(item, index)} >
+                                        <IconPorsiPlus
+                                            name='plus'
+                                            size={22}
+                                            style={{ color: '#616161' }}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            ))}
+
                         </View>
                         <View style={{ flex: 0.6, alignItems: 'flex-end' }}>
                             <Text style={{ marginRight: 25, fontFamily: 'Poppins-Bold' }}>Kalori</Text>
@@ -235,10 +277,11 @@ const MakanPagi = () => {
     }
 
 
-    const getSelectedData = (sum, SelectedCalori, SelectedMakanan) => {
+    const getSelectedData = (sum, SelectedCalori, SelectedMakanan, SelectedPorsiMakanan) => {
         var namaMakananPokok = MakananPokok.map((t) => t.nama)
         var checksMakananPokok = MakananPokok.map((t) => t.checkedMakananPokok)
         var caloriMakananPokok = MakananPokok.map((t) => t.kalori)
+        var porsiMakanan = MakananPokok.map((t) => t.porsi)
 
         var namaLaukpauk = laukPauk.map((t) => t.nama)
         var checksLaukpauk = laukPauk.map((t) => t.checkedLaukPauk)
@@ -254,6 +297,7 @@ const MakanPagi = () => {
 
         SelectedCalori = []
         SelectedMakanan = []
+        SelectedPorsiMakanan = []
         for (let i = 0; i < checksSayur.length; i++) {
             if (checksSayur[i] == true) {
                 SelectedMakanan.push(namaSayur[i])
@@ -265,10 +309,10 @@ const MakanPagi = () => {
             }
         }
         for (let i = 0; i < checksMakananPokok.length; i++) {
-
             if (checksMakananPokok[i] == true) {
                 SelectedMakanan.push(namaMakananPokok[i])
                 SelectedCalori.push(caloriMakananPokok[i])
+                SelectedPorsiMakanan.push(porsiMakanan[i])
                 sum = SelectedCalori.reduce((a, c) => {
                     return a + c
                 }, 0);
@@ -297,9 +341,12 @@ const MakanPagi = () => {
             sum = 0;
         }
 
+
+        setSelectedDataPorsi(SelectedPorsiMakanan)
         dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: SelectedMakanan });
         dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: SelectedCalori });
         dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: sum });
+        // dispatch({ type: 'SELECTED_PORSI_MKN_PAGI', value: SelectedPorsiMakanan });
         // dispatch({ type: 'CHECKED_MAKANAN_POKOK', value: checksMakananPokok });
 
         // console.log(checksMakananPokok)

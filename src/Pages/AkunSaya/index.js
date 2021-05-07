@@ -12,7 +12,7 @@ import GantiTinggi from './GantiTinggi'
 import GantiBerat from './GantiBerat'
 
 
-const AkunSaya = () => {
+const AkunSaya = ({ navigation }) => {
 
     const userId = useSelector(state => state.uid)
 

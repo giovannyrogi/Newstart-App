@@ -132,7 +132,7 @@ const Home = ({ navigation }) => {
                 </View>
             )
         }
-        if (resultNewstartF >= 90 && resultNewstartF < 100) {
+        if (resultNewstartF >= 90) {
             // alert('Dari OptimumHealth : ' + result)
             return (
                 <View style={styles.subCardContainer}>

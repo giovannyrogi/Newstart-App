@@ -20,6 +20,7 @@ const GantiBerat = () => {
         newBerat: 0,
     });
 
+    var updateUserBMI = 0;
 
     useEffect(() => {
         // mengambil data user
@@ -49,17 +50,54 @@ const GantiBerat = () => {
         });
     };
 
-    const GantiBerat = () => {
+    const setFixed = (targetCalori, targetWater, fixedWater, fixedCalori, fixedUserBMI) => {
+        fixedCalori = targetCalori.toFixed();
+        fixedWater = targetWater.toFixed(1);
+        fixedUserBMI = updateUserBMI.toFixed(1);
+        // console.log('fixedUserBMI : ' + fixedUserBMI)
+        // console.log('fixedCalori : ' + fixedCalori)
+        // console.log('fixedWater : ' + fixedWater)
 
-        if (form.newBerat != 0) {
-            // firebase.database().ref('users/' + userId + '/userInfo/').update({
-            //     berat: form.newBerat
-            // });
-            // setBeratModal(false);
-            alert('Sedang dalam tahap pengembangan.')
+        firebase.database().ref('users/' + userId + '/userInfo/').update({
+            berat: form.newBerat
+        });
+        firebase.database().ref('users/' + userId + '/userResult/').update({
+            resultWater: fixedWater,
+            resultKalori: fixedCalori,
+            resultBMI: fixedUserBMI,
+        });
+        alert('Berhasil merubah data, silahkan login kembali untuk melihat perubahan.')
+        setBeratModal(false);
+    }
+
+    const GantiBerat = (targetWater, targetCalori, userBMI, convertTinggi) => {
+        convertTinggi = userInfo.tinggi / 100;
+        userBMI = form.newBerat / (convertTinggi * convertTinggi);
+        updateUserBMI = userBMI;
+
+        if (form.newBerat == userInfo.berat) {
+            alert('Berat badan tidak boleh sama.')
+        }
+
+        if (form.newBerat != 0 && form.newBerat != userInfo.berat) {
+            if (userInfo.gender == 'Laki-laki') {
+                targetWater = (2447 - (0.09145 * userInfo.umur) + (0.1074 * userInfo.tinggi) + (0.3362 * form.newBerat)) / 1000;
+                targetCalori = 66 + (13.7 * form.newBerat) + (5 * userInfo.tinggi) - (6.8 * userInfo.umur);
+                // console.log('gender : ' + userInfo.gender)
+                // console.log('targetwater : ' + targetWater)
+                // console.log('targetcalori : ' + targetCalori)
+            }
+            if (userInfo.gender == 'Perempuan') {
+                targetWater = (2097 + (0.1069 * userInfo.tinggi) + (0.2466 * form.newBerat)) / 1000;
+                targetCalori = 655 + (9.6 * form.newBerat) + (1.8 * userInfo.tinggi)
+                // console.log('gender : ' + userInfo.gender)
+                // console.log('targetwater : ' + targetWater)
+                // console.log('targetcalori : ' + targetCalori)
+            }
+            { setFixed(targetCalori, targetWater) }
         }
         if (form.newBerat == 0) {
-            alert('Berat tidak boleh kosong.')
+            alert('Berat badan tidak boleh kosong.')
         }
 
 
@@ -110,7 +148,7 @@ const GantiBerat = () => {
                         </View>
                         <View style={styles.textInputEmailBaruContainer}>
                             <Input
-                                placeholder="Satuan KG. . ."
+                                placeholder="Satuan kg. . ."
                                 style={styles.textInputEmailBaruStyle}
                                 value={form.newBerat}
                                 onChangeText={(value) => onChangeText(value, 'newBerat')}
