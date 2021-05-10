@@ -71,10 +71,8 @@ const MakanPagi = () => {
     }
 
     const handlePlus = (item, index, updatePorsi) => {
-        updatePorsi = [...selectedDataPorsi];
-        // updatePorsi[index].item += 1;
-        console.log('Porsi : ' + updatePorsi)
-        // console.log('Index : ' + index)
+        // updatePorsi = [...selectedDataPorsi];
+        console.log('Porsi : ' + item)
     }
 
     const handleMin = (item, index) => {

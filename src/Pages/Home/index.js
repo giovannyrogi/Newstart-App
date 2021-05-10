@@ -18,6 +18,7 @@ import GoodHealth from './interpretasi/GoodHealth';
 import DetailGoodHealth from './interpretasi/GoodHealth/detailGoodHealth';
 import OptimumHealth from './interpretasi/OptimumHealth';
 import DetailOptimumHealth from './interpretasi/OptimumHealth/detailOptimumHealth';
+import DetailRiwayat from './DetailRiwayat';
 
 
 const Home = ({ navigation }) => {
@@ -78,14 +79,14 @@ const Home = ({ navigation }) => {
             return (
                 <View style={styles.subInterpretasiContainer1} >
                     <View style={styles.subInterpretasiContainer2}>
-                        <Text style={styles.textInteStyle}>Tingkat Kesehatan Anda :</Text>
+                        <Text style={styles.textInteStyle}>Interpretasi :</Text>
                         <CardView
                             cardElevation={15}
                             cardMaxElevation={20}
                             cornerRadius={8}
                             style={styles.cardContainer}
                         >
-                            <Text > {inter()}</Text>
+                            {inter()}
                         </CardView>
                     </View>
 
@@ -144,75 +145,84 @@ const Home = ({ navigation }) => {
     }
 
     //mengambil data tanggal dari firebase
-    const renderDataDate = () => {
-        return (
-            <View >
-                {
-                    getKey.map((item) => (
-                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].Date}</Text>
-                    ))
-                }
-            </View>
-        )
-    }
+    // const renderDataDate = () => {
+    //     return (
+    //         <View >
+    //             {
+    //                 getKey.map((item) => (
+    //                     <Text key={item} style={styles.dataStyle}>{dataHistory[item].Date}</Text>
+    //                 ))
+    //             }
+    //         </View>
+    //     )
+    // }
 
     //mengambil data jam dari firebase
-    const renderDataTime = () => {
-        return (
-            <View >
-                {
-                    getKey.map((item) => (
-                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].Time}</Text>
-                    ))
-                }
-            </View>
-        )
-    }
+    // const renderDataTime = () => {
+    //     return (
+    //         <View >
+    //             {
+    //                 getKey.map((item) => (
+    //                     <Text key={item} style={styles.dataStyle}>{dataHistory[item].Time}</Text>
+    //                 ))
+    //             }
+    //         </View>
+    //     )
+    // }
 
     //mengambil data hasil dari firebase
-    const renderDataHasil = () => {
-        return (
-            <View >
-                {
-                    getKey.map((item) => (
-                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].newstartResult}</Text>
-                    ))
-                }
-            </View>
-        )
-    }
+    // const renderDataHasil = () => {
+    //     return (
+    //         <View >
+    //             {
+    //                 getKey.map((item) => (
+    //                     <Text key={item} style={styles.dataStyle}>{dataHistory[item].newstartResult}</Text>
+    //                 ))
+    //             }
+    //         </View>
+    //     )
+    // }
 
     //mengambil data interpretasi dari firebase
-    const renderDataInterpretasi = () => {
-        return (
-            <View >
-                {
-                    getKey.map((item) => (
-                        <Text key={item} style={styles.dataStyle}>{dataHistory[item].interpretasiResult}</Text>
-                    ))
-                }
-            </View>
-        )
-    }
+    // const renderDataInterpretasi = () => {
+    //     return (
+    //         <View >
+    //             {
+    //                 getKey.map((item) => (
+    //                     <Text key={item} style={styles.dataStyle}>{dataHistory[item].interpretasiResult}</Text>
+    //                 ))
+    //             }
+    //         </View>
+    //     )
+    // }
 
-    const handleButton = () => {
-        //untuk reset data makanan/kalori pada page nutrisi
-        const refreshSelectedDataFood = [];
-        const refreshselectedDataCalories = [];
-        const refreshtotalCalories = 0;
-        dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: refreshSelectedDataFood });
-        dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: refreshselectedDataCalories });
-        dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: refreshtotalCalories });
-
-        //untuk reset data makanan/kalori pada page nutrisi
-        dispatch({ type: 'SELECTED_FOOD_MKN_SIANG', value: refreshSelectedDataFood });
-        dispatch({ type: 'SELECTED_CALORI_MKN_SIANG', value: refreshselectedDataCalories });
-        dispatch({ type: 'HASIL_CALORI_MKN_SIANG', value: refreshtotalCalories });
+    //untuk reset data pada semua page newstart test
+    const handleButton = (refreshAllData, refreshAllDataArray) => {
+        refreshAllDataArray = [];
+        refreshAllData = 0;
+        dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: refreshAllDataArray });
+        dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: refreshAllDataArray });
+        dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: refreshAllData });
 
         //untuk reset data makanan/kalori pada page nutrisi
-        dispatch({ type: 'SELECTED_FOOD_MKN_MALAM', value: refreshSelectedDataFood });
-        dispatch({ type: 'SELECTED_CALORI_MKN_MALAM', value: refreshselectedDataCalories });
-        dispatch({ type: 'HASIL_CALORI_MKN_MALAM', value: refreshtotalCalories });
+        dispatch({ type: 'SELECTED_FOOD_MKN_SIANG', value: refreshAllDataArray });
+        dispatch({ type: 'SELECTED_CALORI_MKN_SIANG', value: refreshAllDataArray });
+        dispatch({ type: 'HASIL_CALORI_MKN_SIANG', value: refreshAllData });
+
+        //untuk reset data makanan/kalori pada page nutrisi
+        dispatch({ type: 'SELECTED_FOOD_MKN_MALAM', value: refreshAllDataArray });
+        dispatch({ type: 'SELECTED_CALORI_MKN_MALAM', value: refreshAllDataArray });
+        dispatch({ type: 'HASIL_CALORI_MKN_MALAM', value: refreshAllData });
+
+
+        dispatch({ type: 'RESULT_ISI_PIRINGKU', value: refreshAllData });
+        dispatch({ type: 'RESULT_OLAHRAGA', value: refreshAllData });
+        dispatch({ type: 'RESULT_AIR', value: refreshAllData });
+        dispatch({ type: 'RESULT_SINAR_MATAHARI', value: refreshAllData });
+        dispatch({ type: 'RESULT_PENGENDALIAN_DIRI', value: refreshAllData });
+        dispatch({ type: 'RESULT_UDARA_SEGAR', value: refreshAllData });
+        dispatch({ type: 'RESULT_TIDUR', value: refreshAllData });
+        dispatch({ type: 'RESULT_HATI_SENANG', value: refreshAllData });
 
         navigation.navigate('Nutrisi')
     }
@@ -328,38 +338,38 @@ const Home = ({ navigation }) => {
         )
     }
 
-    const dataRiwayat = () => {
-        if (getKey != '') {
-            return (
-                <View style={{ flexDirection: 'row', marginLeft: 5, marginBottom: 5 }}>
-                    <View style={styles.dataContainer}>
-                        {renderDataDate()}
-                    </View>
-                    <View style={styles.dataContainer}>
-                        {renderDataTime()}
-                    </View>
-                    <View style={styles.dataContainer}>
-                        {renderDataHasil()}
-                    </View>
-                    <View style={styles.dataInterContainer}>
-                        {renderDataInterpretasi()}
-                    </View>
-                </View>
-            )
-        }
-        else {
-            return (
-                <Text style={{ textAlign: 'center', marginBottom: 5 }}>belum ada riwayat.</Text>
-            )
-        }
-    }
+    // const dataRiwayat = () => {
+    //     if (getKey != '') {
+    //         return (
+    //             <View style={{ flexDirection: 'row', marginLeft: 5, marginBottom: 5 }}>
+    //                 <View style={styles.dataContainer}>
+    //                     {renderDataDate()}
+    //                 </View>
+    //                 <View style={styles.dataContainer}>
+    //                     {renderDataTime()}
+    //                 </View>
+    //                 <View style={styles.dataContainer}>
+    //                     {renderDataHasil()}
+    //                 </View>
+    //                 <View style={styles.dataInterContainer}>
+    //                     {renderDataInterpretasi()}
+    //                 </View>
+    //             </View>
+    //         )
+    //     }
+    //     else {
+    //         return (
+    //             <Text style={{ textAlign: 'center', marginBottom: 5 }}>belum ada riwayat.</Text>
+    //         )
+    //     }
+    // }
 
 
     return (
         <View style={styles.mainContainer}>
             <View style={styles.subContainer1}>
                 <View style={styles.resultContainer}>
-                    <Text style={styles.textHasilStyle}>HASIL</Text>
+                    <Text style={styles.textHasilStyle}>HASIL TES TERAKHIR</Text>
                     <Text style={styles.textPoinStyle}>{resultNewstartF}</Text>
                 </View>
                 <View style={styles.interMainContainer}>
@@ -367,8 +377,8 @@ const Home = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.subContainer2}>
-                <Text style={styles.judulRiwayat}>Riwayat</Text>
-                <View style={{ flex: 0.9, marginTop: 15, }}>
+                {/* <Text style={styles.judulRiwayat}>Riwayat</Text>
+                <View style={{ flex: 0.9, marginTop: 15 }}>
                     <CardView
                         cardElevation={15}
                         cardMaxElevation={15}
@@ -391,6 +401,9 @@ const Home = ({ navigation }) => {
                         </View>
                         {dataRiwayat()}
                     </CardView>
+                </View> */}
+                <View style={{ alignItems: 'center', marginBottom: 10 }} >
+                    <DetailRiwayat />
                 </View>
                 <View style={styles.caloriAndBMIContainer}>
                     {/* menampilkan user kalori perhari dan target kalori */}
@@ -403,7 +416,7 @@ const Home = ({ navigation }) => {
                     {switchButton()}
                 </View>
             </View>
-        </View >
+        </View>
     )
 }
 
@@ -422,7 +435,7 @@ const styles = StyleSheet.create({
     },
 
     subContainer2: {
-        flex: 1.2,
+        flex: 0.9,
         backgroundColor: '#F5F5F5',
         borderTopLeftRadius: 35,
         borderTopRightRadius: 35,
@@ -432,9 +445,9 @@ const styles = StyleSheet.create({
     },
 
     caloriAndBMIContainer: {
-        flex: 1,
+        flex: 0.5,
         flexDirection: 'row',
-        top: 15
+        top: 25
     },
 
     interMainContainer: {
@@ -449,9 +462,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        bottom: 10
     },
 
     subInterpretasiContainer2: {
+        marginTop: 5,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
@@ -460,7 +475,8 @@ const styles = StyleSheet.create({
 
     cardContainer2: {
         flex: 1,
-        marginHorizontal: 13
+        marginHorizontal: 13,
+        paddingVertical: 8,
     },
 
     iconContainer: {
@@ -482,6 +498,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
+        top: 5
     },
 
     textInterStyle: {
@@ -513,8 +530,8 @@ const styles = StyleSheet.create({
     },
 
     textHasilStyle: {
-        marginTop: 30,
-        fontSize: 30,
+        marginTop: 35,
+        fontSize: 25,
         color: '#fff',
         fontFamily: 'Poppins-Bold',
         letterSpacing: 1,
@@ -528,7 +545,7 @@ const styles = StyleSheet.create({
     },
 
     textPoinStyle: {
-        marginTop: -28,
+        marginTop: -20,
         fontSize: 30,
         color: '#fff',
         fontSize: 70,
@@ -552,12 +569,12 @@ const styles = StyleSheet.create({
     },
 
     cardContainer: {
-        paddingVertical: 2,
-        paddingHorizontal: 4,
         elevation: 20,
     },
 
     subCardContainer: {
+        paddingVertical: 1,
+        paddingHorizontal: 8,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
@@ -581,7 +598,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        top: 12,
+        top: 25,
         marginBottom: 30
     },
 

@@ -14,14 +14,14 @@ const styles = StyleSheet.create({
     interNeutralStyle: {
         textAlign: 'center',
         fontSize: 15,
-        color: '#0fb542',
+        color: 'green',
         fontFamily: 'Roboto-Bold',
         letterSpacing: 1,
-        textShadowOffset: {
-            width: -1,
-            height: 0.5,
-        },
-        textShadowColor: '#757575',
-        textShadowRadius: 1,
+        // textShadowOffset: {
+        //     width: -1,
+        //     height: 0.5,
+        // },
+        // textShadowColor: '#757575',
+        // textShadowRadius: 1,
     },
 })

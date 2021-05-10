@@ -63,7 +63,7 @@ const Router = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator
-                initialRouteName='Login'
+                initialRouteName='Nutrisi'
             >
 
                 {/* Halaman */}

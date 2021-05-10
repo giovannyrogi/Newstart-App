@@ -8,13 +8,13 @@ export default [
     {
         id: 2,
         nama: 'Ubi jalar',
-        porsi: 1,
+        porsi: 2,
         kalori: 120
     },
     {
         id: 3,
         nama: 'Nasi merah',
-        porsi: 1,
+        porsi: 3,
         kalori: 100
     },
     {
