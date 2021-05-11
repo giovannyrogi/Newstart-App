@@ -65,7 +65,7 @@ const SinarMatahari = ({ navigation }) => {
 
     return (
         <View style={styles.mainContainer}>
-            <View  >
+            <View style={styles.subContainer}>
                 <View>
                     {/* <Text>
                         {hasilSinarMatahari}
@@ -79,7 +79,7 @@ const SinarMatahari = ({ navigation }) => {
                         radio_props={radioSinarMatahari}
                         initial={-1}
                         onPress={(value) => handleRadio(value)}
-                        formHorizontal={false}
+                        formHorizontal={true}
                         selectedButtonColor={'#9B51E0'}
                         selectedLabelColor={'#9B51E0'}
                         buttonColor={'#757575'}
@@ -88,14 +88,14 @@ const SinarMatahari = ({ navigation }) => {
 
                     />
                 </View>
-
-                <ButtonNext
-                    title="Berikutnya"
-                    onPress={() => navigation.navigate('Pengendalian Diri')}
-                    name="navigate-next"
-                    size={22}
-                />
             </View>
+            <ButtonNext
+                title="Berikutnya"
+                onPress={() => navigation.navigate('Pengendalian Diri')}
+                name="navigate-next"
+                size={22}
+            />
+
         </View>
     );
 }
@@ -109,20 +109,29 @@ const styles = StyleSheet.create({
         marginHorizontal: 25,
     },
 
+    subContainer: {
+        borderTopWidth: 0.4,
+        borderBottomWidth: 0.4,
+        borderColor: '#757575',
+        paddingVertical: 10,
+    },
+
+
     radioFormContainer: {
         marginTop: 11,
 
     },
 
     radioLabelStyle: {
-        fontSize: 15,
+        fontSize: 14,
         letterSpacing: 0.3,
-        marginRight: 20,
+        marginRight: 10,
+        marginLeft: -6
     },
 
     textStyle: {
         fontSize: 18,
         letterSpacing: 0.5,
-        lineHeight: 25
+        lineHeight: 25,
     },
 })

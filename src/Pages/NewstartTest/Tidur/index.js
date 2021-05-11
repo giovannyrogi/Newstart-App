@@ -45,23 +45,25 @@ const Tidur = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={styles.mainContainer}>
+        <View style={styles.mainContainer}>
             {/* <Text>
                 {hasilTidur}
             </Text> */}
-            <Text style={styles.textStyle}>Berapa lama waktu Anda tidur?</Text>
-            <View style={styles.radioFormContainer}>
-                <RadioForm
-                    radio_props={radioTidur}
-                    initial={-1}
-                    onPress={(value) => handleRadio(value)}
-                    formHorizontal={true}
-                    selectedButtonColor={'#9B51E0'}
-                    selectedLabelColor={'#9B51E0'}
-                    buttonColor={'#757575'}
-                    buttonSize={12}
-                    labelStyle={styles.radioLabelStyle}
-                />
+            <View style={styles.subContainer}>
+                <Text style={styles.textStyle}>Berapa lama waktu Anda tidur?</Text>
+                <View style={styles.radioFormContainer}>
+                    <RadioForm
+                        radio_props={radioTidur}
+                        initial={-1}
+                        onPress={(value) => handleRadio(value)}
+                        formHorizontal={true}
+                        selectedButtonColor={'#9B51E0'}
+                        selectedLabelColor={'#9B51E0'}
+                        buttonColor={'#757575'}
+                        buttonSize={12}
+                        labelStyle={styles.radioLabelStyle}
+                    />
+                </View>
             </View>
 
             <ButtonNext
@@ -70,7 +72,7 @@ const Tidur = ({ navigation }) => {
                 name="navigate-next"
                 size={22}
             />
-        </SafeAreaView>
+        </View>
     );
 }
 
@@ -81,6 +83,13 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 32,
         marginHorizontal: 25,
+    },
+
+    subContainer: {
+        borderTopWidth: 0.4,
+        borderBottomWidth: 0.4,
+        borderColor: '#757575',
+        paddingVertical: 10,
     },
 
     radioFormContainer: {

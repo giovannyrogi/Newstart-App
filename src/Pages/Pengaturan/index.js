@@ -24,11 +24,11 @@ class Pengaturan extends Component {
                         <Text style={styles.textStyle}>Akun Saya</Text>
                     </TouchableOpacity>
                 </View>
-                {/* <View style={styles.textContainer2}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('TentangAplikasi')}>
-                        <Text style={styles.textStyle}>Tentang Aplikasi</Text>
+                <View style={styles.textContainer2}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Disclaimer')}>
+                        <Text style={styles.textStyle}>Disclaimer</Text>
                     </TouchableOpacity>
-                </View> */}
+                </View>
                 <View style={styles.textContainer2}>
                     <TouchableOpacity onPress={Keluar}>
                         <Text style={styles.textStyle}>Keluar</Text>

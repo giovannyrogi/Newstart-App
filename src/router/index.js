@@ -10,7 +10,7 @@ import Register from '../Pages/Register';
 import DataProfil from '../Pages/DataProfil';
 import BottomNavigation from '../router/BottomNavigation';
 import AkunSaya from '../Pages/AkunSaya';
-import TentangAplikasi from '../Pages/TentangAplikasi';
+import Disclaimer from '../Pages/Disclaimer';
 import Nutrisi from '../Pages/NewstartTest/Nutrisi';
 import Olahraga from '../Pages/NewstartTest/Olahraga';
 import Air from '../Pages/NewstartTest/Air';
@@ -63,7 +63,7 @@ const Router = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator
-                initialRouteName='Nutrisi'
+                initialRouteName='Disclaimer'
             >
 
                 {/* Halaman */}
@@ -114,8 +114,8 @@ const Router = () => {
                     options={{ ...myHeaderStyle }}
                 />
                 <Stack.Screen
-                    name="TentangAplikasi"
-                    component={TentangAplikasi}
+                    name="Disclaimer"
+                    component={Disclaimer}
                     options={{ ...myHeaderStyle }}
                 />
 

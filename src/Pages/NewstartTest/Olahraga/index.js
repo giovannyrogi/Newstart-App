@@ -60,20 +60,22 @@ const Olahraga = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.mainContainer}>
             {/* <Text style={styles.textStyle}>Result Nutrisi : {hasilOlahraga}</Text> */}
-            <Text style={styles.textStyle} >Silahkan pilih jenis olahraga yang dilakukan.</Text>
+            <View style={styles.subContainer}>
+                <Text style={styles.textStyle} >Silahkan pilih jenis olahraga yang dilakukan.</Text>
 
-            <View style={{ flexDirection: 'row' }}>
-                <View style={styles.pickerContainer}>
-                    <Picker
-                        onValueChange={(value) => setPickerValue(value)}
-                        selectedValue={pickerValue}
-                    >
-                        <Picker.Item label="Aerobik" value="Aerobik" />
-                        {/* <Picker.Item label="Keterampilan" value="Keterampilan" /> */}
-                        <Picker.Item label="Non Aerobik" value="Non Aerobik" />
-                    </Picker>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.pickerContainer}>
+                        <Picker
+                            onValueChange={(value) => setPickerValue(value)}
+                            selectedValue={pickerValue}
+                        >
+                            <Picker.Item label="Aerobik" value="Aerobik" />
+                            {/* <Picker.Item label="Keterampilan" value="Keterampilan" /> */}
+                            <Picker.Item label="Non Aerobik" value="Non Aerobik" />
+                        </Picker>
+                    </View>
+                    <JenisOlahraga />
                 </View>
-                <JenisOlahraga />
             </View>
 
             <Text style={styles.textStyle}>Berapa lama Anda berolahraga?</Text>
@@ -83,7 +85,7 @@ const Olahraga = ({ navigation }) => {
                     radio_props={radioOlahraga}
                     initial={-1}
                     onPress={(value) => handleRadio(value)}
-                    // formHorizontal={true}
+                    formHorizontal={true}
                     selectedButtonColor={'#9B51E0'}
                     selectedLabelColor={'#9B51E0'}
                     buttonColor={'#757575'}
@@ -111,6 +113,14 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 32,
         marginHorizontal: 25,
+    },
+
+    subContainer: {
+        borderTopWidth: 0.4,
+        borderBottomWidth: 0.4,
+        borderColor: '#757575',
+        paddingVertical: 10,
+        marginBottom: 20,
     },
 
     modalContainer: {
@@ -145,7 +155,7 @@ const styles = StyleSheet.create({
     pickerContainer: {
         flex: 1,
         marginTop: 15,
-        marginBottom: 20,
+        marginBottom: 10,
         borderWidth: 0.7,
     },
 
@@ -167,12 +177,13 @@ const styles = StyleSheet.create({
     },
 
     radioFormContainer: {
-        marginTop: 11,
+        marginTop: 10,
     },
 
     radioLabelStyle: {
-        fontSize: 15,
+        fontSize: 14,
         letterSpacing: 0.3,
-        marginRight: 35,
+        marginRight: 10,
+        marginLeft: -6
     },
 })

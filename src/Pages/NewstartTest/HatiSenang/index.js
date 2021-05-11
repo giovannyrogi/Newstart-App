@@ -163,23 +163,25 @@ const HatiSenang = ({ navigation }) => {
     }, [])
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             {/* <Text>Nilai Global Hati Senang: {hasilHatiSenang}</Text>
             <Text>Nilai Newstart : {resultNewstartF}</Text>
             <Text>Date : {currentTime}</Text> */}
-            <Text style={styles.textStyle}>Bagaimana suasana hati Anda kemarin ?</Text>
-            <View style={styles.radioFormContainer}>
-                <RadioForm
-                    radio_props={radioHatiSenang}
-                    initial={-1}
-                    onPress={(value) => handleRadio(value)}
-                    formHorizontal={true}
-                    selectedButtonColor={'#9B51E0'}
-                    selectedLabelColor={'#9B51E0'}
-                    buttonColor={'#757575'}
-                    buttonSize={12}
-                    labelStyle={styles.radioLabelStyle}
-                />
+            <View style={styles.subContainer}>
+                <Text style={styles.textStyle}>Bagaimana suasana hati Anda kemarin ?</Text>
+                <View style={styles.radioFormContainer}>
+                    <RadioForm
+                        radio_props={radioHatiSenang}
+                        initial={-1}
+                        onPress={(value) => handleRadio(value)}
+                        formHorizontal={true}
+                        selectedButtonColor={'#9B51E0'}
+                        selectedLabelColor={'#9B51E0'}
+                        buttonColor={'#757575'}
+                        buttonSize={12}
+                        labelStyle={styles.radioLabelStyle}
+                    />
+                </View>
             </View>
 
             <ButtonSelesai
@@ -188,7 +190,7 @@ const HatiSenang = ({ navigation }) => {
                 name="checkmark-done"
                 size={22}
             />
-        </SafeAreaView>
+        </View>
     );
 }
 
@@ -199,6 +201,13 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 32,
         marginHorizontal: 25,
+    },
+
+    subContainer: {
+        borderTopWidth: 0.4,
+        borderBottomWidth: 0.4,
+        borderColor: '#757575',
+        paddingVertical: 10,
     },
 
     radioFormContainer: {

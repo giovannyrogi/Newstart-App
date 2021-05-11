@@ -86,9 +86,11 @@ const HubunganDgnTuhan = ({ navigation }) => {
     return (
         <View style={styles.mainContainer}>
             {/* <Text>Nilai Global : {hasiltHubDgnTuhan}</Text> */}
-            <Text style={styles.textStyle}>Apakah Anda sudah menjalin hubungan dengan Tuhan ?</Text>
-            <View style={{ flexDirection: 'row' }}>
-                {renderData()}
+            <View style={styles.subContainer}>
+                <Text style={styles.textStyle}>Apakah Anda sudah menjalin hubungan dengan Tuhan ?</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    {renderData()}
+                </View>
             </View>
 
             <ButtonNext
@@ -108,6 +110,13 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 32,
         marginHorizontal: 25,
+    },
+
+    subContainer: {
+        borderTopWidth: 0.4,
+        borderBottomWidth: 0.4,
+        borderColor: '#757575',
+        paddingVertical: 10,
     },
 
     textStyle: {

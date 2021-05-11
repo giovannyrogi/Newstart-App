@@ -79,9 +79,8 @@ const Register = ({ navigation }) => {
 
 
     return (
-        <SafeAreaView style={styles.container1}>
+        <View style={styles.container1}>
             <ScrollView showsVerticalScrollIndicator={false}>
-
                 <Text style={styles.textStyle1}>Memulai. </Text>
                 <Text style={styles.textStyle2}>Buat akun untuk melanjutkan ! </Text>
 
@@ -159,8 +158,7 @@ const Register = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-
-        </SafeAreaView >
+        </View >
     )
 }
 

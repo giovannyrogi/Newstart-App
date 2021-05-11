@@ -14,13 +14,13 @@ export default [
     {
         id: 3,
         nama: 'Nasi merah',
-        porsi: 3,
+        porsi: 1,
         kalori: 100
     },
     {
         id: 4,
         nama: 'Mie',
-        porsi: 3,
+        porsi: 1,
         kalori: 300
     },
     {
