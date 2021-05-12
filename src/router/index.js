@@ -63,7 +63,7 @@ const Router = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator
-                initialRouteName='Disclaimer'
+                initialRouteName='Splash'
             >
 
                 {/* Halaman */}

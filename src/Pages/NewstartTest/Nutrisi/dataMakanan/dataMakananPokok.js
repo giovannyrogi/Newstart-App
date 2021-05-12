@@ -8,7 +8,7 @@ export default [
     {
         id: 2,
         nama: 'Ubi jalar',
-        porsi: 2,
+        porsi: 1,
         kalori: 120
     },
     {

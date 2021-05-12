@@ -17,12 +17,14 @@ import dataBuahBuahan from '../dataMakanan/dataBuah';
 import dataLaukPauk from '../dataMakanan/dataLaukPauk';
 import dataSayur from '../dataMakanan/dataSayur';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
-const MakanPagi = () => {
+const MakanPagi = ({ navigation }) => {
 
     const [MakananPokok, setMakananPokok] = useState(dataMakananPokok);
     const [selectedDataPorsi, setSelectedDataPorsi] = useState([]);
+    const [selectedDataCalori, setSelectedDataCalori] = useState([]);
     const [laukPauk, setLaukPauk] = useState(dataLaukPauk);
     const [buahBuahan, setBuahBuahan] = useState(dataBuahBuahan);
     const [sayur, setSayur] = useState(dataSayur);
@@ -31,11 +33,13 @@ const MakanPagi = () => {
         showDataMakanPagi: true,
     });
 
+
+
     const dispatch = useDispatch();
     const selectedDataFood = useSelector((state) => state.selectedFoodMknPagi)
     // const selectedDataPorsi = useSelector((state) => state.selectedPorsiMknPagi)
     const selectedDataCalories = useSelector((state) => state.selectedCaloriMknPagi)
-    const totalCalories = useSelector((state) => state.hasilCaloriMknPagi)
+    const totalCalories = useSelector((state) => state.resultCaloriMakanPagi)
 
     const HideModalMakanPagi = () => {
         setShowModal(false)
@@ -70,30 +74,58 @@ const MakanPagi = () => {
         }
     }
 
-    const handlePlus = (item, index, updatePorsi) => {
-        // updatePorsi = [...selectedDataPorsi];
-        console.log('Porsi : ' + item)
+    //Variable untuk fungsi handlePlus dan handleMin
+    let newPorsi = [...selectedDataPorsi];
+    let newKalori = [...selectedDataCalori];
+    const kaloriTetap = [...selectedDataCalories];
+
+    const handlePlus = (item, index, sum,) => {
+        newPorsi[index] = newPorsi[index] + 1;
+        newKalori[index] = newKalori[index] + kaloriTetap[index];
+
+        sum = newKalori.reduce((a, c) => {
+            return a + c
+        }, 0);
+
+        setSelectedDataPorsi(newPorsi);
+        setSelectedDataCalori(newKalori);
+        // console.log('Porsi : ' + item + ' / Index : ' + index)
+        // console.log('newPorsi : ', selectedDataPorsi)
+        // console.log('sumKalori : ' + newKalori[index])
+        dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: sum });
     }
 
-    const handleMin = (item, index) => {
-        // const porsi = [...dataMakananPokok];
-        if (item > 1) {
-            item -= 1;
+    const handleMin = (item, index, sum) => {
+
+        if (newPorsi[index] > 1) {
+            newPorsi[index] = newPorsi[index] - 1;
+            newKalori[index] = newKalori[index] - kaloriTetap[index];
+            sum = newKalori.reduce((a, c) => {
+                return a + c
+            }, 0);
+
+            setSelectedDataCalori(newKalori);
+            setSelectedDataPorsi(newPorsi)
+            dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: sum });
         }
-        console.log('Porsi : ' + item)
-        // dispatch({ type: 'HANDLE_MIN' });
+
+        // console.log('Porsi : ' + item + ' / Index : ' + index)
+        // console.log('newPorsi : ', selectedDataPorsi)
+        // console.log('sumKalori : ' + newKalori[index])
+
     }
 
     const renderMakanPagi = () => {
-        dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: totalCalories });
-        if (selectedDataFood != '' && selectedDataCalories != 0) {
+        if (selectedDataFood != '' && selectedDataCalori != 0) {
             return (
                 <View style={{ backgroundColor: '#DEDDDD' }}>
                     <View style={{ flexDirection: 'row', marginBottom: 5, marginTop: 8 }}>
                         <View style={{ flex: 1, marginLeft: 20 }}>
                             <Text style={{ fontFamily: 'Poppins-Bold' }}>Nama Makanan</Text>
                             {selectedDataFood.map((item) => (
-                                <Text key={item} style={{ fontSize: 15 }}>{item}</Text>
+                                <View style={{ marginVertical: 1.3 }}>
+                                    <Text key={item} style={{ fontSize: 15 }}>{item}</Text>
+                                </View>
                             ))}
                         </View>
                         <View style={{ flex: 1, alignItems: 'center' }}>
@@ -122,10 +154,12 @@ const MakanPagi = () => {
                             ))}
 
                         </View>
-                        <View style={{ flex: 0.6, alignItems: 'flex-end' }}>
+                        <View style={{ flex: 0.6, alignItems: 'flex-end', }}>
                             <Text style={{ marginRight: 25, fontFamily: 'Poppins-Bold' }}>Kalori</Text>
-                            {selectedDataCalories.map((item) => (
-                                <Text key={item} style={{ marginRight: 35, fontSize: 15 }}>{item}</Text>
+                            {selectedDataCalori.map((item) => (
+                                <View style={{ marginVertical: 1.3 }}>
+                                    <Text key={item} style={{ marginRight: 35, fontSize: 15 }}>{item}</Text>
+                                </View>
                             ))}
                         </View>
                     </View>
@@ -279,80 +313,93 @@ const MakanPagi = () => {
         var namaMakananPokok = MakananPokok.map((t) => t.nama)
         var checksMakananPokok = MakananPokok.map((t) => t.checkedMakananPokok)
         var caloriMakananPokok = MakananPokok.map((t) => t.kalori)
-        var porsiMakanan = MakananPokok.map((t) => t.porsi)
-
-        var namaLaukpauk = laukPauk.map((t) => t.nama)
-        var checksLaukpauk = laukPauk.map((t) => t.checkedLaukPauk)
-        var caloriLaukpauk = laukPauk.map((t) => t.kalori)
+        var porsiMakananPokok = MakananPokok.map((t) => t.porsi)
 
         var namaSayur = sayur.map((t) => t.nama)
         var checksSayur = sayur.map((t) => t.checkedSayur)
         var caloriSayur = sayur.map((t) => t.kalori)
+        var porsiSayur = MakananPokok.map((t) => t.porsi)
+
+        var namaLaukpauk = laukPauk.map((t) => t.nama)
+        var checksLaukpauk = laukPauk.map((t) => t.checkedLaukPauk)
+        var caloriLaukpauk = laukPauk.map((t) => t.kalori)
+        var porsiLaukpauk = MakananPokok.map((t) => t.porsi)
 
         var namaBuah = buahBuahan.map((t) => t.nama)
         var checksBuah = buahBuahan.map((t) => t.checkedBuah)
         var caloriBuah = buahBuahan.map((t) => t.kalori)
+        var porsiBuah = MakananPokok.map((t) => t.porsi)
 
-        SelectedCalori = []
-        SelectedMakanan = []
-        SelectedPorsiMakanan = []
-        for (let i = 0; i < checksSayur.length; i++) {
-            if (checksSayur[i] == true) {
-                SelectedMakanan.push(namaSayur[i])
-                SelectedCalori.push(caloriSayur[i])
-                sum = SelectedCalori.reduce((a, c) => {
-                    return a + c
-                }, 0);
+        SelectedCalori = [];
+        SelectedMakanan = [];
+        SelectedPorsiMakanan = [];
 
-            }
-        }
         for (let i = 0; i < checksMakananPokok.length; i++) {
             if (checksMakananPokok[i] == true) {
                 SelectedMakanan.push(namaMakananPokok[i])
                 SelectedCalori.push(caloriMakananPokok[i])
-                SelectedPorsiMakanan.push(porsiMakanan[i])
+                SelectedPorsiMakanan.push(porsiMakananPokok[i])
                 sum = SelectedCalori.reduce((a, c) => {
                     return a + c
                 }, 0);
             }
         }
+
+        for (let i = 0; i < checksSayur.length; i++) {
+            if (checksSayur[i] == true) {
+                SelectedMakanan.push(namaSayur[i])
+                SelectedCalori.push(caloriSayur[i])
+                SelectedPorsiMakanan.push(porsiSayur[i])
+                sum = SelectedCalori.reduce((a, c) => {
+                    return a + c
+                }, 0);
+
+            }
+        }
+
         for (let i = 0; i < checksLaukpauk.length; i++) {
             if (checksLaukpauk[i] == true) {
                 SelectedMakanan.push(namaLaukpauk[i])
                 SelectedCalori.push(caloriLaukpauk[i])
+                SelectedPorsiMakanan.push(porsiLaukpauk[i])
                 sum = SelectedCalori.reduce((a, c) => {
                     return a + c
                 }, 0);
             }
 
         }
+
         for (let i = 0; i < checksBuah.length; i++) {
             if (checksBuah[i] == true) {
                 SelectedMakanan.push(namaBuah[i])
                 SelectedCalori.push(caloriBuah[i])
+                SelectedPorsiMakanan.push(porsiBuah[i])
                 sum = SelectedCalori.reduce((a, c) => {
                     return a + c
                 }, 0);
             }
         }
+
         if (sum == null) {
             sum = 0;
         }
 
-
-        setSelectedDataPorsi(SelectedPorsiMakanan)
+        console.log(SelectedPorsiMakanan);
+        setSelectedDataPorsi(SelectedPorsiMakanan);
+        setSelectedDataCalori(SelectedCalori);
         dispatch({ type: 'SELECTED_FOOD_MKN_PAGI', value: SelectedMakanan });
         dispatch({ type: 'SELECTED_CALORI_MKN_PAGI', value: SelectedCalori });
-        dispatch({ type: 'HASIL_CALORI_MKN_PAGI', value: sum });
+        dispatch({ type: 'SUM_CALORIES_MKN_PAGI', value: sum });
         // dispatch({ type: 'SELECTED_PORSI_MKN_PAGI', value: SelectedPorsiMakanan });
         // dispatch({ type: 'CHECKED_MAKANAN_POKOK', value: checksMakananPokok });
 
         // console.log(checksMakananPokok)
         setShowModal(false)
     }
+    // console.log(selectedDataPorsi);
 
     return (
-        <SafeAreaView>
+        <View>
             {/* <Text>Calori : {selectedDataCalories}</Text>
             <Text>Food : {selectedDataFood}</Text>
             <Text>Total Calori : {totalCalories}</Text> */}
@@ -398,7 +445,7 @@ const MakanPagi = () => {
                 onBackdropPress={HideModalMakanPagi}
                 style={styles.modalContainer}
             >
-                <SafeAreaView>
+                <View>
                     <ScrollView>
                         <View style={styles.subModalContainer}>
                             <View style={styles.subContainerMakananPokokStyle}>
@@ -461,9 +508,9 @@ const MakanPagi = () => {
                             </View>
                         </View>
                     </ScrollView>
-                </SafeAreaView>
+                </View>
             </ModalMakanPagi>
-        </SafeAreaView >
+        </View>
     )
 }
 
