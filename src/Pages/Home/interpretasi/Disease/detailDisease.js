@@ -9,7 +9,6 @@ import BackArrow from 'react-native-vector-icons/MaterialIcons';
 import { Interpretasi } from '../../../../../assets'
 import { ScrollView } from 'react-native-gesture-handler';
 
-
 const DetailDisease = () => {
 
     const [modal, setModal] = useState(false);
@@ -53,37 +52,18 @@ const DetailDisease = () => {
                                     />
                                 </TouchableOpacity>
                             </View>
-                            <View style={{ flex: 1, alignContent: 'center', justifyContent: 'center', }}>
+                            <View style={{ flex: 1, alignContent: 'center', justifyContent: 'center', right: 10 }}>
                                 <Text style={styles.judulStyle}>Disease</Text>
                             </View>
                         </View>
                         <View style={{ marginHorizontal: 15, marginTop: 5 }}>
-                            <Text style={styles.textStyle}>Disease adalah
-                            </Text>
-                            {/* <Text style={styles.textStyle}>Interpretasi merupakan suatu pemaknaan atau penilaian yang diberikan
-                            berdasarkan dari hasil poin yang telah diperoleh oleh Anda setelah mengikuti
-                            Newstart Test. Interpretasi ini dibagi menjadi enam jenis, yaitu <Text style={styles.textBold}>Disease,
-                            Poor Health, Neutral, Good Health, dan Optimum Health</Text>. Setiap interpretasi ini
-                            masing-masing memliki arti yang berbeda-beda.
-                            </Text> */}
-
-                            {/* <View style={{ marginTop: 10, alignItems: 'center', }}>
-                                <Text style={styles.subJudul}>Disease</Text>
-                            </View>
                             <Text style={styles.textStyle}>Disease adalah tingkatan terendah dari semua interpretasi yang ada.
                             Jika Anda mendapatkan hasil Disease berarti tingkat kesehatan Anda
                             sangat buruk karena pola hidup Anda yang sudah tidak sehat,
-                            pergerakan tubuh menjadi terbatas dan berketergantungan pada obat-obatan.
+                            pergerakan tubuh menjadi terbatas dan berketergantungan pada obat-obatan. {'\n\n'}
+                            Untuk melihat hasil Interpretasi Anda pada gambar dibawah ini, cara
+                            perhitungannya adalah hasil akhir Newstart test / 10.
                             </Text>
-
-                            <View style={{ marginTop: 10, alignItems: 'center', }}>
-                                <Text style={styles.subJudul}>Poor Health</Text>
-                            </View>
-                            <Text style={styles.textStyle}>Poor Health adalah tingkatan terendah kedua,
-                            jika Anda mendapatkan hasil Poor Health berarti tubuh Anda mulai menunjukan
-                            gejala-gejala, mulai kehilangan fungsi tubuh dan membutuhkan operasi.
-                            </Text> */}
-
                         </View>
                         <View style={{ marginLeft: 9 }}>
                             <ImageZoom
