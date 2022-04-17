@@ -1,5 +1,7 @@
-## Newstart Aplication.
+## Aplikasi Newstart.
 ## User Interface Aplikasi :
+</br>
+Newstart APK : <a href="https://www.mediafire.com/file/9mu27469elh9tev/Newstart.apk/file" target="_blank">Download APK</a>
 </br>
 <strong><code>Klik atau tekan pada gambar untuk memperbesar.</code></strong></br></br>
 
