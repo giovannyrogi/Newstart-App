@@ -1,9 +1,9 @@
 ## Aplikasi Newstart.
 ## User Interface Aplikasi :
-</br>
-Newstart APK : <a href="https://www.mediafire.com/file/9mu27469elh9tev/Newstart.apk/file" target="_blank">Download APK</a>
-</br>
-<strong><code>Klik atau tekan pada gambar untuk memperbesar.</code></strong></br></br>
+
+<strong>Newstart APK : </strong><a href="https://www.mediafire.com/file/9mu27469elh9tev/Newstart.apk/file" target="_blank">Download APK</a>
+</br></br>
+<strong><code>Klik atau tekan pada gambar untuk memperbesar.</code></strong></br>
 
 <a href="https://ibb.co/9tQ1pzQ"><img src="https://i.ibb.co/RyRsgZR/1-Splash-Screen.png" alt="1-Splash-Screen" border="0" width="200"></a>
 <a href="https://ibb.co/VWRGW8D"><img src="https://i.ibb.co/svn4vrQ/2-Welcome-Screen.png" alt="2-Welcome-Screen" border="0" width="200"></a>
@@ -27,5 +27,5 @@ Newstart APK : <a href="https://www.mediafire.com/file/9mu27469elh9tev/Newstart.
 <a href="https://ibb.co/jZxh0ZR"><img src="https://i.ibb.co/BK7LWKN/21-Home-result-Screen.png" alt="21-Home-result-Screen" border="0" width="200"></a>
 <a href="https://ibb.co/GPQTkJQ"><img src="https://i.ibb.co/88gc2Bg/22-History-Test.png" alt="22-History-Test" border="0" width="200"></a>
 <a href="https://ibb.co/rdMrTMd"><img src="https://i.ibb.co/Z2KDtK2/23-Interpretasi.png" alt="23-Interpretasi" border="0" width="200"></a>
-</br></br>
+</br>
 <strong><code>Klik atau tekan pada gambar untuk memperbesar.</code></strong>
