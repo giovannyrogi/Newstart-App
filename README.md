@@ -1,7 +1,7 @@
 ## Newstart Aplication.
 ## User Interface Aplikasi :
 </br>
-<strong>Klik atau tekan pada gambar untuk memperbesar.</strong></br></br>
+<strong><code>Klik atau tekan pada gambar untuk memperbesar.</code></strong></br></br>
 
 <a href="https://ibb.co/9tQ1pzQ"><img src="https://i.ibb.co/RyRsgZR/1-Splash-Screen.png" alt="1-Splash-Screen" border="0" width="200"></a>
 <a href="https://ibb.co/VWRGW8D"><img src="https://i.ibb.co/svn4vrQ/2-Welcome-Screen.png" alt="2-Welcome-Screen" border="0" width="200"></a>
@@ -26,4 +26,4 @@
 <a href="https://ibb.co/GPQTkJQ"><img src="https://i.ibb.co/88gc2Bg/22-History-Test.png" alt="22-History-Test" border="0" width="200"></a>
 <a href="https://ibb.co/rdMrTMd"><img src="https://i.ibb.co/Z2KDtK2/23-Interpretasi.png" alt="23-Interpretasi" border="0" width="200"></a>
 </br></br>
-<strong>Klik atau tekan pada gambar untuk memperbesar.</strong>
+<strong><code>Klik atau tekan pada gambar untuk memperbesar.</code></strong>
